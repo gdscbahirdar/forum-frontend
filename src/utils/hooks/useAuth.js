@@ -26,7 +26,7 @@ function useAuth() {
           dispatch(
             setUser({
               username: resp.data.user.username,
-              role: resp.data.user.role_name
+              authority: [resp.data.user.role_name]
             })
           );
         }
