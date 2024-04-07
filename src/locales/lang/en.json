@@ -1,7 +1,8 @@
 {
   "nav": {
     "home": "Home",
-    "singleMenuItem": "Single menu item",
+    "questions": "Questions",
+    "tags": "Tags",
     "users": {
       "users": "Users",
       "item1": "Students",
@@ -10,7 +11,7 @@
     },
     "groupMenu": {
       "groupMenu": "Group menu",
-      "single": "Group single menu item",
+      "single": "Saves",
       "collapse": {
         "collapse": "Group collapse menu",
         "item1": "Group collapse menu item 1",

@@ -10,7 +10,6 @@ import {
   LAYOUT_TYPE_BLANK
 } from "constants/theme.constant";
 import useAuth from "utils/hooks/useAuth";
-import useDirection from "utils/hooks/useDirection";
 import useLocale from "utils/hooks/useLocale";
 
 const layouts = {
@@ -26,8 +25,6 @@ const Layout = () => {
   const layoutType = useSelector(state => state.theme.layout.type);
 
   const { authenticated } = useAuth();
-
-  useDirection();
 
   useLocale();
 

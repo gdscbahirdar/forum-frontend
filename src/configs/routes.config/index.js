@@ -10,10 +10,15 @@ export const protectedRoutes = [
     component: React.lazy(() => import("views/Home")),
     authority: []
   },
-  /** Example purpose only, please remove */
   {
-    key: "singleMenuItem",
-    path: "/single-menu-view",
+    key: "questions",
+    path: "/questions",
+    component: React.lazy(() => import("views/demo/SingleMenuView")),
+    authority: []
+  },
+  {
+    key: "tags",
+    path: "/tags",
     component: React.lazy(() => import("views/demo/SingleMenuView")),
     authority: []
   },
@@ -36,8 +41,14 @@ export const protectedRoutes = [
     authority: ["Super Admin"]
   },
   {
-    key: "groupMenu.single",
-    path: "/group-single-menu-item-view",
+    key: "groupMenu.saves",
+    path: "/saves",
+    component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
+    authority: []
+  },
+  {
+    key: "groupMenu.reputations",
+    path: "/reputations",
     component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
     authority: []
   },

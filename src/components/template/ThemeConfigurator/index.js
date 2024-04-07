@@ -2,7 +2,6 @@ import React from "react";
 import ModeSwitcher from "./ModeSwitcher";
 import LayoutSwitcher from "./LayoutSwitcher";
 import ThemeSwitcher from "./ThemeSwitcher";
-import DirectionSwitcher from "./DirectionSwitcher";
 import NavModeSwitcher from "./NavModeSwitcher";
 import CopyButton from "./CopyButton";
 
@@ -16,13 +15,6 @@ const ThemeConfigurator = ({ callBackClose }) => {
             <span>Switch theme to dark mode</span>
           </div>
           <ModeSwitcher />
-        </div>
-        <div className="flex items-center justify-between">
-          <div>
-            <h6>Direction</h6>
-            <span>Select a direction</span>
-          </div>
-          <DirectionSwitcher callBackClose={callBackClose} />
         </div>
         <div>
           <h6 className="mb-3">Nav Mode</h6>

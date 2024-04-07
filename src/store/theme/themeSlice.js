@@ -26,7 +26,6 @@ const initialNavMode = () => {
 
 const initialState = {
   themeColor: themeConfig.themeColor,
-  direction: themeConfig.direction,
   mode: themeConfig.mode,
   locale: themeConfig.locale,
   primaryColorLevel: themeConfig.primaryColorLevel,
@@ -45,9 +44,6 @@ export const themeSlice = createSlice({
   name: "theme",
   initialState,
   reducers: {
-    setDirection: (state, action) => {
-      state.direction = action.payload;
-    },
     setMode: (state, action) => {
       const availableColorNav = availableNavColorLayouts.includes(
         state.layout.type
@@ -138,7 +134,6 @@ export const themeSlice = createSlice({
 });
 
 export const {
-  setDirection,
   setMode,
   setLang,
   setLayout,

@@ -15,13 +15,22 @@ const navigationConfig = [
     authority: [],
     subMenu: []
   },
-  /** Example purpose only, please remove */
   {
-    key: "singleMenuItem",
-    path: "/single-menu-view",
-    title: "Single menu item",
-    translateKey: "nav.singleMenuItem",
-    icon: "singleMenu",
+    key: "questions",
+    path: "/questions",
+    title: "Questions",
+    translateKey: "nav.questions",
+    icon: "questions",
+    type: NAV_ITEM_TYPE_ITEM,
+    authority: [],
+    subMenu: []
+  },
+  {
+    key: "tags",
+    path: "/tags",
+    title: "Tags",
+    translateKey: "nav.tags",
+    icon: "tags",
     type: NAV_ITEM_TYPE_ITEM,
     authority: [],
     subMenu: []
@@ -77,10 +86,20 @@ const navigationConfig = [
     authority: [],
     subMenu: [
       {
-        key: "groupMenu.single",
-        path: "/group-single-menu-item-view",
-        title: "Group single menu item",
-        translateKey: "nav.groupMenu.single",
+        key: "groupMenu.saves",
+        path: "/saves",
+        title: "Saves",
+        translateKey: "nav.groupMenu.saves",
+        icon: "save",
+        type: NAV_ITEM_TYPE_ITEM,
+        authority: [],
+        subMenu: []
+      },
+      {
+        key: "groupMenu.reputations",
+        path: "/reputations",
+        title: "Reputations",
+        translateKey: "nav.groupMenu.reputations",
         icon: "groupSingleMenu",
         type: NAV_ITEM_TYPE_ITEM,
         authority: [],
