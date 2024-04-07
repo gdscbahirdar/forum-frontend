@@ -2,7 +2,7 @@ import React from "react";
 import { Avatar, Dropdown } from "components/ui";
 import withHeaderItem from "utils/hoc/withHeaderItem";
 import useAuth from "utils/hooks/useAuth";
-// import { useSelector } from 'react-redux'
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { HiOutlineUser, HiOutlineLogout } from "react-icons/hi";
@@ -10,8 +10,7 @@ import { HiOutlineUser, HiOutlineLogout } from "react-icons/hi";
 const dropdownItemList = [];
 
 export const UserDropdown = ({ className }) => {
-  // bind this
-  // const userInfo = useSelector((state) => state.auth.user)
+  const userInfo = useSelector(state => state.auth.user);
 
   const { signOut } = useAuth();
 
@@ -19,8 +18,8 @@ export const UserDropdown = ({ className }) => {
     <div className={classNames(className, "flex items-center gap-2")}>
       <Avatar size={32} shape="circle" icon={<HiOutlineUser />} />
       <div className="hidden md:block">
-        <div className="text-xs capitalize">admin</div>
-        <div className="font-bold">User01</div>
+        <div className="text-xs capitalize">{userInfo.authority[0]}</div>
+        <div className="font-bold">{userInfo.username}</div>
       </div>
     </div>
   );
@@ -36,10 +35,10 @@ export const UserDropdown = ({ className }) => {
           <div className="py-2 px-3 flex items-center gap-2">
             <Avatar shape="circle" icon={<HiOutlineUser />} />
             <div>
-              <div className="font-bold text-gray-900 dark:text-gray-100">
-                User01
+              <div className="font-bold text-gray-900 dark:text-gray-100 capitalize">
+                {userInfo.username}
               </div>
-              <div className="text-xs">user01@mail.com</div>
+              {/* <div className="text-xs">user01@mail.com</div> */}
             </div>
           </div>
         </Dropdown.Item>

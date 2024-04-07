@@ -10,7 +10,7 @@ import {
 const navigationIcon = {
   home: <HiOutlineHome />,
   singleMenu: <HiOutlineViewGridAdd />,
-  collapseMenu: <HiOutlineTemplate />,
+  users: <HiOutlineTemplate />,
   groupSingleMenu: <HiOutlineDesktopComputer />,
   groupCollapseMenu: <HiOutlineColorSwatch />
 };

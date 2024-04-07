@@ -27,32 +27,42 @@ const navigationConfig = [
     subMenu: []
   },
   {
-    key: "collapseMenu",
+    key: "users",
     path: "",
-    title: "Collapse Menu",
-    translateKey: "nav.collapseMenu.collapseMenu",
-    icon: "collapseMenu",
+    title: "Users",
+    translateKey: "nav.users.users",
+    icon: "users",
     type: NAV_ITEM_TYPE_COLLAPSE,
-    authority: [],
+    authority: ["Super Admin", "Faculty Admin"],
     subMenu: [
       {
-        key: "collapseMenu.item1",
-        path: "/collapse-menu-item-view-1",
-        title: "Collapse menu item 1",
-        translateKey: "nav.collapseMenu.item1",
+        key: "users.students",
+        path: "/students",
+        title: "Students",
+        translateKey: "nav.users.students",
         icon: "",
         type: NAV_ITEM_TYPE_ITEM,
-        authority: [],
+        authority: ["Super Admin", "Faculty Admin"],
         subMenu: []
       },
       {
-        key: "collapseMenu.item2",
-        path: "/collapse-menu-item-view-2",
-        title: "Collapse menu item 2",
-        translateKey: "nav.collapseMenu.item2",
+        key: "users.teachers",
+        path: "/teachers",
+        title: "Teachers",
+        translateKey: "nav.users.teachers",
         icon: "",
         type: NAV_ITEM_TYPE_ITEM,
-        authority: [],
+        authority: ["Super Admin", "Faculty Admin"],
+        subMenu: []
+      },
+      {
+        key: "users.faculty_admin",
+        path: "/faculty_admin",
+        title: "Faculty Admin",
+        translateKey: "nav.users.faculty_admin",
+        icon: "",
+        type: NAV_ITEM_TYPE_ITEM,
+        authority: ["Super Admin"],
         subMenu: []
       }
     ]

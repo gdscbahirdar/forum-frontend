@@ -18,16 +18,22 @@ export const protectedRoutes = [
     authority: []
   },
   {
-    key: "collapseMenu.item1",
-    path: "/collapse-menu-item-view-1",
-    component: React.lazy(() => import("views/demo/CollapseMenuItemView1")),
-    authority: []
+    key: "users.students",
+    path: "/students",
+    component: React.lazy(() => import("views/crm/Customers")),
+    authority: ["Super Admin", "Faculty Admin"]
   },
   {
-    key: "collapseMenu.item2",
-    path: "/collapse-menu-item-view-2",
+    key: "users.teachers",
+    path: "/teachers",
     component: React.lazy(() => import("views/demo/CollapseMenuItemView2")),
-    authority: []
+    authority: ["Super Admin", "Faculty Admin"]
+  },
+  {
+    key: "users.faculty_admin",
+    path: "/faculty_admin",
+    component: React.lazy(() => import("views/demo/CollapseMenuItemView2")),
+    authority: ["Super Admin"]
   },
   {
     key: "groupMenu.single",

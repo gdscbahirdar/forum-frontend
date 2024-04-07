@@ -2,10 +2,11 @@
   "nav": {
     "home": "Home",
     "singleMenuItem": "Single menu item",
-    "collapseMenu": {
-      "collapseMenu": "Collapse menu item",
-      "item1": "Collapse menu item 1",
-      "item2": "Collapse menu item 2"
+    "users": {
+      "users": "Users",
+      "item1": "Students",
+      "item2": "Teachers",
+      "item3": "Faculty Admins"
     },
     "groupMenu": {
       "groupMenu": "Group menu",
