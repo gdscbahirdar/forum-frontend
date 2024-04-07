@@ -15,13 +15,13 @@ export const sessionSlice = createSlice({
       state.signedIn = false;
       state.access = "";
     },
-    setaccess: (state, action) => {
+    setAccess: (state, action) => {
       state.access = action.payload;
     }
   }
 });
 
-export const { onSignInSuccess, onSignOutSuccess, setaccess } =
+export const { onSignInSuccess, onSignOutSuccess, setAccess } =
   sessionSlice.actions;
 
 export default sessionSlice.reducer;
