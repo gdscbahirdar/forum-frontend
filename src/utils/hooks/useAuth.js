@@ -15,6 +15,7 @@ function useAuth() {
   const query = useQuery();
 
   const { access, signedIn } = useSelector(state => state.auth.session);
+  const { is_first_time_login } = useSelector(state => state.auth.user);
 
   const signIn = async values => {
     try {
@@ -26,6 +27,13 @@ function useAuth() {
           dispatch(
             setUser({
               username: resp.data.user.username,
+              full_name:
+                resp.data.user.first_name +
+                " " +
+                resp.data.user.middle_name +
+                " " +
+                resp.data.user.last_name,
+              is_first_time_login: resp.data.user.is_first_time_login,
               authority: [resp.data.user.role_name]
             })
           );
@@ -58,6 +66,7 @@ function useAuth() {
 
   return {
     authenticated: access && signedIn,
+    isFirstTimeLogin: is_first_time_login,
     signIn,
     signOut
   };

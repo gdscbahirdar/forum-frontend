@@ -11,6 +11,9 @@ import {
 } from "constants/theme.constant";
 import useAuth from "utils/hooks/useAuth";
 import useLocale from "utils/hooks/useLocale";
+import { Alert } from "components/ui";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const layouts = {
   [LAYOUT_TYPE_CLASSIC]: lazy(() => import("./ClassicLayout")),
@@ -24,7 +27,10 @@ const layouts = {
 const Layout = () => {
   const layoutType = useSelector(state => state.theme.layout.type);
 
-  const { authenticated } = useAuth();
+  const location = useLocation();
+  const { pathname } = location;
+
+  const { authenticated, isFirstTimeLogin } = useAuth();
 
   useLocale();
 
@@ -43,6 +49,22 @@ const Layout = () => {
         </div>
       }
     >
+      {isFirstTimeLogin && pathname !== "/reset-password" && (
+        <div className="p-4">
+          <div className="rounded-md border border-red-200">
+            <Alert showIcon title="Change your password!" type="danger">
+              You are still using the old password, make sure to change it to
+              keep your account secure. &nbsp;
+              <Link to="/reset-password">
+                <b>
+                  <u>Click here to Reset Your Password </u>
+                </b>
+              </Link>
+            </Alert>
+          </div>
+        </div>
+      )}
+
       <AppLayout />
     </Suspense>
   );

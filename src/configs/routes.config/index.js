@@ -11,6 +11,12 @@ export const protectedRoutes = [
     authority: []
   },
   {
+    key: "resetPassword",
+    path: `/reset-password`,
+    component: React.lazy(() => import("views/auth/ResetPassword")),
+    authority: []
+  },
+  {
     key: "questions",
     path: "/questions",
     component: React.lazy(() => import("views/demo/SingleMenuView")),

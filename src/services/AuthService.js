@@ -15,3 +15,11 @@ export async function apiSignOut(data) {
     data
   });
 }
+
+export async function apiResetPassword(data) {
+  return ApiService.fetchData({
+    url: "/users/password/change/",
+    method: "post",
+    data
+  });
+}

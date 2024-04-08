@@ -1,3 +1,3 @@
-export const APP_NAME = "Elstar";
-export const PERSIST_STORE_NAME = "admin";
+export const APP_NAME = "Forum";
+export const PERSIST_STORE_NAME = "forum";
 export const REDIRECT_URL_KEY = "redirectUrl";
