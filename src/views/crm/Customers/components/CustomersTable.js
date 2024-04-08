@@ -40,7 +40,7 @@ const NameColumn = ({ row }) => {
       <Avatar size={28} shape="circle" src={row.img} />
       <Link
         className={`hover:${textTheme} ml-2 rtl:mr-2 font-semibold`}
-        to={`/app/crm/customer-details?id=${row.id}`}
+        to={`/students/student-details?id=${row.id}`}
       >
         {row.name}
       </Link>
@@ -57,6 +57,11 @@ const columns = [
       const row = props.row.original;
       return <NameColumn row={row} />;
     }
+  },
+  {
+    Header: "Username",
+    accessor: "username",
+    sortable: true
   },
   {
     Header: "Faculty",

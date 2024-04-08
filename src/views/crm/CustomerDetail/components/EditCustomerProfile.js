@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeEditCustomerDetailDialog } from "../store/stateSlice";
 import { updateProfileData, putCustomer } from "../store/dataSlice";
 import CustomerForm from "views/crm/CustomerForm";
-import cloneDeep from "lodash/cloneDeep";
 import dayjs from "dayjs";
 
 const DrawerFooter = ({ onSaveClick, onCancel }) => {
@@ -41,34 +40,31 @@ const EditCustomerProfile = () => {
   };
 
   const onFormSubmit = values => {
-    const clonedData = cloneDeep(customer);
     const {
-      name,
-      birthday,
-      email,
       img,
-      location,
-      title,
-      phoneNumber,
-      facebook,
-      twitter,
-      pinterest,
-      linkedIn
+      username,
+      first_name,
+      middle_name,
+      last_name,
+      faculty,
+      department,
+      year_in_school,
+      admission_date,
+      graduation_date
     } = values;
 
-    const basicInfo = { name, email, img };
-    const personalInfo = {
-      location,
-      title,
-      birthday: dayjs(birthday).format("DD/MM/YYYY"),
-      phoneNumber,
-      facebook,
-      twitter,
-      pinterest,
-      linkedIn
+    const newData = {
+      img,
+      username,
+      first_name,
+      middle_name,
+      last_name,
+      faculty,
+      department,
+      year_in_school,
+      admission_date: dayjs(admission_date).format("YYYY/MM/DD"),
+      graduation_date: dayjs(graduation_date).format("YYYY/MM/DD")
     };
-    clonedData.personalInfo = { ...clonedData.personalInfo, ...personalInfo };
-    const newData = { ...clonedData, ...basicInfo };
     dispatch(updateProfileData(newData));
     dispatch(putCustomer(newData));
     onDrawerClose();

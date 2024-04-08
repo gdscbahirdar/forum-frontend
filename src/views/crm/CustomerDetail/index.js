@@ -1,14 +1,6 @@
 import React, { useEffect } from "react";
-import {
-  AdaptableCard,
-  Loading,
-  Container,
-  DoubleSidedImage
-} from "components/shared";
+import { Loading, Container, DoubleSidedImage } from "components/shared";
 import CustomerProfile from "./components/CustomerProfile";
-import PaymentHistory from "./components/PaymentHistory";
-import CurrentSubscription from "./components/CurrentSubscription";
-import PaymentMethods from "./components/PaymentMethods";
 import { useDispatch, useSelector } from "react-redux";
 import { getCustomer } from "./store/dataSlice";
 import reducer from "./store";
@@ -34,7 +26,7 @@ const CustomerDetail = () => {
   const fetchData = () => {
     const id = query.get("id");
     if (id) {
-      dispatch(getCustomer({ id }));
+      dispatch(getCustomer(id));
     }
   };
 
@@ -45,13 +37,6 @@ const CustomerDetail = () => {
           <div className="flex flex-col xl:flex-row gap-4">
             <div>
               <CustomerProfile data={data} />
-            </div>
-            <div className="w-full">
-              <AdaptableCard>
-                <CurrentSubscription />
-                <PaymentHistory />
-                <PaymentMethods data={data.paymentMethod} />
-              </AdaptableCard>
             </div>
           </div>
         )}

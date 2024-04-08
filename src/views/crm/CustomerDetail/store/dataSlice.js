@@ -2,14 +2,28 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   apiGetCrmCustomerDetails,
   apiDeleteCrmCustomer,
-  apPutCrmCustomer
+  apiPutCrmCustomer
 } from "services/CrmService";
 
 export const getCustomer = createAsyncThunk(
   "crmCustomerDetails/data/getCustomer",
   async data => {
     const response = await apiGetCrmCustomerDetails(data);
-    return response.data;
+    const res_data = response.data;
+    const user_data = res_data.user;
+    return {
+      id: res_data.pk,
+      img: user_data.img,
+      username: user_data.username,
+      first_name: user_data.first_name,
+      middle_name: user_data.middle_name,
+      last_name: user_data.last_name,
+      faculty: res_data.faculty,
+      department: res_data.department,
+      year_in_school: res_data.year_in_school,
+      admission_date: res_data.admission_date,
+      graduation_date: res_data.graduation_date
+    };
   }
 );
 
@@ -24,7 +38,7 @@ export const deleteCustomer = createAsyncThunk(
 export const putCustomer = createAsyncThunk(
   "crmCustomerDetails/data/putCustomer",
   async data => {
-    const response = await apPutCrmCustomer(data);
+    const response = await apiPutCrmCustomer(data);
     return response.data;
   }
 );
@@ -33,15 +47,9 @@ const dataSlice = createSlice({
   name: "crmCustomerDetails/data",
   initialState: {
     loading: false,
-    profileData: {},
-    subscriptionData: [],
-    paymentHistoryData: [],
-    paymentMethodData: []
+    profileData: {}
   },
   reducers: {
-    updatePaymentMethodData: (state, action) => {
-      state.paymentMethodData = action.payload;
-    },
     updateProfileData: (state, action) => {
       state.profileData = action.payload;
     }
@@ -50,9 +58,6 @@ const dataSlice = createSlice({
     [getCustomer.fulfilled]: (state, action) => {
       state.loading = false;
       state.profileData = action.payload;
-      state.subscriptionData = action.payload?.subscription || [];
-      state.paymentHistoryData = action.payload?.orderHistory || [];
-      state.paymentMethodData = action.payload?.paymentMethod || [];
     },
     [deleteCustomer.fulfilled]: () => {},
     [putCustomer.fulfilled]: () => {},
@@ -62,6 +67,6 @@ const dataSlice = createSlice({
   }
 });
 
-export const { updatePaymentMethodData, updateProfileData } = dataSlice.actions;
+export const { updateProfileData } = dataSlice.actions;
 
 export default dataSlice.reducer;

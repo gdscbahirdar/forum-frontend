@@ -18,36 +18,34 @@ const CustomerEditContent = forwardRef((_, ref) => {
 
   const onFormSubmit = values => {
     const {
-      name,
-      birthday,
-      email,
       img,
-      location,
-      title,
-      phoneNumber,
-      facebook,
-      twitter,
-      pinterest,
-      linkedIn
+      username,
+      first_name,
+      middle_name,
+      last_name,
+      faculty,
+      department,
+      year_in_school,
+      admission_date,
+      graduation_date
     } = values;
-
-    const basicInfo = { name, email, img };
-    const personalInfo = {
-      location,
-      title,
-      birthday: dayjs(birthday).format("DD/MM/YYYY"),
-      phoneNumber,
-      facebook,
-      twitter,
-      pinterest,
-      linkedIn
+    const info = {
+      img,
+      username,
+      first_name,
+      middle_name,
+      last_name,
+      faculty,
+      department,
+      year_in_school,
+      admission_date: dayjs(admission_date).format("YYYY/MM/DD"),
+      graduation_date: dayjs(graduation_date).format("YYYY/MM/DD")
     };
     let newData = cloneDeep(data);
     let editedCustomer = {};
     newData = newData.map(elm => {
       if (elm.id === id) {
-        elm = { ...elm, ...basicInfo };
-        elm.personalInfo = { ...elm.personalInfo, ...personalInfo };
+        elm = { ...elm, ...info };
         editedCustomer = elm;
       }
       return elm;

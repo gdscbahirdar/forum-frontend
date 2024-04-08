@@ -1,72 +1,31 @@
 import ApiService from "./ApiService";
 
-export async function apiGetCrmDashboardData(data) {
+export async function apiGetCrmCustomers(data) {
   return ApiService.fetchData({
-    url: "/crm/dashboard",
+    url: "/entities/student/",
     method: "get",
     data
   });
 }
 
-export async function apiGetCrmCalendar() {
+export async function apiGetCrmCustomerDetails(id) {
   return ApiService.fetchData({
-    url: "/crm/calendar",
+    url: `/entities/student/${id}`,
     method: "get"
   });
 }
 
-export async function apiGetCrmCustomers(data) {
+export async function apiPutCrmCustomer(data) {
   return ApiService.fetchData({
-    url: "/crm/customers",
-    method: "post",
-    data
-  });
-}
-
-export async function apiGetCrmCustomersStatistic(params) {
-  return ApiService.fetchData({
-    url: "/crm/customers-statistic",
-    method: "get",
-    params
-  });
-}
-
-export async function apPutCrmCustomer(data) {
-  return ApiService.fetchData({
-    url: "/crm/customers",
+    url: "/entities",
     method: "put",
     data
   });
 }
 
-export async function apiGetCrmCustomerDetails(params) {
+export async function apiDeleteCrmCustomer(id) {
   return ApiService.fetchData({
-    url: "/crm/customer-details",
-    method: "get",
-    params
-  });
-}
-
-export async function apiDeleteCrmCustomer(data) {
-  return ApiService.fetchData({
-    url: "/crm/customer/delete",
-    method: "delete",
-    data
-  });
-}
-
-export async function apiGetCrmMails(params) {
-  return ApiService.fetchData({
-    url: "/crm/mails",
-    method: "get",
-    params
-  });
-}
-
-export async function apiGetCrmMail(params) {
-  return ApiService.fetchData({
-    url: "/crm/mail",
-    method: "get",
-    params
+    url: `/entities/student/${id}`,
+    method: "delete"
   });
 }

@@ -1,11 +1,5 @@
 import React, { useState } from "react";
 import { Card, Avatar, Button, Notification, toast } from "components/ui";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaLinkedinIn,
-  FaPinterestP
-} from "react-icons/fa";
 import { HiPencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { ConfirmDialog } from "components/shared";
 import { useNavigate } from "react-router-dom";
@@ -40,10 +34,10 @@ const CustomerProfileAction = ({ id }) => {
   const onDelete = () => {
     setDialogOpen(false);
     dispatch(deleteCustomer({ id }));
-    navigate("/app/crm/customers");
+    navigate("/students");
     toast.push(
-      <Notification title={"Successfuly Deleted"} type="success">
-        Customer successfuly deleted
+      <Notification title={"Successfully Deleted"} type="success">
+        Customer successfully deleted
       </Notification>
     );
   };
@@ -86,52 +80,26 @@ const CustomerProfile = ({ data = {} }) => {
       <div className="flex flex-col xl:justify-between h-full 2xl:min-w-[360px] mx-auto">
         <div className="flex xl:flex-col items-center gap-4">
           <Avatar size={90} shape="circle" src={data.img} />
-          <h4 className="font-bold">{data.name}</h4>
+          <h4 className="font-bold">{data.username}</h4>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-y-7 gap-x-4 mt-8">
-          <CustomerInfoField title="Email" value={data.email} />
+          <CustomerInfoField title="First Name" value={data.first_name} />
+          <CustomerInfoField title="Middle Name" value={data.middle_name} />
+          <CustomerInfoField title="Last Name" value={data.last_name} />
+          <CustomerInfoField title="Faculty" value={data.faculty} />
+          <CustomerInfoField title="Department" value={data.department} />
           <CustomerInfoField
-            title="Phone"
-            value={data.personalInfo?.phoneNumber}
+            title="Year in School"
+            value={data.year_in_school}
           />
           <CustomerInfoField
-            title="Location"
-            value={data.personalInfo?.location}
+            title="Admission Date"
+            value={data.admission_date}
           />
           <CustomerInfoField
-            title="Date of birth"
-            value={data.personalInfo?.birthday}
+            title="Graduation Date"
+            value={data.graduation_date}
           />
-          <CustomerInfoField title="Title" value={data.personalInfo?.title} />
-          <div className="mb-7">
-            <span>Social</span>
-            <div className="flex mt-4">
-              <Button
-                className="mr-2"
-                shape="circle"
-                size="sm"
-                icon={<FaFacebookF className="text-[#1773ea]" />}
-              />
-              <Button
-                className="mr-2"
-                shape="circle"
-                size="sm"
-                icon={<FaTwitter className="text-[#1da1f3]" />}
-              />
-              <Button
-                className="mr-2"
-                shape="circle"
-                size="sm"
-                icon={<FaLinkedinIn className="text-[#0077b5]" />}
-              />
-              <Button
-                className="mr-2"
-                shape="circle"
-                size="sm"
-                icon={<FaPinterestP className="text-[#df0018]" />}
-              />
-            </div>
-          </div>
         </div>
         <div className="mt-4 flex flex-col xl:flex-row gap-2">
           <CustomerProfileAction id={data.id} />

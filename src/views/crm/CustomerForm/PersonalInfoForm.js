@@ -1,13 +1,5 @@
 import React from "react";
 import { DatePicker, Input, FormItem, Avatar, Upload } from "components/ui";
-import {
-  HiUserCircle,
-  HiMail,
-  HiLocationMarker,
-  HiPhone,
-  HiCake,
-  HiOutlineUser
-} from "react-icons/hi";
 import { Field } from "formik";
 
 const PersonalInfoForm = props => {
@@ -39,7 +31,6 @@ const PersonalInfoForm = props => {
                     className="border-2 border-white dark:border-gray-800 shadow-lg"
                     size={100}
                     shape="circle"
-                    icon={<HiOutlineUser />}
                     {...avatarProps}
                   />
                 </Upload>
@@ -49,34 +40,97 @@ const PersonalInfoForm = props => {
         </Field>
       </FormItem>
       <FormItem
-        label="Name"
-        invalid={errors.name && touched.name}
-        errorMessage={errors.name}
+        label="Username"
+        invalid={errors.username && touched.username}
+        errorMessage={errors.username}
       >
         <Field
           type="text"
           autoComplete="off"
-          name="name"
-          placeholder="Name"
+          name="username"
+          placeholder="Username"
           component={Input}
-          prefix={<HiUserCircle className="text-xl" />}
         />
       </FormItem>
       <FormItem
-        label="Email"
-        invalid={errors.email && touched.email}
-        errorMessage={errors.email}
+        label="First Name"
+        invalid={errors.first_name && touched.first_name}
+        errorMessage={errors.first_name}
       >
         <Field
-          type="email"
+          type="text"
           autoComplete="off"
-          name="email"
-          placeholder="Email"
+          name="first_name"
+          placeholder="First Name"
           component={Input}
-          prefix={<HiMail className="text-xl" />}
         />
       </FormItem>
       <FormItem
+        label="Middle Name"
+        invalid={errors.middle_name && touched.middle_name}
+        errorMessage={errors.middle_name}
+      >
+        <Field
+          type="text"
+          autoComplete="off"
+          name="middle_name"
+          placeholder="Middle Name"
+          component={Input}
+        />
+      </FormItem>
+      <FormItem
+        label="Last Name"
+        invalid={errors.last_name && touched.last_name}
+        errorMessage={errors.last_name}
+      >
+        <Field
+          type="text"
+          autoComplete="off"
+          name="last_name"
+          placeholder="Last Name"
+          component={Input}
+        />
+      </FormItem>
+      <FormItem
+        label="Faculty"
+        invalid={errors.faculty && touched.faculty}
+        errorMessage={errors.faculty}
+      >
+        <Field
+          type="text"
+          autoComplete="off"
+          name="faculty"
+          placeholder="Faculty"
+          component={Input}
+        />
+      </FormItem>
+      <FormItem
+        label="Department"
+        invalid={errors.department && touched.department}
+        errorMessage={errors.department}
+      >
+        <Field
+          type="text"
+          autoComplete="off"
+          name="department"
+          placeholder="Department"
+          component={Input}
+        />
+      </FormItem>
+      <FormItem
+        label="Year in School"
+        invalid={errors.year_in_school && touched.year_in_school}
+        errorMessage={errors.year_in_school}
+      >
+        <Field
+          type="text"
+          autoComplete="off"
+          name="year_in_school"
+          placeholder="Year in School"
+          component={Input}
+        />
+      </FormItem>
+      {/* <FormItem
         label="Location"
         invalid={errors.location && touched.location}
         errorMessage={errors.location}
@@ -89,8 +143,8 @@ const PersonalInfoForm = props => {
           component={Input}
           prefix={<HiLocationMarker className="text-xl" />}
         />
-      </FormItem>
-      <FormItem
+      </FormItem> */}
+      {/* <FormItem
         label="Phone Number"
         invalid={errors.phoneNumber && touched.phoneNumber}
         errorMessage={errors.phoneNumber}
@@ -103,33 +157,36 @@ const PersonalInfoForm = props => {
           component={Input}
           prefix={<HiPhone className="text-xl" />}
         />
-      </FormItem>
+      </FormItem> */}
       <FormItem
-        label="Title"
-        invalid={errors.title && touched.title}
-        errorMessage={errors.title}
+        label="Admission Date"
+        invalid={errors.admission_date && touched.admission_date}
+        errorMessage={errors.admission_date}
       >
-        <Field
-          type="text"
-          autoComplete="off"
-          name="title"
-          placeholder="Title"
-          component={Input}
-          prefix={<HiPhone className="text-xl" />}
-        />
-      </FormItem>
-      <FormItem
-        label="Birthday"
-        invalid={errors.birthday && touched.birthday}
-        errorMessage={errors.birthday}
-      >
-        <Field name="birthday" placeholder="Date">
+        <Field name="admission_date" placeholder="Date">
           {({ field, form }) => (
             <DatePicker
               field={field}
               form={form}
               value={field.value}
-              prefix={<HiCake className="text-xl" />}
+              onChange={date => {
+                form.setFieldValue(field.name, date);
+              }}
+            />
+          )}
+        </Field>
+      </FormItem>
+      <FormItem
+        label="Graduation Date"
+        invalid={errors.graduation_date && touched.graduation_date}
+        errorMessage={errors.graduation_date}
+      >
+        <Field name="graduation_date" placeholder="Date">
+          {({ field, form }) => (
+            <DatePicker
+              field={field}
+              form={form}
+              value={field.value}
               onChange={date => {
                 form.setFieldValue(field.name, date);
               }}

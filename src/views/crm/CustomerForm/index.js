@@ -5,25 +5,20 @@ import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import * as Yup from "yup";
 import PersonalInfoForm from "./PersonalInfoForm";
-import SocialLinkForm from "./SocialLinkForm";
 
 dayjs.extend(customParseFormat);
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email Required"),
-  name: Yup.string().required("User Name Required"),
-  location: Yup.string(),
-  title: Yup.string(),
-  phoneNumber: Yup.string().matches(
-    /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/,
-    "Phone number is not valid"
-  ),
-  birthday: Yup.string(),
-  facebook: Yup.string(),
-  twitter: Yup.string(),
-  pinterest: Yup.string(),
-  linkedIn: Yup.string(),
-  img: Yup.string()
+  img: Yup.string(),
+  username: Yup.string().required("Username Required"),
+  first_name: Yup.string().required("First Name Required"),
+  middle_name: Yup.string().required("Middle Name Required"),
+  last_name: Yup.string().required("Last Name Required"),
+  faculty: Yup.string().required("Faculty Required"),
+  department: Yup.string().required("Department Required"),
+  year_in_school: Yup.string().required("Year in School Required"),
+  admission_date: Yup.string().required("Admission Date Required"),
+  graduation_date: Yup.string().required("Graduation Date Required")
 });
 
 const { TabNav, TabList, TabContent } = Tabs;
@@ -35,19 +30,16 @@ const CustomerForm = forwardRef((props, ref) => {
     <Formik
       innerRef={ref}
       initialValues={{
-        name: customer.name || "",
-        email: customer.email || "",
-        img: customer.img || "",
-        location: customer?.personalInfo?.location || "",
-        title: customer?.personalInfo?.title || "",
-        phoneNumber: customer?.personalInfo?.phoneNumber || "",
-        birthday:
-          customer?.personalInfo?.birthday &&
-          dayjs(customer.personalInfo.birthday, "DD/MM/YYYY").toDate(),
-        facebook: customer?.personalInfo?.facebook || "",
-        twitter: customer?.personalInfo?.twitter || "",
-        pinterest: customer?.personalInfo?.pinterest || "",
-        linkedIn: customer?.personalInfo?.linkedIn || ""
+        img: customer.img,
+        username: customer.username,
+        first_name: customer.first_name,
+        middle_name: customer.middle_name,
+        last_name: customer.last_name,
+        faculty: customer.faculty,
+        department: customer.department,
+        year_in_school: customer.year_in_school,
+        admission_date: dayjs(customer.admission_date, "YYYY/MM/DD").toDate(),
+        graduation_date: dayjs(customer.graduation_date, "YYYY/MM/DD").toDate()
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -58,17 +50,13 @@ const CustomerForm = forwardRef((props, ref) => {
       {({ touched, errors, resetForm }) => (
         <Form>
           <FormContainer>
-            <Tabs defaultValue="personalInfo">
+            <Tabs defaultValue="customerInfo">
               <TabList>
-                <TabNav value="personalInfo">Personal Info</TabNav>
-                <TabNav value="social">Social</TabNav>
+                <TabNav value="customerInfo">Customer Info</TabNav>
               </TabList>
               <div className="p-6">
-                <TabContent value="personalInfo">
+                <TabContent value="customerInfo">
                   <PersonalInfoForm touched={touched} errors={errors} />
-                </TabContent>
-                <TabContent value="social">
-                  <SocialLinkForm touched={touched} errors={errors} />
                 </TabContent>
               </div>
             </Tabs>
