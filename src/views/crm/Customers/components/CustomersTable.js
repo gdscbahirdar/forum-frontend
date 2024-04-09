@@ -1,5 +1,4 @@
 import React, { useEffect, useCallback, useMemo } from "react";
-import { Avatar } from "components/ui";
 import { DataTable } from "components/shared";
 import { useDispatch, useSelector } from "react-redux";
 import { getCustomers, setTableData } from "../store/dataSlice";
@@ -37,9 +36,8 @@ const NameColumn = ({ row }) => {
 
   return (
     <div className="flex items-center">
-      <Avatar size={28} shape="circle" src={row.img} />
       <Link
-        className={`hover:${textTheme} ml-2 rtl:mr-2 font-semibold`}
+        className={`hover:${textTheme} rtl:mr-2 font-semibold`}
         to={`/students/student-details?id=${row.id}`}
       >
         {row.name}

@@ -41,7 +41,6 @@ const EditCustomerProfile = () => {
 
   const onFormSubmit = values => {
     const {
-      img,
       username,
       first_name,
       middle_name,
@@ -54,7 +53,6 @@ const EditCustomerProfile = () => {
     } = values;
 
     const newData = {
-      img,
       username,
       first_name,
       middle_name,

@@ -1,44 +1,12 @@
 import React from "react";
-import { DatePicker, Input, FormItem, Avatar, Upload } from "components/ui";
+import { DatePicker, Input, FormItem } from "components/ui";
 import { Field } from "formik";
 
 const PersonalInfoForm = props => {
   const { touched, errors } = props;
 
-  const onSetFormFile = (form, field, file) => {
-    form.setFieldValue(field.name, URL.createObjectURL(file[0]));
-  };
-
   return (
     <>
-      <FormItem
-        invalid={errors.upload && touched.upload}
-        errorMessage={errors.upload}
-      >
-        <Field name="img">
-          {({ field, form }) => {
-            const avatarProps = field.value ? { src: field.value } : {};
-            return (
-              <div className="flex justify-center">
-                <Upload
-                  className="cursor-pointer"
-                  onChange={files => onSetFormFile(form, field, files)}
-                  onFileRemove={files => onSetFormFile(form, field, files)}
-                  showList={false}
-                  uploadLimit={1}
-                >
-                  <Avatar
-                    className="border-2 border-white dark:border-gray-800 shadow-lg"
-                    size={100}
-                    shape="circle"
-                    {...avatarProps}
-                  />
-                </Upload>
-              </div>
-            );
-          }}
-        </Field>
-      </FormItem>
       <FormItem
         label="Username"
         invalid={errors.username && touched.username}

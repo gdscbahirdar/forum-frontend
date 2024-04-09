@@ -18,7 +18,6 @@ const CustomerEditContent = forwardRef((_, ref) => {
 
   const onFormSubmit = values => {
     const {
-      img,
       username,
       first_name,
       middle_name,
@@ -30,7 +29,6 @@ const CustomerEditContent = forwardRef((_, ref) => {
       graduation_date
     } = values;
     const info = {
-      img,
       username,
       first_name,
       middle_name,

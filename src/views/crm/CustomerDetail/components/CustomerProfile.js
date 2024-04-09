@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Avatar, Button, Notification, toast } from "components/ui";
+import { Card, Button, Notification, toast } from "components/ui";
 import { HiPencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { ConfirmDialog } from "components/shared";
 import { useNavigate } from "react-router-dom";
@@ -78,10 +78,6 @@ const CustomerProfile = ({ data = {} }) => {
   return (
     <Card>
       <div className="flex flex-col xl:justify-between h-full 2xl:min-w-[360px] mx-auto">
-        <div className="flex xl:flex-col items-center gap-4">
-          <Avatar size={90} shape="circle" src={data.img} />
-          <h4 className="font-bold">{data.username}</h4>
-        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-y-7 gap-x-4 mt-8">
           <CustomerInfoField title="First Name" value={data.first_name} />
           <CustomerInfoField title="Middle Name" value={data.middle_name} />

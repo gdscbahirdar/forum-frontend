@@ -9,7 +9,6 @@ import PersonalInfoForm from "./PersonalInfoForm";
 dayjs.extend(customParseFormat);
 
 const validationSchema = Yup.object().shape({
-  img: Yup.string(),
   username: Yup.string().required("Username Required"),
   first_name: Yup.string().required("First Name Required"),
   middle_name: Yup.string().required("Middle Name Required"),
@@ -30,7 +29,6 @@ const CustomerForm = forwardRef((props, ref) => {
     <Formik
       innerRef={ref}
       initialValues={{
-        img: customer.img,
         username: customer.username,
         first_name: customer.first_name,
         middle_name: customer.middle_name,
