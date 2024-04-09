@@ -5,6 +5,8 @@ import CustomersTableTools from "./components/CustomersTableTools";
 import { injectReducer } from "store/index";
 import reducer from "./store";
 
+import CustomerNewDialog from "./components/CustomerNewDialog";
+
 injectReducer("crmCustomers", reducer);
 
 const Customers = () => {
@@ -13,6 +15,7 @@ const Customers = () => {
       <AdaptableCard className="h-full" bodyClass="h-full">
         <CustomersTableTools />
         <CustomersTable />
+        <CustomerNewDialog />
       </AdaptableCard>
     </>
   );

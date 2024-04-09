@@ -1,27 +1,57 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiGetCrmCustomers, apiPutCrmCustomer } from "services/CrmService";
+import {
+  apiCreateCrmCustomer,
+  apiGetCrmCustomers,
+  apiPutCrmCustomer
+} from "services/CrmService";
 
 export const getCustomers = createAsyncThunk(
   "crmCustomers/data/getCustomers",
   async params => {
     const response = await apiGetCrmCustomers(params);
-    const transformedData = response.data.map(customer => ({
-      id: customer.pk,
-      name: `${customer.user.first_name} ${customer.user.middle_name} ${customer.user.last_name}`,
-      first_name: customer.user.first_name,
-      middle_name: customer.user.middle_name,
-      last_name: customer.user.last_name,
-      username: customer.user.username,
-      faculty: customer.faculty,
-      department: customer.department,
-      year_in_school: customer.year_in_school,
-      admission_date: customer.admission_date,
-      graduation_date: customer.graduation_date
+    const transformedData = response.data.map(student => ({
+      id: student.pk,
+      name: `${student.user.first_name} ${student.user.middle_name} ${student.user.last_name}`,
+      first_name: student.user.first_name,
+      middle_name: student.user.middle_name,
+      last_name: student.user.last_name,
+      username: student.user.username,
+      faculty: student.faculty,
+      department: student.department,
+      year_in_school: student.year_in_school,
+      admission_date: student.admission_date,
+      graduation_date: student.graduation_date
     }));
     return {
       data: transformedData,
       total: response.data.length
     };
+  }
+);
+
+export const createCustomer = createAsyncThunk(
+  "crmCustomerDetails/data/createCustomer",
+  async data => {
+    try {
+      const response = await apiCreateCrmCustomer(data);
+      const student = response.data;
+      const transformedData = {
+        id: student.pk,
+        name: `${student.user.first_name} ${student.user.middle_name} ${student.user.last_name}`,
+        first_name: student.user.first_name,
+        middle_name: student.user.middle_name,
+        last_name: student.user.last_name,
+        username: student.user.username,
+        faculty: student.faculty,
+        department: student.department,
+        year_in_school: student.year_in_school,
+        admission_date: student.admission_date,
+        graduation_date: student.graduation_date
+      };
+      return { response: transformedData, success: true };
+    } catch (errors) {
+      return { response: errors?.response?.data, success: false };
+    }
   }
 );
 
@@ -53,7 +83,6 @@ const dataSlice = createSlice({
   initialState: {
     loading: false,
     customerList: [],
-    statisticData: {},
     tableData: initialTableData,
     filterData: initialFilterData
   },

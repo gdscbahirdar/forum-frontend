@@ -2,10 +2,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { setUser, initialState } from "store/auth/userSlice";
 import { apiSignIn, apiSignOut } from "services/AuthService";
 import { onSignInSuccess, onSignOutSuccess } from "store/auth/sessionSlice";
+import { setFaculties } from "store/meta/facultySlice";
 import appConfig from "configs/app.config";
 import { REDIRECT_URL_KEY } from "constants/app.constant";
 import { useNavigate } from "react-router-dom";
 import useQuery from "./useQuery";
+import { apiGetFaculties } from "services/FacultyService";
 
 function useAuth() {
   const dispatch = useDispatch();
@@ -37,6 +39,10 @@ function useAuth() {
               authority: [resp.data.user.role_name]
             })
           );
+          const faculties = await apiGetFaculties();
+          if (faculties.data) {
+            dispatch(setFaculties(faculties.data));
+          }
         }
         const redirectUrl = query.get(REDIRECT_URL_KEY);
         navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath);

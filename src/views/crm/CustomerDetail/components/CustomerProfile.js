@@ -33,11 +33,11 @@ const CustomerProfileAction = ({ id }) => {
 
   const onDelete = () => {
     setDialogOpen(false);
-    dispatch(deleteCustomer({ id }));
+    dispatch(deleteCustomer(id));
     navigate("/students");
     toast.push(
       <Notification title={"Successfully Deleted"} type="success">
-        Customer successfully deleted
+        Student successfully deleted
       </Notification>
     );
   };
@@ -59,14 +59,14 @@ const CustomerProfileAction = ({ id }) => {
         onClose={onDialogClose}
         onRequestClose={onDialogClose}
         type="danger"
-        title="Delete customer"
+        title="Delete student"
         onCancel={onDialogClose}
         onConfirm={onDelete}
         confirmButtonColor="red-600"
       >
         <p>
-          Are you sure you want to delete this customer? All record related to
-          this customer will be deleted as well. This action cannot be undone.
+          Are you sure you want to delete this student? All record related to
+          this student will be deleted as well. This action cannot be undone.
         </p>
       </ConfirmDialog>
       <EditCustomerProfile />
@@ -79,6 +79,7 @@ const CustomerProfile = ({ data = {} }) => {
     <Card>
       <div className="flex flex-col xl:justify-between h-full 2xl:min-w-[360px] mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-y-7 gap-x-4 mt-8">
+          <CustomerInfoField title="Username" value={data.username} />
           <CustomerInfoField title="First Name" value={data.first_name} />
           <CustomerInfoField title="Middle Name" value={data.middle_name} />
           <CustomerInfoField title="Last Name" value={data.last_name} />

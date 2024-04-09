@@ -27,7 +27,7 @@ const EditCustomerProfile = () => {
   const dialogOpen = useSelector(
     state => state.crmCustomerDetails.state.editCustomerDetailDialog
   );
-  const customer = useSelector(
+  const student = useSelector(
     state => state.crmCustomerDetails.data.profileData
   );
 
@@ -82,7 +82,7 @@ const EditCustomerProfile = () => {
       <CustomerForm
         ref={formikRef}
         onFormSubmit={onFormSubmit}
-        customer={customer}
+        student={student}
       />
     </Drawer>
   );

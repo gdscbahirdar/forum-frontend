@@ -5,6 +5,8 @@ import CustomerTableSearch from "./CustomerTableSearch";
 import CustomerTableFilter from "./CustomerTableFilter";
 import { useDispatch, useSelector } from "react-redux";
 import cloneDeep from "lodash/cloneDeep";
+import { HiOutlinePlusCircle } from "react-icons/hi";
+import { toggleNewCustomerDialog } from "../store/stateSlice";
 
 const CustomersTableTools = () => {
   const dispatch = useDispatch();
@@ -26,6 +28,10 @@ const CustomersTableTools = () => {
     }
   };
 
+  const onAddNewCustomer = () => {
+    dispatch(toggleNewCustomerDialog(true));
+  };
+
   const fetchData = data => {
     dispatch(setTableData(data));
     dispatch(getCustomers(data));
@@ -40,14 +46,22 @@ const CustomersTableTools = () => {
   };
 
   return (
-    <div className="md:flex items-center justify-between">
-      <div className="md:flex items-center gap-4">
+    <div className="lg:flex items-center justify-between mb-4">
+      <h3 className="mb-4 lg:mb-0">Students</h3>
+      <div className="flex flex-col md:flex-row lg:items-center gap-2">
         <CustomerTableSearch ref={inputRef} onInputChange={handleInputChange} />
         <CustomerTableFilter />
-      </div>
-      <div className="mb-4">
-        <Button size="sm" onClick={onClearAll}>
+        <Button className="max-w-md mb-4" size="sm" onClick={onClearAll}>
           Clear All
+        </Button>
+        <Button
+          size="sm"
+          className="max-w-md mb-4"
+          variant="twoTone"
+          icon={<HiOutlinePlusCircle />}
+          onClick={onAddNewCustomer}
+        >
+          New Student
         </Button>
       </div>
     </div>

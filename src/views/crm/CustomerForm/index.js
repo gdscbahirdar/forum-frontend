@@ -1,10 +1,11 @@
 import React, { forwardRef } from "react";
-import { Tabs, FormContainer } from "components/ui";
+import { FormContainer } from "components/ui";
 import { Form, Formik } from "formik";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import * as Yup from "yup";
 import PersonalInfoForm from "./PersonalInfoForm";
+import PersonalInfoFormModal from "./PersonalInfoFormModal";
 
 dayjs.extend(customParseFormat);
 
@@ -20,24 +21,26 @@ const validationSchema = Yup.object().shape({
   graduation_date: Yup.string().required("Graduation Date Required")
 });
 
-const { TabNav, TabList, TabContent } = Tabs;
-
 const CustomerForm = forwardRef((props, ref) => {
-  const { customer, onFormSubmit } = props;
+  const { student, onFormSubmit, modal } = props;
 
   return (
     <Formik
       innerRef={ref}
       initialValues={{
-        username: customer.username,
-        first_name: customer.first_name,
-        middle_name: customer.middle_name,
-        last_name: customer.last_name,
-        faculty: customer.faculty,
-        department: customer.department,
-        year_in_school: customer.year_in_school,
-        admission_date: dayjs(customer.admission_date, "YYYY/MM/DD").toDate(),
-        graduation_date: dayjs(customer.graduation_date, "YYYY/MM/DD").toDate()
+        username: student?.username || "",
+        first_name: student?.first_name || "",
+        middle_name: student?.middle_name || "",
+        last_name: student?.last_name || "",
+        faculty: student?.faculty || "",
+        department: student?.department || "",
+        year_in_school: student?.year_in_school || "",
+        admission_date:
+          student?.admission_date &&
+          dayjs(student?.admission_date, "YYYY/MM/DD").toDate(),
+        graduation_date:
+          student?.graduation_date &&
+          dayjs(student?.graduation_date, "YYYY/MM/DD").toDate()
       }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
@@ -48,16 +51,18 @@ const CustomerForm = forwardRef((props, ref) => {
       {({ touched, errors, resetForm }) => (
         <Form>
           <FormContainer>
-            <Tabs defaultValue="customerInfo">
-              <TabList>
-                <TabNav value="customerInfo">Customer Info</TabNav>
-              </TabList>
-              <div className="p-6">
-                <TabContent value="customerInfo">
-                  <PersonalInfoForm touched={touched} errors={errors} />
-                </TabContent>
-              </div>
-            </Tabs>
+            <div className="p-6">
+              {modal ? (
+                <PersonalInfoFormModal touched={touched} errors={errors} />
+              ) : (
+                <>
+                  <h4>Student Info</h4>
+                  <div className="mt-4">
+                    <PersonalInfoForm touched={touched} errors={errors} />
+                  </div>
+                </>
+              )}
+            </div>
           </FormContainer>
         </Form>
       )}

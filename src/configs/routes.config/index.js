@@ -33,10 +33,7 @@ export const protectedRoutes = [
     key: "users.students",
     path: "/students",
     component: React.lazy(() => import("views/crm/Customers")),
-    authority: [SUPER_ADMIN, FACULTY_ADMIN],
-    meta: {
-      header: "Students"
-    }
+    authority: [SUPER_ADMIN, FACULTY_ADMIN]
   },
   {
     key: "users.studentDetails",

@@ -1,9 +1,17 @@
 import React from "react";
-import { DatePicker, Input, FormItem } from "components/ui";
+import { DatePicker, Input, FormItem, Select } from "components/ui";
 import { Field } from "formik";
+import { useSelector } from "react-redux";
 
 const PersonalInfoForm = props => {
   const { touched, errors } = props;
+
+  const faculties = useSelector(state => state.meta.faculties);
+
+  const facultyOptions = faculties.map(faculty => ({
+    value: faculty.name,
+    label: faculty.name
+  }));
 
   return (
     <>
@@ -64,26 +72,53 @@ const PersonalInfoForm = props => {
         invalid={errors.faculty && touched.faculty}
         errorMessage={errors.faculty}
       >
-        <Field
-          type="text"
-          autoComplete="off"
-          name="faculty"
-          placeholder="Faculty"
-          component={Input}
-        />
+        <Field name="faculty">
+          {({ field, form }) => (
+            <Select
+              options={facultyOptions}
+              placeholder="Select Faculty"
+              value={facultyOptions.find(
+                option => option.value === field.value
+              )}
+              onChange={option => {
+                form.setFieldValue("faculty", option.value);
+                form.setFieldValue("department", "");
+              }}
+            />
+          )}
+        </Field>
       </FormItem>
       <FormItem
         label="Department"
         invalid={errors.department && touched.department}
         errorMessage={errors.department}
       >
-        <Field
-          type="text"
-          autoComplete="off"
-          name="department"
-          placeholder="Department"
-          component={Input}
-        />
+        <Field name="department">
+          {({ field, form }) => {
+            const selectedFaculty = form.values.faculty;
+            const departments = selectedFaculty
+              ? faculties.find(faculty => faculty.name === selectedFaculty)
+                  ?.departments || []
+              : [];
+            const departmentOptions = departments.map(department => ({
+              value: department,
+              label: department
+            }));
+            return (
+              <Select
+                options={departmentOptions}
+                placeholder="Select Department"
+                isDisabled={!selectedFaculty}
+                value={departmentOptions.find(
+                  option => option.value === field.value
+                )}
+                onChange={option =>
+                  form.setFieldValue("department", option.value)
+                }
+              />
+            );
+          }}
+        </Field>
       </FormItem>
       <FormItem
         label="Year in School"
@@ -98,34 +133,6 @@ const PersonalInfoForm = props => {
           component={Input}
         />
       </FormItem>
-      {/* <FormItem
-        label="Location"
-        invalid={errors.location && touched.location}
-        errorMessage={errors.location}
-      >
-        <Field
-          type="text"
-          autoComplete="off"
-          name="location"
-          placeholder="Location"
-          component={Input}
-          prefix={<HiLocationMarker className="text-xl" />}
-        />
-      </FormItem> */}
-      {/* <FormItem
-        label="Phone Number"
-        invalid={errors.phoneNumber && touched.phoneNumber}
-        errorMessage={errors.phoneNumber}
-      >
-        <Field
-          type="text"
-          autoComplete="off"
-          name="phoneNumber"
-          placeholder="Phone Number"
-          component={Input}
-          prefix={<HiPhone className="text-xl" />}
-        />
-      </FormItem> */}
       <FormItem
         label="Admission Date"
         invalid={errors.admission_date && touched.admission_date}

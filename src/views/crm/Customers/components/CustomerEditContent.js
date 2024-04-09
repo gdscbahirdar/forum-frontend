@@ -10,11 +10,11 @@ import dayjs from "dayjs";
 const CustomerEditContent = forwardRef((_, ref) => {
   const dispatch = useDispatch();
 
-  const customer = useSelector(
+  const student = useSelector(
     state => state.crmCustomers.state.selectedCustomer
   );
   const data = useSelector(state => state.crmCustomers.data.customerList);
-  const { id } = customer;
+  const { id } = student;
 
   const onFormSubmit = values => {
     const {
@@ -49,7 +49,6 @@ const CustomerEditContent = forwardRef((_, ref) => {
       return elm;
     });
     if (!isEmpty(editedCustomer)) {
-      console.log("editedCustomer", editedCustomer);
       dispatch(putCustomer(editedCustomer));
     }
     dispatch(setDrawerClose());
@@ -57,7 +56,7 @@ const CustomerEditContent = forwardRef((_, ref) => {
   };
 
   return (
-    <CustomerForm ref={ref} onFormSubmit={onFormSubmit} customer={customer} />
+    <CustomerForm ref={ref} onFormSubmit={onFormSubmit} student={student} />
   );
 });
 

@@ -13,7 +13,6 @@ export const getCustomer = createAsyncThunk(
     const user_data = res_data.user;
     return {
       id: res_data.pk,
-      img: user_data.img,
       username: user_data.username,
       first_name: user_data.first_name,
       middle_name: user_data.middle_name,
