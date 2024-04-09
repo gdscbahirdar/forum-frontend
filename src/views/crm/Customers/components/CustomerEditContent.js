@@ -36,8 +36,8 @@ const CustomerEditContent = forwardRef((_, ref) => {
       faculty,
       department,
       year_in_school,
-      admission_date: dayjs(admission_date).format("YYYY/MM/DD"),
-      graduation_date: dayjs(graduation_date).format("YYYY/MM/DD")
+      admission_date: dayjs(admission_date).format("YYYY-MM-DD"),
+      graduation_date: dayjs(graduation_date).format("YYYY-MM-DD")
     };
     let newData = cloneDeep(data);
     let editedCustomer = {};
@@ -48,8 +48,21 @@ const CustomerEditContent = forwardRef((_, ref) => {
       }
       return elm;
     });
+    editedCustomer = {
+      username: editedCustomer.username,
+      first_name: editedCustomer.first_name,
+      middle_name: editedCustomer.middle_name,
+      last_name: editedCustomer.last_name,
+      student: {
+        faculty: editedCustomer.faculty,
+        department: editedCustomer.department,
+        year_in_school: editedCustomer.year_in_school,
+        admission_date: dayjs(admission_date).format("YYYY-MM-DD"),
+        graduation_date: dayjs(graduation_date).format("YYYY-MM-DD")
+      }
+    };
     if (!isEmpty(editedCustomer)) {
-      dispatch(putCustomer(editedCustomer));
+      dispatch(putCustomer({ id, editedCustomer }));
     }
     dispatch(setDrawerClose());
     dispatch(setCustomerList(newData));

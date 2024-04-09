@@ -26,17 +26,17 @@ const CustomerNewContent = forwardRef((_, ref) => {
       graduation_date
     } = values;
     const newCustomer = {
-      user: {
-        username: username,
-        first_name: first_name,
-        middle_name: middle_name,
-        last_name: last_name
-      },
-      faculty: faculty,
-      department: department,
-      year_in_school: year_in_school,
-      admission_date: dayjs(admission_date).format("YYYY-MM-DD"),
-      graduation_date: dayjs(graduation_date).format("YYYY-MM-DD")
+      username: username,
+      first_name: first_name,
+      middle_name: middle_name,
+      last_name: last_name,
+      student: {
+        faculty: faculty,
+        department: department,
+        year_in_school: year_in_school,
+        admission_date: dayjs(admission_date).format("YYYY-MM-DD"),
+        graduation_date: dayjs(graduation_date).format("YYYY-MM-DD")
+      }
     };
 
     if (!isEmpty(newCustomer)) {

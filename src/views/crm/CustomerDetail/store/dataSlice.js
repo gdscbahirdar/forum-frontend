@@ -9,19 +9,18 @@ export const getCustomer = createAsyncThunk(
   "crmCustomerDetails/data/getCustomer",
   async data => {
     const response = await apiGetCrmCustomerDetails(data);
-    const res_data = response.data;
-    const user_data = res_data.user;
+    const user = response.data;
     return {
-      id: res_data.pk,
-      username: user_data.username,
-      first_name: user_data.first_name,
-      middle_name: user_data.middle_name,
-      last_name: user_data.last_name,
-      faculty: res_data.faculty,
-      department: res_data.department,
-      year_in_school: res_data.year_in_school,
-      admission_date: res_data.admission_date,
-      graduation_date: res_data.graduation_date
+      id: user.pk,
+      username: user.username,
+      first_name: user.first_name,
+      middle_name: user.middle_name,
+      last_name: user.last_name,
+      faculty: user.student.faculty,
+      department: user.student.department,
+      year_in_school: user.student.year_in_school,
+      admission_date: user.student.admission_date,
+      graduation_date: user.student.graduation_date
     };
   }
 );

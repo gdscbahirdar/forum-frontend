@@ -9,18 +9,18 @@ export const getCustomers = createAsyncThunk(
   "crmCustomers/data/getCustomers",
   async params => {
     const response = await apiGetCrmCustomers(params);
-    const transformedData = response.data.map(student => ({
-      id: student.pk,
-      name: `${student.user.first_name} ${student.user.middle_name} ${student.user.last_name}`,
-      first_name: student.user.first_name,
-      middle_name: student.user.middle_name,
-      last_name: student.user.last_name,
-      username: student.user.username,
-      faculty: student.faculty,
-      department: student.department,
-      year_in_school: student.year_in_school,
-      admission_date: student.admission_date,
-      graduation_date: student.graduation_date
+    const transformedData = response.data.map(user => ({
+      id: user.pk,
+      name: `${user.first_name} ${user.middle_name} ${user.last_name}`,
+      first_name: user.first_name,
+      middle_name: user.middle_name,
+      last_name: user.last_name,
+      username: user.username,
+      faculty: user.student.faculty,
+      department: user.student.department,
+      year_in_school: user.student.year_in_school,
+      admission_date: user.student.admission_date,
+      graduation_date: user.student.graduation_date
     }));
     return {
       data: transformedData,
@@ -34,19 +34,19 @@ export const createCustomer = createAsyncThunk(
   async data => {
     try {
       const response = await apiCreateCrmCustomer(data);
-      const student = response.data;
+      const user = response.data;
       const transformedData = {
-        id: student.pk,
-        name: `${student.user.first_name} ${student.user.middle_name} ${student.user.last_name}`,
-        first_name: student.user.first_name,
-        middle_name: student.user.middle_name,
-        last_name: student.user.last_name,
-        username: student.user.username,
-        faculty: student.faculty,
-        department: student.department,
-        year_in_school: student.year_in_school,
-        admission_date: student.admission_date,
-        graduation_date: student.graduation_date
+        id: user.pk,
+        name: `${user.first_name} ${user.middle_name} ${user.last_name}`,
+        first_name: user.first_name,
+        middle_name: user.middle_name,
+        last_name: user.last_name,
+        username: user.username,
+        faculty: user.student.faculty,
+        department: user.student.department,
+        year_in_school: user.student.year_in_school,
+        admission_date: user.student.admission_date,
+        graduation_date: user.student.graduation_date
       };
       return { response: transformedData, success: true };
     } catch (errors) {
@@ -57,8 +57,9 @@ export const createCustomer = createAsyncThunk(
 
 export const putCustomer = createAsyncThunk(
   "crmCustomers/data/putCustomer",
-  async data => {
-    const response = await apiPutCrmCustomer(data);
+  async ass => {
+    const { id, editedCustomer } = ass;
+    const response = await apiPutCrmCustomer(id, editedCustomer);
     return response.data;
   }
 );

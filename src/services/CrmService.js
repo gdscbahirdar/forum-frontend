@@ -17,7 +17,7 @@ export async function apiGetCrmCustomerDetails(id) {
 
 export async function apiPutCrmCustomer(id, data) {
   return ApiService.fetchData({
-    url: `/entities/student/${id}`,
+    url: `/entities/student/${id}/`,
     method: "put",
     data
   });
