@@ -126,7 +126,9 @@ const PersonalInfoForm = props => {
         errorMessage={errors.year_in_school}
       >
         <Field
-          type="text"
+          type="number"
+          max={5}
+          min={1}
           autoComplete="off"
           name="year_in_school"
           placeholder="Year in School"
