@@ -15,9 +15,8 @@ export const getFacultyAdmins = createAsyncThunk(
       sort: order === "desc" ? `-${key}` : key,
       search: params.query
     };
-    if (params.filterData.year_in_school) {
-      updatedParams.faculty_admin__year_in_school =
-        params.filterData.year_in_school;
+    if (params.filterData.faculty) {
+      updatedParams.faculty_admin__faculty = params.filterData.faculty;
     }
     const response = await apiGetFacultyAdmins(updatedParams);
     const results = response.data.results;
@@ -94,7 +93,7 @@ export const initialTableData = {
 };
 
 export const initialFilterData = {
-  year_in_school: ""
+  faculty: ""
 };
 
 const dataSlice = createSlice({

@@ -7,11 +7,6 @@ import { HiCheck } from "react-icons/hi";
 
 const { Control } = components;
 
-const yearInSchoolOptions = Array.from({ length: 5 }, (_, i) => ({
-  value: i + 1,
-  label: `Year ${i + 1}`
-}));
-
 const CustomSelectOption = ({ innerProps, label, data, isSelected }) => {
   return (
     <div
@@ -42,27 +37,29 @@ const CustomControl = ({ children, ...props }) => {
 const TeacherTableFilter = () => {
   const dispatch = useDispatch();
 
-  const { year_in_school } = useSelector(
-    state => state.teachers.data.filterData
-  );
+  const faculties = useSelector(state => state.meta.faculties);
+  const facultyOptions = faculties.map(faculty => ({
+    value: faculty.pk,
+    label: faculty.name
+  }));
 
-  const onYearInFilterChange = selected => {
-    dispatch(setFilterData({ year_in_school: selected.value }));
+  const { faculty } = useSelector(state => state.teachers.data.filterData);
+
+  const onFacultyChange = selected => {
+    dispatch(setFilterData({ faculty: selected.value }));
   };
 
   return (
     <Select
-      options={yearInSchoolOptions}
+      options={facultyOptions}
       size="sm"
       className="mb-4 min-w-[130px]"
-      onChange={onYearInFilterChange}
+      onChange={onFacultyChange}
       components={{
         Option: CustomSelectOption,
         Control: CustomControl
       }}
-      value={yearInSchoolOptions.filter(
-        option => option.value === year_in_school
-      )}
+      value={facultyOptions.filter(option => option.value === faculty)}
     />
   );
 };

@@ -15,8 +15,8 @@ export const getStudents = createAsyncThunk(
       sort: order === "desc" ? `-${key}` : key,
       search: params.query
     };
-    if (params.filterData.year_in_school) {
-      updatedParams.student__year_in_school = params.filterData.year_in_school;
+    if (params.filterData.department) {
+      updatedParams.student__department__name = params.filterData.department;
     }
     const response = await apiGetStudents(updatedParams);
     const results = response.data.results;
@@ -105,7 +105,7 @@ export const initialTableData = {
 };
 
 export const initialFilterData = {
-  year_in_school: ""
+  department: ""
 };
 
 const dataSlice = createSlice({

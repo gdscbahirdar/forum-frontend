@@ -87,7 +87,6 @@ const Teachers = () => {
   }, [pageIndex, pageSize, sort, query, filterData, dispatch]);
 
   useEffect(() => {
-    console.log("here");
     fetchData();
   }, [fetchData, pageIndex, pageSize, sort, filterData]);
 

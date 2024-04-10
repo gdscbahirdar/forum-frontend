@@ -41,7 +41,7 @@ const TeachersTableTools = () => {
     const newTableData = cloneDeep(tableData);
     newTableData.query = "";
     inputRef.current.value = "";
-    dispatch(setFilterData({ year_in_school: "" }));
+    dispatch(setFilterData({ faculty: "" }));
     fetchData(newTableData);
   };
 

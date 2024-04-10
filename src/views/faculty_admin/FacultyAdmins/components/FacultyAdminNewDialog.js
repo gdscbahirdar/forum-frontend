@@ -41,7 +41,7 @@ const FacultyAdminNewDialog = () => {
       onClose={onDialogClose}
       onRequestClose={onDialogClose}
     >
-      <h5 className="mb-4">Create New FacultyAdmin</h5>
+      <h5 className="mb-4">Create New Faculty Admin</h5>
       <FacultyAdminNewContent ref={formikRef} />
       <DialogFooter onCancel={onDialogClose} onSaveClick={formSubmit} />
     </Dialog>

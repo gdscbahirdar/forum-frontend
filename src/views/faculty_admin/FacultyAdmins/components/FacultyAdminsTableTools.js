@@ -45,13 +45,13 @@ const FacultyAdminsTableTools = () => {
     const newTableData = cloneDeep(tableData);
     newTableData.query = "";
     inputRef.current.value = "";
-    dispatch(setFilterData({ year_in_school: "" }));
+    dispatch(setFilterData({ faculty: "" }));
     fetchData(newTableData);
   };
 
   return (
     <div className="lg:flex items-center justify-between mb-4">
-      <h3 className="mb-4 lg:mb-0">FacultyAdmins</h3>
+      <h3 className="mb-4 lg:mb-0">Faculty Admins</h3>
       <div className="flex flex-col md:flex-row lg:items-center gap-2">
         <FacultyAdminTableSearch
           ref={inputRef}
@@ -68,7 +68,7 @@ const FacultyAdminsTableTools = () => {
           icon={<HiOutlinePlusCircle />}
           onClick={onAddNewFacultyAdmin}
         >
-          New FacultyAdmin
+          New Faculty Admin
         </Button>
       </div>
     </div>
