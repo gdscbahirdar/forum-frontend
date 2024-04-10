@@ -4,7 +4,7 @@ export async function apiGetCrmCustomers(data) {
   return ApiService.fetchData({
     url: "/entities/student/",
     method: "get",
-    data
+    params: data
   });
 }
 

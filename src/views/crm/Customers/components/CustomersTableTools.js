@@ -41,7 +41,7 @@ const CustomersTableTools = () => {
     const newTableData = cloneDeep(tableData);
     newTableData.query = "";
     inputRef.current.value = "";
-    dispatch(setFilterData({ status: "" }));
+    dispatch(setFilterData({ year_in_school: "" }));
     fetchData(newTableData);
   };
 

@@ -8,8 +8,19 @@ import {
 export const getCustomers = createAsyncThunk(
   "crmCustomers/data/getCustomers",
   async params => {
-    const response = await apiGetCrmCustomers(params);
-    const transformedData = response.data.map(user => ({
+    const { key, order } = params.sort;
+    const updatedParams = {
+      page: params.pageIndex,
+      size: params.pageSize,
+      sort: order === "desc" ? `-${key}` : key,
+      search: params.query
+    };
+    if (params.filterData.year_in_school) {
+      updatedParams.student__year_in_school = params.filterData.year_in_school;
+    }
+    const response = await apiGetCrmCustomers(updatedParams);
+    const results = response.data.results;
+    const transformedData = results.map(user => ({
       id: user.pk,
       name: `${user.first_name} ${user.middle_name} ${user.last_name}`,
       first_name: user.first_name,
@@ -24,7 +35,7 @@ export const getCustomers = createAsyncThunk(
     }));
     return {
       data: transformedData,
-      total: response.data.length
+      total: response.data.count
     };
   }
 );
@@ -94,7 +105,7 @@ export const initialTableData = {
 };
 
 export const initialFilterData = {
-  status: ""
+  year_in_school: ""
 };
 
 const dataSlice = createSlice({

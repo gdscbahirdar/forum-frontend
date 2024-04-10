@@ -7,11 +7,10 @@ import { HiCheck } from "react-icons/hi";
 
 const { Control } = components;
 
-const options = [
-  { value: "", label: "All", color: "bg-gray-500" },
-  { value: "active", label: "Active", color: "bg-emerald-500" },
-  { value: "blocked", label: "Blocked", color: "bg-red-500" }
-];
+const yearInSchoolOptions = Array.from({ length: 5 }, (_, i) => ({
+  value: i + 1,
+  label: `Year ${i + 1}`
+}));
 
 const CustomSelectOption = ({ innerProps, label, data, isSelected }) => {
   return (
@@ -43,23 +42,27 @@ const CustomControl = ({ children, ...props }) => {
 const CustomerTableFilter = () => {
   const dispatch = useDispatch();
 
-  const { status } = useSelector(state => state.crmCustomers.data.filterData);
+  const { year_in_school } = useSelector(
+    state => state.crmCustomers.data.filterData
+  );
 
-  const onStatusFilterChange = selected => {
-    dispatch(setFilterData({ status: selected.value }));
+  const onYearInFilterChange = selected => {
+    dispatch(setFilterData({ year_in_school: selected.value }));
   };
 
   return (
     <Select
-      options={options}
+      options={yearInSchoolOptions}
       size="sm"
       className="mb-4 min-w-[130px]"
-      onChange={onStatusFilterChange}
+      onChange={onYearInFilterChange}
       components={{
         Option: CustomSelectOption,
         Control: CustomControl
       }}
-      value={options.filter(option => option.value === status)}
+      value={yearInSchoolOptions.filter(
+        option => option.value === year_in_school
+      )}
     />
   );
 };

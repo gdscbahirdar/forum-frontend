@@ -41,7 +41,7 @@ function useAuth() {
           );
           const faculties = await apiGetFaculties();
           if (faculties.data) {
-            dispatch(setFaculties(faculties.data));
+            dispatch(setFaculties(faculties.data.results));
           }
         }
         const redirectUrl = query.get(REDIRECT_URL_KEY);

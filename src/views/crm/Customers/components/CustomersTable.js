@@ -31,7 +31,7 @@ const ActionColumn = ({ row }) => {
   );
 };
 
-const NameColumn = ({ row }) => {
+const UsernameColumn = ({ row }) => {
   const { textTheme } = useThemeClass();
 
   return (
@@ -40,7 +40,7 @@ const NameColumn = ({ row }) => {
         className={`hover:${textTheme} rtl:mr-2 font-semibold`}
         to={`/students/student-details?id=${row.id}`}
       >
-        {row.name}
+        {row.username}
       </Link>
     </div>
   );
@@ -48,33 +48,29 @@ const NameColumn = ({ row }) => {
 
 const columns = [
   {
-    Header: "Name",
-    accessor: "name",
+    Header: "Username",
+    accessor: "username",
     sortable: true,
     Cell: props => {
       const row = props.row.original;
-      return <NameColumn row={row} />;
+      return <UsernameColumn row={row} />;
     }
   },
   {
-    Header: "Username",
-    accessor: "username",
-    sortable: true
+    Header: "Name",
+    accessor: "name"
   },
   {
     Header: "Faculty",
-    accessor: "faculty",
-    sortable: true
+    accessor: "faculty"
   },
   {
     Header: "Department",
-    accessor: "department",
-    sortable: true
+    accessor: "department"
   },
   {
     Header: "Year in School",
-    accessor: "year_in_school",
-    sortable: true
+    accessor: "year_in_school"
   },
   {
     Header: "",

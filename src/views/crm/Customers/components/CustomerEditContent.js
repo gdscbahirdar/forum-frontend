@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCustomerList, putCustomer } from "../store/dataSlice";
+import { putCustomer } from "../store/dataSlice";
 import { setDrawerClose } from "../store/stateSlice";
 import cloneDeep from "lodash/cloneDeep";
 import isEmpty from "lodash/isEmpty";
@@ -43,7 +43,7 @@ const CustomerEditContent = forwardRef((_, ref) => {
     };
     let newData = cloneDeep(data);
     let editedCustomer = {};
-    newData = newData.map(elm => {
+    newData.map(elm => {
       if (elm.id === id) {
         elm = { ...elm, ...info };
         editedCustomer = elm;
@@ -74,7 +74,7 @@ const CustomerEditContent = forwardRef((_, ref) => {
               </Notification>
             );
             dispatch(setDrawerClose());
-            dispatch(setCustomerList(newData));
+            window.location.reload();
           } else {
             const errors = result.response;
             Object.keys(errors).forEach(key => {

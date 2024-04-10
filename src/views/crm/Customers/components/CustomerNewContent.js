@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createCustomer, setCustomerList } from "../store/dataSlice";
+import { useDispatch } from "react-redux";
+import { createCustomer } from "../store/dataSlice";
 import { toggleNewCustomerDialog } from "../store/stateSlice";
 import isEmpty from "lodash/isEmpty";
 import CustomerForm from "views/crm/CustomerForm";
@@ -10,8 +10,6 @@ import { toast, Notification } from "components/ui";
 
 const CustomerNewContent = forwardRef((_, ref) => {
   const dispatch = useDispatch();
-
-  const data = useSelector(state => state.crmCustomers.data.customerList);
 
   const onFormSubmit = values => {
     const {
@@ -50,7 +48,7 @@ const CustomerNewContent = forwardRef((_, ref) => {
               </Notification>
             );
             dispatch(toggleNewCustomerDialog(false));
-            dispatch(setCustomerList([...data, result.response]));
+            window.location.reload();
           } else {
             const errors = result.response;
             Object.keys(errors).forEach(key => {
