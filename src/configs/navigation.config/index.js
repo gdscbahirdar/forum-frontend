@@ -3,6 +3,7 @@ import {
   NAV_ITEM_TYPE_COLLAPSE,
   NAV_ITEM_TYPE_ITEM
 } from "constants/navigation.constant";
+import { FACULTY_ADMIN, SUPER_ADMIN } from "constants/roles.constant";
 
 const navigationConfig = [
   {
@@ -42,7 +43,7 @@ const navigationConfig = [
     translateKey: "nav.users.users",
     icon: "users",
     type: NAV_ITEM_TYPE_COLLAPSE,
-    authority: ["Super Admin", "Faculty Admin"],
+    authority: [SUPER_ADMIN, FACULTY_ADMIN],
     subMenu: [
       {
         key: "users.students",
@@ -51,7 +52,7 @@ const navigationConfig = [
         translateKey: "nav.users.students",
         icon: "",
         type: NAV_ITEM_TYPE_ITEM,
-        authority: ["Super Admin", "Faculty Admin"],
+        authority: [SUPER_ADMIN, FACULTY_ADMIN],
         subMenu: []
       },
       {
@@ -61,17 +62,17 @@ const navigationConfig = [
         translateKey: "nav.users.teachers",
         icon: "",
         type: NAV_ITEM_TYPE_ITEM,
-        authority: ["Super Admin", "Faculty Admin"],
+        authority: [SUPER_ADMIN, FACULTY_ADMIN],
         subMenu: []
       },
       {
         key: "users.faculty_admin",
-        path: "/faculty_admin",
-        title: "Faculty Admin",
-        translateKey: "nav.users.faculty_admin",
+        path: "/faculty_admins",
+        title: "Faculty Admins",
+        translateKey: "nav.users.faculty_admins",
         icon: "",
         type: NAV_ITEM_TYPE_ITEM,
-        authority: ["Super Admin"],
+        authority: [SUPER_ADMIN],
         subMenu: []
       }
     ]

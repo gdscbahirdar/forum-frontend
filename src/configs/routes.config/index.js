@@ -63,9 +63,21 @@ export const protectedRoutes = [
   },
   {
     key: "users.faculty_admin",
-    path: "/faculty_admin",
-    component: React.lazy(() => import("views/demo/CollapseMenuItemView2")),
-    authority: ["Super Admin"]
+    path: "/faculty_admins",
+    component: React.lazy(() => import("views/faculty_admin/FacultyAdmins")),
+    authority: [SUPER_ADMIN]
+  },
+  {
+    key: "users.facultyAdminDetails",
+    path: "/faculty_admins/faculty_admin-details",
+    component: React.lazy(
+      () => import("views/faculty_admin/FacultyAdminDetail")
+    ),
+    authority: [SUPER_ADMIN],
+    meta: {
+      header: "Faculty Details",
+      headerContainer: true
+    }
   },
   {
     key: "groupMenu.saves",
