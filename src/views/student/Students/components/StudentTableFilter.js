@@ -43,7 +43,7 @@ const StudentTableFilter = () => {
   const dispatch = useDispatch();
 
   const { year_in_school } = useSelector(
-    state => state.studentStudents.data.filterData
+    state => state.students.data.filterData
   );
 
   const onYearInFilterChange = selected => {

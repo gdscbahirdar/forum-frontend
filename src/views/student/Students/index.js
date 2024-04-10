@@ -7,7 +7,7 @@ import reducer from "./store";
 
 import StudentNewDialog from "./components/StudentNewDialog";
 
-injectReducer("studentStudents", reducer);
+injectReducer("students", reducer);
 
 const Students = () => {
   return (

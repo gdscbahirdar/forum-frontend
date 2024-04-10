@@ -82,14 +82,12 @@ const columns = [
 
 const Students = () => {
   const dispatch = useDispatch();
-  const data = useSelector(state => state.studentStudents.data.studentList);
-  const loading = useSelector(state => state.studentStudents.data.loading);
-  const filterData = useSelector(
-    state => state.studentStudents.data.filterData
-  );
+  const data = useSelector(state => state.students.data.studentList);
+  const loading = useSelector(state => state.students.data.loading);
+  const filterData = useSelector(state => state.students.data.filterData);
 
   const { pageIndex, pageSize, sort, query, total } = useSelector(
-    state => state.studentStudents.data.tableData
+    state => state.students.data.tableData
   );
 
   const fetchData = useCallback(() => {

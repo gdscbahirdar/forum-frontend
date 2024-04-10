@@ -21,7 +21,7 @@ const StudentNewDialog = () => {
   const dispatch = useDispatch();
 
   const newStudentDialog = useSelector(
-    state => state.studentStudents.state.newStudentDialog
+    state => state.students.state.newStudentDialog
   );
 
   const onDialogClose = () => {

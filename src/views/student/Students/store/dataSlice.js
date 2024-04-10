@@ -6,7 +6,7 @@ import {
 } from "services/StudentService";
 
 export const getStudents = createAsyncThunk(
-  "studentStudents/data/getStudents",
+  "students/data/getStudents",
   async params => {
     const { key, order } = params.sort;
     const updatedParams = {
@@ -67,7 +67,7 @@ export const createStudent = createAsyncThunk(
 );
 
 export const putStudent = createAsyncThunk(
-  "studentStudents/data/putStudent",
+  "students/data/putStudent",
   async data => {
     try {
       const { id, editedStudent } = data;
@@ -109,7 +109,7 @@ export const initialFilterData = {
 };
 
 const dataSlice = createSlice({
-  name: "studentStudents/data",
+  name: "students/data",
   initialState: {
     loading: false,
     studentList: [],

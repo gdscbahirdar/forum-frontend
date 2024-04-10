@@ -12,10 +12,8 @@ import { toast, Notification } from "components/ui";
 const StudentEditContent = forwardRef((_, ref) => {
   const dispatch = useDispatch();
 
-  const student = useSelector(
-    state => state.studentStudents.state.selectedStudent
-  );
-  const data = useSelector(state => state.studentStudents.data.studentList);
+  const student = useSelector(state => state.students.state.selectedStudent);
+  const data = useSelector(state => state.students.data.studentList);
   const { id } = student;
 
   const onFormSubmit = values => {

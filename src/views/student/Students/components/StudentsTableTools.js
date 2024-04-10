@@ -13,7 +13,7 @@ const StudentsTableTools = () => {
 
   const inputRef = useRef();
 
-  const tableData = useSelector(state => state.studentStudents.data.tableData);
+  const tableData = useSelector(state => state.students.data.tableData);
 
   const handleInputChange = val => {
     const newTableData = cloneDeep(tableData);

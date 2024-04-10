@@ -19,9 +19,7 @@ const DrawerFooter = ({ onSaveClick, onCancel }) => {
 
 const StudentEditDialog = () => {
   const dispatch = useDispatch();
-  const drawerOpen = useSelector(
-    state => state.studentStudents.state.drawerOpen
-  );
+  const drawerOpen = useSelector(state => state.students.state.drawerOpen);
 
   const onDrawerClose = () => {
     dispatch(setDrawerClose());

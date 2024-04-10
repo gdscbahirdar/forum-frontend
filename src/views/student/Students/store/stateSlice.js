@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const stateSlice = createSlice({
-  name: "studentStudents/state",
+  name: "students/state",
   initialState: {
     drawerOpen: false,
     selectedStudent: {},
