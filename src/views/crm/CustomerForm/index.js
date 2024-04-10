@@ -16,7 +16,11 @@ const validationSchema = Yup.object().shape({
   last_name: Yup.string().required("Last Name Required"),
   faculty: Yup.string().required("Faculty Required"),
   department: Yup.string().required("Department Required"),
-  year_in_school: Yup.string().required("Year in School Required"),
+  year_in_school: Yup.number()
+    .required("Year in School Required")
+    .min(1, "Year in School must be at least 1")
+    .max(5, "Year in School must be at most 5")
+    .integer("Year in School must be an integer"),
   admission_date: Yup.string().required("Admission Date Required"),
   graduation_date: Yup.string().required("Graduation Date Required")
 });

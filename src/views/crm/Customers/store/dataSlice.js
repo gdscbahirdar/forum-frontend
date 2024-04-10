@@ -57,10 +57,28 @@ export const createCustomer = createAsyncThunk(
 
 export const putCustomer = createAsyncThunk(
   "crmCustomers/data/putCustomer",
-  async ass => {
-    const { id, editedCustomer } = ass;
-    const response = await apiPutCrmCustomer(id, editedCustomer);
-    return response.data;
+  async data => {
+    try {
+      const { id, editedCustomer } = data;
+      const response = await apiPutCrmCustomer(id, editedCustomer);
+      const user = response.data;
+      const transformedData = {
+        id: user.pk,
+        name: `${user.first_name} ${user.middle_name} ${user.last_name}`,
+        first_name: user.first_name,
+        middle_name: user.middle_name,
+        last_name: user.last_name,
+        username: user.username,
+        faculty: user.student.faculty,
+        department: user.student.department,
+        year_in_school: user.student.year_in_school,
+        admission_date: user.student.admission_date,
+        graduation_date: user.student.graduation_date
+      };
+      return { response: transformedData, success: true };
+    } catch (errors) {
+      return { response: errors?.response?.data, success: false };
+    }
   }
 );
 

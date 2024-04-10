@@ -6,6 +6,8 @@ import cloneDeep from "lodash/cloneDeep";
 import isEmpty from "lodash/isEmpty";
 import CustomerForm from "views/crm/CustomerForm";
 import dayjs from "dayjs";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { toast, Notification } from "components/ui";
 
 const CustomerEditContent = forwardRef((_, ref) => {
   const dispatch = useDispatch();
@@ -62,10 +64,30 @@ const CustomerEditContent = forwardRef((_, ref) => {
       }
     };
     if (!isEmpty(editedCustomer)) {
-      dispatch(putCustomer({ id, editedCustomer }));
+      dispatch(putCustomer({ id, editedCustomer }))
+        .then(unwrapResult)
+        .then(result => {
+          if (result.success) {
+            toast.push(
+              <Notification title="Success" type="success">
+                Student updated successfully
+              </Notification>
+            );
+            dispatch(setDrawerClose());
+            dispatch(setCustomerList(newData));
+          } else {
+            const errors = result.response;
+            Object.keys(errors).forEach(key => {
+              const errorMessage = errors[key][0];
+              toast.push(
+                <Notification title="Failure" type="danger">
+                  Failed to update student: {errorMessage}
+                </Notification>
+              );
+            });
+          }
+        });
     }
-    dispatch(setDrawerClose());
-    dispatch(setCustomerList(newData));
   };
 
   return (
