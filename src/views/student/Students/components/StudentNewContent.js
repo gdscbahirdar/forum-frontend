@@ -1,14 +1,14 @@
 import React, { forwardRef } from "react";
 import { useDispatch } from "react-redux";
-import { createCustomer } from "../store/dataSlice";
-import { toggleNewCustomerDialog } from "../store/stateSlice";
+import { createStudent } from "../store/dataSlice";
+import { toggleNewStudentDialog } from "../store/stateSlice";
 import isEmpty from "lodash/isEmpty";
-import CustomerForm from "views/crm/CustomerForm";
+import StudentForm from "views/student/StudentForm";
 import dayjs from "dayjs";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { toast, Notification } from "components/ui";
 
-const CustomerNewContent = forwardRef((_, ref) => {
+const StudentNewContent = forwardRef((_, ref) => {
   const dispatch = useDispatch();
 
   const onFormSubmit = values => {
@@ -23,7 +23,7 @@ const CustomerNewContent = forwardRef((_, ref) => {
       admission_date,
       graduation_date
     } = values;
-    const newCustomer = {
+    const newStudent = {
       username: username,
       first_name: first_name,
       middle_name: middle_name,
@@ -37,8 +37,8 @@ const CustomerNewContent = forwardRef((_, ref) => {
       }
     };
 
-    if (!isEmpty(newCustomer)) {
-      dispatch(createCustomer(newCustomer))
+    if (!isEmpty(newStudent)) {
+      dispatch(createStudent(newStudent))
         .then(unwrapResult)
         .then(result => {
           if (result.success) {
@@ -47,7 +47,7 @@ const CustomerNewContent = forwardRef((_, ref) => {
                 Student created successfully
               </Notification>
             );
-            dispatch(toggleNewCustomerDialog(false));
+            dispatch(toggleNewStudentDialog(false));
             window.location.reload();
           } else {
             const errors = result.response;
@@ -66,9 +66,9 @@ const CustomerNewContent = forwardRef((_, ref) => {
 
   return (
     <>
-      <CustomerForm ref={ref} onFormSubmit={onFormSubmit} modal={true} />;
+      <StudentForm ref={ref} onFormSubmit={onFormSubmit} modal={true} />;
     </>
   );
 });
 
-export default CustomerNewContent;
+export default StudentNewContent;

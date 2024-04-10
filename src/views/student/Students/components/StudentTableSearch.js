@@ -3,7 +3,7 @@ import { Input } from "components/ui";
 import { HiOutlineSearch } from "react-icons/hi";
 import debounce from "lodash/debounce";
 
-const CustomerTableSearch = forwardRef((props, ref) => {
+const StudentTableSearch = forwardRef((props, ref) => {
   const { onInputChange } = props;
 
   const debounceFn = debounce(handleDebounceFn, 500);
@@ -28,4 +28,4 @@ const CustomerTableSearch = forwardRef((props, ref) => {
   );
 });
 
-export default CustomerTableSearch;
+export default StudentTableSearch;

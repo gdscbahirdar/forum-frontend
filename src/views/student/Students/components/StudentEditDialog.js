@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { Button, Drawer } from "components/ui";
-import CustomerEditContent from "./CustomerEditContent";
+import StudentEditContent from "./StudentEditContent";
 import { useDispatch, useSelector } from "react-redux";
-import { setDrawerClose, setSelectedCustomer } from "../store/stateSlice";
+import { setDrawerClose, setSelectedStudent } from "../store/stateSlice";
 
 const DrawerFooter = ({ onSaveClick, onCancel }) => {
   return (
@@ -17,13 +17,15 @@ const DrawerFooter = ({ onSaveClick, onCancel }) => {
   );
 };
 
-const CustomerEditDialog = () => {
+const StudentEditDialog = () => {
   const dispatch = useDispatch();
-  const drawerOpen = useSelector(state => state.crmCustomers.state.drawerOpen);
+  const drawerOpen = useSelector(
+    state => state.studentStudents.state.drawerOpen
+  );
 
   const onDrawerClose = () => {
     dispatch(setDrawerClose());
-    dispatch(setSelectedCustomer({}));
+    dispatch(setSelectedStudent({}));
   };
 
   const formikRef = useRef();
@@ -43,9 +45,9 @@ const CustomerEditDialog = () => {
         <DrawerFooter onCancel={onDrawerClose} onSaveClick={formSubmit} />
       }
     >
-      <CustomerEditContent ref={formikRef} />
+      <StudentEditContent ref={formikRef} />
     </Drawer>
   );
 };
 
-export default CustomerEditDialog;
+export default StudentEditDialog;

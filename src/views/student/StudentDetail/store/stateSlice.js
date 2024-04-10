@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const stateSlice = createSlice({
-  name: "crmCustomerDetails/state",
+  name: "studentStudentDetails/state",
   initialState: {
     deletePaymentMethodDialog: false,
     editPaymentMethodDialog: false,
-    editCustomerDetailDialog: false,
+    editStudentDetailDialog: false,
     selectedCard: {}
   },
   reducers: {
@@ -21,11 +21,11 @@ const stateSlice = createSlice({
     closeEditPaymentMethodDialog: state => {
       state.editPaymentMethodDialog = false;
     },
-    openEditCustomerDetailDialog: state => {
-      state.editCustomerDetailDialog = true;
+    openEditStudentDetailDialog: state => {
+      state.editStudentDetailDialog = true;
     },
-    closeEditCustomerDetailDialog: state => {
-      state.editCustomerDetailDialog = false;
+    closeEditStudentDetailDialog: state => {
+      state.editStudentDetailDialog = false;
     },
     updateSelectedCard: (state, action) => {
       state.selectedCard = action.payload;
@@ -38,8 +38,8 @@ export const {
   closeDeletePaymentMethodDialog,
   openEditPaymentMethodDialog,
   closeEditPaymentMethodDialog,
-  openEditCustomerDetailDialog,
-  closeEditCustomerDetailDialog,
+  openEditStudentDetailDialog,
+  closeEditStudentDetailDialog,
   updateSelectedCard
 } = stateSlice.actions;
 

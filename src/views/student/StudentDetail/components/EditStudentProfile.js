@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import { Drawer, Button } from "components/ui";
 import { useDispatch, useSelector } from "react-redux";
-import { closeEditCustomerDetailDialog } from "../store/stateSlice";
-import { updateProfileData, putCustomer } from "../store/dataSlice";
-import CustomerForm from "views/crm/CustomerForm";
+import { closeEditStudentDetailDialog } from "../store/stateSlice";
+import { updateProfileData, putStudent } from "../store/dataSlice";
+import StudentForm from "views/student/StudentForm";
 import dayjs from "dayjs";
 
 const DrawerFooter = ({ onSaveClick, onCancel }) => {
@@ -19,20 +19,20 @@ const DrawerFooter = ({ onSaveClick, onCancel }) => {
   );
 };
 
-const EditCustomerProfile = () => {
+const EditStudentProfile = () => {
   const dispatch = useDispatch();
 
   const formikRef = useRef();
 
   const dialogOpen = useSelector(
-    state => state.crmCustomerDetails.state.editCustomerDetailDialog
+    state => state.studentStudentDetails.state.editStudentDetailDialog
   );
   const student = useSelector(
-    state => state.crmCustomerDetails.data.profileData
+    state => state.studentStudentDetails.data.profileData
   );
 
   const onDrawerClose = () => {
-    dispatch(closeEditCustomerDetailDialog());
+    dispatch(closeEditStudentDetailDialog());
   };
 
   const formSubmit = () => {
@@ -64,7 +64,7 @@ const EditCustomerProfile = () => {
       graduation_date: dayjs(graduation_date).format("YYYY/MM/DD")
     };
     dispatch(updateProfileData(newData));
-    dispatch(putCustomer(newData));
+    dispatch(putStudent(newData));
     onDrawerClose();
   };
 
@@ -79,7 +79,7 @@ const EditCustomerProfile = () => {
         <DrawerFooter onCancel={onDrawerClose} onSaveClick={formSubmit} />
       }
     >
-      <CustomerForm
+      <StudentForm
         ref={formikRef}
         onFormSubmit={onFormSubmit}
         student={student}
@@ -88,4 +88,4 @@ const EditCustomerProfile = () => {
   );
 };
 
-export default EditCustomerProfile;
+export default EditStudentProfile;

@@ -39,11 +39,11 @@ const CustomControl = ({ children, ...props }) => {
   );
 };
 
-const CustomerTableFilter = () => {
+const StudentTableFilter = () => {
   const dispatch = useDispatch();
 
   const { year_in_school } = useSelector(
-    state => state.crmCustomers.data.filterData
+    state => state.studentStudents.data.filterData
   );
 
   const onYearInFilterChange = selected => {
@@ -67,4 +67,4 @@ const CustomerTableFilter = () => {
   );
 };
 
-export default CustomerTableFilter;
+export default StudentTableFilter;

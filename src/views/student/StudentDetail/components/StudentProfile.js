@@ -4,11 +4,11 @@ import { HiPencilAlt, HiOutlineTrash } from "react-icons/hi";
 import { ConfirmDialog } from "components/shared";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { deleteCustomer } from "../store/dataSlice";
-import { openEditCustomerDetailDialog } from "../store/stateSlice";
-import EditCustomerProfile from "./EditCustomerProfile";
+import { deleteStudent } from "../store/dataSlice";
+import { openEditStudentDetailDialog } from "../store/stateSlice";
+import EditStudentProfile from "./EditStudentProfile";
 
-const CustomerInfoField = ({ title, value }) => {
+const StudentInfoField = ({ title, value }) => {
   return (
     <div>
       <span>{title}</span>
@@ -17,7 +17,7 @@ const CustomerInfoField = ({ title, value }) => {
   );
 };
 
-const CustomerProfileAction = ({ id }) => {
+const StudentProfileAction = ({ id }) => {
   const dispatch = useDispatch();
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -33,7 +33,7 @@ const CustomerProfileAction = ({ id }) => {
 
   const onDelete = () => {
     setDialogOpen(false);
-    dispatch(deleteCustomer(id));
+    dispatch(deleteStudent(id));
     navigate("/students");
     toast.push(
       <Notification title={"Successfully Deleted"} type="success">
@@ -43,7 +43,7 @@ const CustomerProfileAction = ({ id }) => {
   };
 
   const onEdit = () => {
-    dispatch(openEditCustomerDetailDialog());
+    dispatch(openEditStudentDetailDialog());
   };
 
   return (
@@ -69,41 +69,41 @@ const CustomerProfileAction = ({ id }) => {
           this student will be deleted as well. This action cannot be undone.
         </p>
       </ConfirmDialog>
-      <EditCustomerProfile />
+      <EditStudentProfile />
     </>
   );
 };
 
-const CustomerProfile = ({ data = {} }) => {
+const StudentProfile = ({ data = {} }) => {
   return (
     <Card>
       <div className="flex flex-col xl:justify-between h-full 2xl:min-w-[360px] mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-y-7 gap-x-4 mt-8">
-          <CustomerInfoField title="Username" value={data.username} />
-          <CustomerInfoField title="First Name" value={data.first_name} />
-          <CustomerInfoField title="Middle Name" value={data.middle_name} />
-          <CustomerInfoField title="Last Name" value={data.last_name} />
-          <CustomerInfoField title="Faculty" value={data.faculty} />
-          <CustomerInfoField title="Department" value={data.department} />
-          <CustomerInfoField
+          <StudentInfoField title="Username" value={data.username} />
+          <StudentInfoField title="First Name" value={data.first_name} />
+          <StudentInfoField title="Middle Name" value={data.middle_name} />
+          <StudentInfoField title="Last Name" value={data.last_name} />
+          <StudentInfoField title="Faculty" value={data.faculty} />
+          <StudentInfoField title="Department" value={data.department} />
+          <StudentInfoField
             title="Year in School"
             value={data.year_in_school}
           />
-          <CustomerInfoField
+          <StudentInfoField
             title="Admission Date"
             value={data.admission_date}
           />
-          <CustomerInfoField
+          <StudentInfoField
             title="Graduation Date"
             value={data.graduation_date}
           />
         </div>
         <div className="mt-4 flex flex-col xl:flex-row gap-2">
-          <CustomerProfileAction id={data.id} />
+          <StudentProfileAction id={data.id} />
         </div>
       </div>
     </Card>
   );
 };
 
-export default CustomerProfile;
+export default StudentProfile;

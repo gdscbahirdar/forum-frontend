@@ -1,22 +1,26 @@
 import React, { useEffect } from "react";
 import { Loading, Container, DoubleSidedImage } from "components/shared";
-import CustomerProfile from "./components/CustomerProfile";
+import StudentProfile from "./components/StudentProfile";
 import { useDispatch, useSelector } from "react-redux";
-import { getCustomer } from "./store/dataSlice";
+import { getStudent } from "./store/dataSlice";
 import reducer from "./store";
 import { injectReducer } from "store/index";
 import isEmpty from "lodash/isEmpty";
 import useQuery from "utils/hooks/useQuery";
 
-injectReducer("crmCustomerDetails", reducer);
+injectReducer("studentStudentDetails", reducer);
 
-const CustomerDetail = () => {
+const StudentDetail = () => {
   const dispatch = useDispatch();
 
   const query = useQuery();
 
-  const data = useSelector(state => state.crmCustomerDetails.data.profileData);
-  const loading = useSelector(state => state.crmCustomerDetails.data.loading);
+  const data = useSelector(
+    state => state.studentStudentDetails.data.profileData
+  );
+  const loading = useSelector(
+    state => state.studentStudentDetails.data.loading
+  );
 
   useEffect(() => {
     fetchData();
@@ -26,7 +30,7 @@ const CustomerDetail = () => {
   const fetchData = () => {
     const id = query.get("id");
     if (id) {
-      dispatch(getCustomer(id));
+      dispatch(getStudent(id));
     }
   };
 
@@ -36,7 +40,7 @@ const CustomerDetail = () => {
         {!isEmpty(data) && (
           <div className="flex flex-col xl:flex-row gap-4">
             <div>
-              <CustomerProfile data={data} />
+              <StudentProfile data={data} />
             </div>
           </div>
         )}
@@ -55,4 +59,4 @@ const CustomerDetail = () => {
   );
 };
 
-export default CustomerDetail;
+export default StudentDetail;

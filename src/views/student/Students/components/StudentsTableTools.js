@@ -1,19 +1,19 @@
 import React, { useRef } from "react";
 import { Button } from "components/ui";
-import { getCustomers, setTableData, setFilterData } from "../store/dataSlice";
-import CustomerTableSearch from "./CustomerTableSearch";
-import CustomerTableFilter from "./CustomerTableFilter";
+import { getStudents, setTableData, setFilterData } from "../store/dataSlice";
+import StudentTableSearch from "./StudentTableSearch";
+import StudentTableFilter from "./StudentTableFilter";
 import { useDispatch, useSelector } from "react-redux";
 import cloneDeep from "lodash/cloneDeep";
 import { HiOutlinePlusCircle } from "react-icons/hi";
-import { toggleNewCustomerDialog } from "../store/stateSlice";
+import { toggleNewStudentDialog } from "../store/stateSlice";
 
-const CustomersTableTools = () => {
+const StudentsTableTools = () => {
   const dispatch = useDispatch();
 
   const inputRef = useRef();
 
-  const tableData = useSelector(state => state.crmCustomers.data.tableData);
+  const tableData = useSelector(state => state.studentStudents.data.tableData);
 
   const handleInputChange = val => {
     const newTableData = cloneDeep(tableData);
@@ -28,13 +28,13 @@ const CustomersTableTools = () => {
     }
   };
 
-  const onAddNewCustomer = () => {
-    dispatch(toggleNewCustomerDialog(true));
+  const onAddNewStudent = () => {
+    dispatch(toggleNewStudentDialog(true));
   };
 
   const fetchData = data => {
     dispatch(setTableData(data));
-    dispatch(getCustomers(data));
+    dispatch(getStudents(data));
   };
 
   const onClearAll = () => {
@@ -49,8 +49,8 @@ const CustomersTableTools = () => {
     <div className="lg:flex items-center justify-between mb-4">
       <h3 className="mb-4 lg:mb-0">Students</h3>
       <div className="flex flex-col md:flex-row lg:items-center gap-2">
-        <CustomerTableSearch ref={inputRef} onInputChange={handleInputChange} />
-        <CustomerTableFilter />
+        <StudentTableSearch ref={inputRef} onInputChange={handleInputChange} />
+        <StudentTableFilter />
         <Button className="max-w-md mb-4" size="sm" onClick={onClearAll}>
           Clear All
         </Button>
@@ -59,7 +59,7 @@ const CustomersTableTools = () => {
           className="max-w-md mb-4"
           variant="twoTone"
           icon={<HiOutlinePlusCircle />}
-          onClick={onAddNewCustomer}
+          onClick={onAddNewStudent}
         >
           New Student
         </Button>
@@ -68,4 +68,4 @@ const CustomersTableTools = () => {
   );
 };
 
-export default CustomersTableTools;
+export default StudentsTableTools;

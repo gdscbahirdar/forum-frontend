@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const stateSlice = createSlice({
-  name: "crmCustomers/state",
+  name: "studentStudents/state",
   initialState: {
     drawerOpen: false,
-    selectedCustomer: {},
+    selectedStudent: {},
     sortedColumn: () => {},
-    newCustomerDialog: false
+    newStudentDialog: false
   },
   reducers: {
-    setSelectedCustomer: (state, action) => {
-      state.selectedCustomer = action.payload;
+    setSelectedStudent: (state, action) => {
+      state.selectedStudent = action.payload;
     },
     setSortedColumn: (state, action) => {
       state.sortedColumn = action.payload;
@@ -21,18 +21,18 @@ const stateSlice = createSlice({
     setDrawerClose: state => {
       state.drawerOpen = false;
     },
-    toggleNewCustomerDialog: (state, action) => {
-      state.newCustomerDialog = action.payload;
+    toggleNewStudentDialog: (state, action) => {
+      state.newStudentDialog = action.payload;
     }
   }
 });
 
 export const {
-  setSelectedCustomer,
+  setSelectedStudent,
   setDrawerOpen,
   setDrawerClose,
   setSortedColumn,
-  toggleNewCustomerDialog
+  toggleNewStudentDialog
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

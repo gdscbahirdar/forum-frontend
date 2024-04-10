@@ -1,14 +1,14 @@
 import React, { useEffect, useCallback, useMemo } from "react";
 import { DataTable } from "components/shared";
 import { useDispatch, useSelector } from "react-redux";
-import { getCustomers, setTableData } from "../store/dataSlice";
+import { getStudents, setTableData } from "../store/dataSlice";
 import {
-  setSelectedCustomer,
+  setSelectedStudent,
   setDrawerOpen,
   setSortedColumn
 } from "../store/stateSlice";
 import useThemeClass from "utils/hooks/useThemeClass";
-import CustomerEditDialog from "./CustomerEditDialog";
+import StudentEditDialog from "./StudentEditDialog";
 import { Link } from "react-router-dom";
 import cloneDeep from "lodash/cloneDeep";
 
@@ -18,7 +18,7 @@ const ActionColumn = ({ row }) => {
 
   const onEdit = () => {
     dispatch(setDrawerOpen());
-    dispatch(setSelectedCustomer(row));
+    dispatch(setSelectedStudent(row));
   };
 
   return (
@@ -80,18 +80,20 @@ const columns = [
   }
 ];
 
-const Customers = () => {
+const Students = () => {
   const dispatch = useDispatch();
-  const data = useSelector(state => state.crmCustomers.data.customerList);
-  const loading = useSelector(state => state.crmCustomers.data.loading);
-  const filterData = useSelector(state => state.crmCustomers.data.filterData);
+  const data = useSelector(state => state.studentStudents.data.studentList);
+  const loading = useSelector(state => state.studentStudents.data.loading);
+  const filterData = useSelector(
+    state => state.studentStudents.data.filterData
+  );
 
   const { pageIndex, pageSize, sort, query, total } = useSelector(
-    state => state.crmCustomers.data.tableData
+    state => state.studentStudents.data.tableData
   );
 
   const fetchData = useCallback(() => {
-    dispatch(getCustomers({ pageIndex, pageSize, sort, query, filterData }));
+    dispatch(getStudents({ pageIndex, pageSize, sort, query, filterData }));
   }, [pageIndex, pageSize, sort, query, filterData, dispatch]);
 
   useEffect(() => {
@@ -136,9 +138,9 @@ const Customers = () => {
         onSelectChange={onSelectChange}
         onSort={onSort}
       />
-      <CustomerEditDialog />
+      <StudentEditDialog />
     </>
   );
 };
 
-export default Customers;
+export default Students;

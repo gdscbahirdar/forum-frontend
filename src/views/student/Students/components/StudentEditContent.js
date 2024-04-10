@@ -1,21 +1,21 @@
 import React, { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { putCustomer } from "../store/dataSlice";
+import { putStudent } from "../store/dataSlice";
 import { setDrawerClose } from "../store/stateSlice";
 import cloneDeep from "lodash/cloneDeep";
 import isEmpty from "lodash/isEmpty";
-import CustomerForm from "views/crm/CustomerForm";
+import StudentForm from "views/student/StudentForm";
 import dayjs from "dayjs";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { toast, Notification } from "components/ui";
 
-const CustomerEditContent = forwardRef((_, ref) => {
+const StudentEditContent = forwardRef((_, ref) => {
   const dispatch = useDispatch();
 
   const student = useSelector(
-    state => state.crmCustomers.state.selectedCustomer
+    state => state.studentStudents.state.selectedStudent
   );
-  const data = useSelector(state => state.crmCustomers.data.customerList);
+  const data = useSelector(state => state.studentStudents.data.studentList);
   const { id } = student;
 
   const onFormSubmit = values => {
@@ -42,29 +42,29 @@ const CustomerEditContent = forwardRef((_, ref) => {
       graduation_date: dayjs(graduation_date).format("YYYY-MM-DD")
     };
     let newData = cloneDeep(data);
-    let editedCustomer = {};
+    let editedStudent = {};
     newData.map(elm => {
       if (elm.id === id) {
         elm = { ...elm, ...info };
-        editedCustomer = elm;
+        editedStudent = elm;
       }
       return elm;
     });
-    editedCustomer = {
-      username: editedCustomer.username,
-      first_name: editedCustomer.first_name,
-      middle_name: editedCustomer.middle_name,
-      last_name: editedCustomer.last_name,
+    editedStudent = {
+      username: editedStudent.username,
+      first_name: editedStudent.first_name,
+      middle_name: editedStudent.middle_name,
+      last_name: editedStudent.last_name,
       student: {
-        faculty: editedCustomer.faculty,
-        department: editedCustomer.department,
-        year_in_school: editedCustomer.year_in_school,
+        faculty: editedStudent.faculty,
+        department: editedStudent.department,
+        year_in_school: editedStudent.year_in_school,
         admission_date: dayjs(admission_date).format("YYYY-MM-DD"),
         graduation_date: dayjs(graduation_date).format("YYYY-MM-DD")
       }
     };
-    if (!isEmpty(editedCustomer)) {
-      dispatch(putCustomer({ id, editedCustomer }))
+    if (!isEmpty(editedStudent)) {
+      dispatch(putStudent({ id, editedStudent }))
         .then(unwrapResult)
         .then(result => {
           if (result.success) {
@@ -91,8 +91,8 @@ const CustomerEditContent = forwardRef((_, ref) => {
   };
 
   return (
-    <CustomerForm ref={ref} onFormSubmit={onFormSubmit} student={student} />
+    <StudentForm ref={ref} onFormSubmit={onFormSubmit} student={student} />
   );
 });
 
-export default CustomerEditContent;
+export default StudentEditContent;

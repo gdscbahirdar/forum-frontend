@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { Button, Dialog } from "components/ui";
-import CustomerNewContent from "./CustomerNewContent";
+import StudentNewContent from "./StudentNewContent";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleNewCustomerDialog } from "../store/stateSlice";
+import { toggleNewStudentDialog } from "../store/stateSlice";
 
 const DialogFooter = ({ onSaveClick, onCancel }) => {
   return (
@@ -17,15 +17,15 @@ const DialogFooter = ({ onSaveClick, onCancel }) => {
   );
 };
 
-const CustomerNewDialog = () => {
+const StudentNewDialog = () => {
   const dispatch = useDispatch();
 
-  const newCustomerDialog = useSelector(
-    state => state.crmCustomers.state.newCustomerDialog
+  const newStudentDialog = useSelector(
+    state => state.studentStudents.state.newStudentDialog
   );
 
   const onDialogClose = () => {
-    dispatch(toggleNewCustomerDialog(false));
+    dispatch(toggleNewStudentDialog(false));
   };
 
   const formikRef = useRef();
@@ -37,15 +37,15 @@ const CustomerNewDialog = () => {
   return (
     <Dialog
       width={800}
-      isOpen={newCustomerDialog}
+      isOpen={newStudentDialog}
       onClose={onDialogClose}
       onRequestClose={onDialogClose}
     >
       <h5 className="mb-4">Create New Student</h5>
-      <CustomerNewContent ref={formikRef} />
+      <StudentNewContent ref={formikRef} />
       <DialogFooter onCancel={onDialogClose} onSaveClick={formSubmit} />
     </Dialog>
   );
 };
 
-export default CustomerNewDialog;
+export default StudentNewDialog;

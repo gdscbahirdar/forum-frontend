@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  apiGetCrmCustomerDetails,
-  apiDeleteCrmCustomer,
-  apiPutCrmCustomer
-} from "services/CrmService";
+  apiGetStudentStudentDetails,
+  apiDeleteStudentStudent,
+  apiPutStudentStudent
+} from "services/StudentService";
 
-export const getCustomer = createAsyncThunk(
-  "crmCustomerDetails/data/getCustomer",
+export const getStudent = createAsyncThunk(
+  "studentStudentDetails/data/getStudent",
   async data => {
-    const response = await apiGetCrmCustomerDetails(data);
+    const response = await apiGetStudentStudentDetails(data);
     const user = response.data;
     return {
       id: user.pk,
@@ -25,24 +25,24 @@ export const getCustomer = createAsyncThunk(
   }
 );
 
-export const deleteCustomer = createAsyncThunk(
-  "crmCustomerDetails/data/deleteCustomer",
+export const deleteStudent = createAsyncThunk(
+  "studentStudentDetails/data/deleteStudent",
   async data => {
-    const response = await apiDeleteCrmCustomer(data);
+    const response = await apiDeleteStudentStudent(data);
     return response.data;
   }
 );
 
-export const putCustomer = createAsyncThunk(
-  "crmCustomerDetails/data/putCustomer",
+export const putStudent = createAsyncThunk(
+  "studentStudentDetails/data/putStudent",
   async data => {
-    const response = await apiPutCrmCustomer(data);
+    const response = await apiPutStudentStudent(data);
     return response.data;
   }
 );
 
 const dataSlice = createSlice({
-  name: "crmCustomerDetails/data",
+  name: "studentStudentDetails/data",
   initialState: {
     loading: false,
     profileData: {}
@@ -53,13 +53,13 @@ const dataSlice = createSlice({
     }
   },
   extraReducers: {
-    [getCustomer.fulfilled]: (state, action) => {
+    [getStudent.fulfilled]: (state, action) => {
       state.loading = false;
       state.profileData = action.payload;
     },
-    [deleteCustomer.fulfilled]: () => {},
-    [putCustomer.fulfilled]: () => {},
-    [getCustomer.pending]: state => {
+    [deleteStudent.fulfilled]: () => {},
+    [putStudent.fulfilled]: () => {},
+    [getStudent.pending]: state => {
       state.loading = true;
     }
   }

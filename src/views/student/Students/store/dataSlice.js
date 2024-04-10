@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  apiCreateCrmCustomer,
-  apiGetCrmCustomers,
-  apiPutCrmCustomer
-} from "services/CrmService";
+  apiCreateStudentStudent,
+  apiGetStudentStudents,
+  apiPutStudentStudent
+} from "services/StudentService";
 
-export const getCustomers = createAsyncThunk(
-  "crmCustomers/data/getCustomers",
+export const getStudents = createAsyncThunk(
+  "studentStudents/data/getStudents",
   async params => {
     const { key, order } = params.sort;
     const updatedParams = {
@@ -18,7 +18,7 @@ export const getCustomers = createAsyncThunk(
     if (params.filterData.year_in_school) {
       updatedParams.student__year_in_school = params.filterData.year_in_school;
     }
-    const response = await apiGetCrmCustomers(updatedParams);
+    const response = await apiGetStudentStudents(updatedParams);
     const results = response.data.results;
     const transformedData = results.map(user => ({
       id: user.pk,
@@ -40,11 +40,11 @@ export const getCustomers = createAsyncThunk(
   }
 );
 
-export const createCustomer = createAsyncThunk(
-  "crmCustomerDetails/data/createCustomer",
+export const createStudent = createAsyncThunk(
+  "studentStudentDetails/data/createStudent",
   async data => {
     try {
-      const response = await apiCreateCrmCustomer(data);
+      const response = await apiCreateStudentStudent(data);
       const user = response.data;
       const transformedData = {
         id: user.pk,
@@ -66,12 +66,12 @@ export const createCustomer = createAsyncThunk(
   }
 );
 
-export const putCustomer = createAsyncThunk(
-  "crmCustomers/data/putCustomer",
+export const putStudent = createAsyncThunk(
+  "studentStudents/data/putStudent",
   async data => {
     try {
-      const { id, editedCustomer } = data;
-      const response = await apiPutCrmCustomer(id, editedCustomer);
+      const { id, editedStudent } = data;
+      const response = await apiPutStudentStudent(id, editedStudent);
       const user = response.data;
       const transformedData = {
         id: user.pk,
@@ -109,10 +109,10 @@ export const initialFilterData = {
 };
 
 const dataSlice = createSlice({
-  name: "crmCustomers/data",
+  name: "studentStudents/data",
   initialState: {
     loading: false,
-    customerList: [],
+    studentList: [],
     tableData: initialTableData,
     filterData: initialFilterData
   },
@@ -120,26 +120,26 @@ const dataSlice = createSlice({
     setTableData: (state, action) => {
       state.tableData = action.payload;
     },
-    setCustomerList: (state, action) => {
-      state.customerList = action.payload;
+    setStudentList: (state, action) => {
+      state.studentList = action.payload;
     },
     setFilterData: (state, action) => {
       state.filterData = action.payload;
     }
   },
   extraReducers: {
-    [getCustomers.fulfilled]: (state, action) => {
-      state.customerList = action.payload.data;
+    [getStudents.fulfilled]: (state, action) => {
+      state.studentList = action.payload.data;
       state.tableData.total = action.payload.total;
       state.loading = false;
     },
-    [getCustomers.pending]: state => {
+    [getStudents.pending]: state => {
       state.loading = true;
     }
   }
 });
 
-export const { setTableData, setCustomerList, setFilterData } =
+export const { setTableData, setStudentList, setFilterData } =
   dataSlice.actions;
 
 export default dataSlice.reducer;

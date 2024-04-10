@@ -1,4 +1,4 @@
-id,date,customer,status,paymentMehod,paymentIdendifier,totalAmount
+id,date,student,status,paymentMehod,paymentIdendifier,totalAmount
 95954,1660132800,Ron Vargas,0,visa,•••• 6165,168
 95423,1659132800,Carolyn Hanso,0,visa,•••• 7128,523
 92903,1658132800,Gabriella May,0,paypal,••••@gmail.com,81

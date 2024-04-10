@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
   graduation_date: Yup.string().required("Graduation Date Required")
 });
 
-const CustomerForm = forwardRef((props, ref) => {
+const StudentForm = forwardRef((props, ref) => {
   const { student, onFormSubmit, modal } = props;
 
   return (
@@ -74,4 +74,4 @@ const CustomerForm = forwardRef((props, ref) => {
   );
 });
 
-export default CustomerForm;
+export default StudentForm;
