@@ -48,8 +48,18 @@ export const protectedRoutes = [
   {
     key: "users.teachers",
     path: "/teachers",
-    component: React.lazy(() => import("views/demo/CollapseMenuItemView2")),
+    component: React.lazy(() => import("views/teacher/Teachers")),
     authority: [SUPER_ADMIN, FACULTY_ADMIN]
+  },
+  {
+    key: "users.teacherDetails",
+    path: "/teachers/teacher-details",
+    component: React.lazy(() => import("views/teacher/TeacherDetail")),
+    authority: [SUPER_ADMIN, FACULTY_ADMIN],
+    meta: {
+      header: "Teacher Details",
+      headerContainer: true
+    }
   },
   {
     key: "users.faculty_admin",
