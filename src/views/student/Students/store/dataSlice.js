@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  apiCreateStudentStudent,
-  apiGetStudentStudents,
-  apiPutStudentStudent
+  apiCreateStudent,
+  apiGetStudents,
+  apiPutStudent
 } from "services/StudentService";
 
 export const getStudents = createAsyncThunk(
@@ -18,7 +18,7 @@ export const getStudents = createAsyncThunk(
     if (params.filterData.year_in_school) {
       updatedParams.student__year_in_school = params.filterData.year_in_school;
     }
-    const response = await apiGetStudentStudents(updatedParams);
+    const response = await apiGetStudents(updatedParams);
     const results = response.data.results;
     const transformedData = results.map(user => ({
       id: user.pk,
@@ -44,7 +44,7 @@ export const createStudent = createAsyncThunk(
   "studentStudentDetails/data/createStudent",
   async data => {
     try {
-      const response = await apiCreateStudentStudent(data);
+      const response = await apiCreateStudent(data);
       const user = response.data;
       const transformedData = {
         id: user.pk,
@@ -71,7 +71,7 @@ export const putStudent = createAsyncThunk(
   async data => {
     try {
       const { id, editedStudent } = data;
-      const response = await apiPutStudentStudent(id, editedStudent);
+      const response = await apiPutStudent(id, editedStudent);
       const user = response.data;
       const transformedData = {
         id: user.pk,

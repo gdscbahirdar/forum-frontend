@@ -1,14 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  apiGetStudentStudentDetails,
-  apiDeleteStudentStudent,
-  apiPutStudentStudent
+  apiGetStudentDetails,
+  apiDeleteStudent,
+  apiPutStudent
 } from "services/StudentService";
 
 export const getStudent = createAsyncThunk(
   "studentStudentDetails/data/getStudent",
   async data => {
-    const response = await apiGetStudentStudentDetails(data);
+    const response = await apiGetStudentDetails(data);
     const user = response.data;
     return {
       id: user.pk,
@@ -28,7 +28,7 @@ export const getStudent = createAsyncThunk(
 export const deleteStudent = createAsyncThunk(
   "studentStudentDetails/data/deleteStudent",
   async data => {
-    const response = await apiDeleteStudentStudent(data);
+    const response = await apiDeleteStudent(data);
     return response.data;
   }
 );
@@ -36,7 +36,7 @@ export const deleteStudent = createAsyncThunk(
 export const putStudent = createAsyncThunk(
   "studentStudentDetails/data/putStudent",
   async data => {
-    const response = await apiPutStudentStudent(data);
+    const response = await apiPutStudent(data);
     return response.data;
   }
 );

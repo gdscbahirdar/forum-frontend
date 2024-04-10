@@ -1,6 +1,6 @@
 import ApiService from "./ApiService";
 
-export async function apiGetStudentStudents(data) {
+export async function apiGetStudents(data) {
   return ApiService.fetchData({
     url: "/entities/student/",
     method: "get",
@@ -8,14 +8,14 @@ export async function apiGetStudentStudents(data) {
   });
 }
 
-export async function apiGetStudentStudentDetails(id) {
+export async function apiGetStudentDetails(id) {
   return ApiService.fetchData({
     url: `/entities/student/${id}`,
     method: "get"
   });
 }
 
-export async function apiPutStudentStudent(id, data) {
+export async function apiPutStudent(id, data) {
   return ApiService.fetchData({
     url: `/entities/student/${id}/`,
     method: "put",
@@ -23,7 +23,7 @@ export async function apiPutStudentStudent(id, data) {
   });
 }
 
-export async function apiCreateStudentStudent(data) {
+export async function apiCreateStudent(data) {
   return ApiService.fetchData({
     url: "/entities/student/",
     method: "post",
@@ -31,7 +31,7 @@ export async function apiCreateStudentStudent(data) {
   });
 }
 
-export async function apiDeleteStudentStudent(id) {
+export async function apiDeleteStudent(id) {
   return ApiService.fetchData({
     url: `/entities/student/${id}`,
     method: "delete"
