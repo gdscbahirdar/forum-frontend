@@ -18,6 +18,18 @@ export const protectedRoutes = [
     authority: []
   },
   {
+    key: "tags.tags",
+    path: "/tags",
+    component: React.lazy(() => import("views/question/Tags")),
+    authority: []
+  },
+  {
+    key: "questions.tagged",
+    path: "/questions/tagged",
+    component: React.lazy(() => import("views/question/Questions")),
+    authority: []
+  },
+  {
     key: "resetPassword",
     path: `/reset-password`,
     component: React.lazy(() => import("views/auth/ResetPassword")),

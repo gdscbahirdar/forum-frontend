@@ -82,12 +82,14 @@ export const TopQuestionList = () => {
                     <div className="flex items-center gap-2">
                       {question.tags &&
                         question.tags.map((tag, index) => (
-                          <Tag
-                            key={index}
-                            className="bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-100 border border-blue-200 rounded mr-1 text-xs font-light"
-                          >
-                            {tag}
-                          </Tag>
+                          <Link to={`/questions/tagged/${tag}`}>
+                            <Tag
+                              key={index}
+                              className="bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-100 border border-blue-200 rounded mr-1 text-xs font-light"
+                            >
+                              {tag}
+                            </Tag>
+                          </Link>
                         ))}
                     </div>
                     <div className="flex items-center gap-4">

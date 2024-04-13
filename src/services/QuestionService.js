@@ -15,6 +15,21 @@ export async function apiGetOthersQuestionList(id) {
   });
 }
 
+export async function apiGetTags(params) {
+  return ApiService.fetchData({
+    url: "/forum/tags/",
+    method: "get",
+    params: params
+  });
+}
+
+export async function apiGetQuestionsByTag(tag) {
+  return ApiService.fetchData({
+    url: `/forum/tags/${tag}/questions/`,
+    method: "get"
+  });
+}
+
 export async function apiGetQuestionDetails(id) {
   return ApiService.fetchData({
     url: `/forum/questions/${id}`,
