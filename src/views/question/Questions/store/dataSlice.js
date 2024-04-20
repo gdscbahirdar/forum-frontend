@@ -3,13 +3,19 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   apiGetQuestions,
   apiCreateQuestion,
-  apiPutQuestion
+  apiPutQuestion,
+  apiGetQuestionsByTag
 } from "services/QuestionService";
 
 export const getQuestions = createAsyncThunk(
   "questions/data/getQuestions",
   async params => {
-    const response = await apiGetQuestions(params);
+    let response = {};
+    if (params.tag) {
+      response = await apiGetQuestionsByTag(params.tag);
+    } else {
+      response = await apiGetQuestions(params);
+    }
     const results = response.data.results;
     const transformedData = results.map(question => ({
       id: question.id,

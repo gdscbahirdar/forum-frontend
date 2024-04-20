@@ -25,7 +25,7 @@ export const protectedRoutes = [
   },
   {
     key: "questions.tagged",
-    path: "/questions/tagged",
+    path: "/questions/tagged/:tag",
     component: React.lazy(() => import("views/question/Questions")),
     authority: []
   },
@@ -38,13 +38,7 @@ export const protectedRoutes = [
   {
     key: "questions",
     path: "/questions",
-    component: React.lazy(() => import("views/demo/SingleMenuView")),
-    authority: []
-  },
-  {
-    key: "tags",
-    path: "/tags",
-    component: React.lazy(() => import("views/demo/SingleMenuView")),
+    component: React.lazy(() => import("views/question/Questions")),
     authority: []
   },
   {

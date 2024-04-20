@@ -2,7 +2,7 @@ import React from "react";
 import { Container } from "components/shared";
 import reducer from "./store";
 import { injectReducer } from "store/index";
-import { TopQuestionList } from "./components/TopQuestionList";
+import { QuestionList } from "./components/QuestionList";
 
 injectReducer("questions", reducer);
 
@@ -11,7 +11,7 @@ const Questions = () => {
     <>
       <Container>
         <div className="mt-8 px-4">
-          <TopQuestionList />
+          <QuestionList />
         </div>
       </Container>
     </>

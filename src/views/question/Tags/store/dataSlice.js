@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiGetQuestionsByTag, apiGetTags } from "services/QuestionService";
+import { apiGetTags } from "services/QuestionService";
 
 export const getTags = createAsyncThunk("data/getTags", async data => {
   const response = await apiGetTags(data);
@@ -14,33 +14,6 @@ export const getTags = createAsyncThunk("data/getTags", async data => {
     total: response.data.count
   };
 });
-
-export const getQuestionsByTag = createAsyncThunk(
-  "data/getQuestionsByTag",
-  async tag => {
-    const response = await apiGetQuestionsByTag(tag);
-    const results = response.data.results;
-    const transformedData = results.map(question => ({
-      id: question.id,
-      title: question.title,
-      body: question.post.body,
-      slug: question.slug,
-      asked_by: question.asked_by,
-      view_count: question.view_count,
-      answer_count: question.answer_count,
-      vote_count: question.post.vote_count,
-      tags: question.tags,
-      is_answered: question.is_answered,
-      is_closed: question.is_closed,
-      created_at: question.created_at,
-      updated_at: question.updated_at
-    }));
-    return {
-      data: transformedData,
-      total: response.data.count
-    };
-  }
-);
 
 export const initialListData = {
   total: 0,

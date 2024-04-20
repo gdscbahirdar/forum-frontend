@@ -6,23 +6,39 @@ import { Loading } from "components/shared";
 import { Button, Card, Tag } from "components/ui";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 dayjs.extend(relativeTime);
 
-export const TopQuestionList = () => {
+export const QuestionList = () => {
   const dispatch = useDispatch();
 
   const data = useSelector(state => state.questions.data.questionList);
   const loading = useSelector(state => state.questions.data.loading);
+
+  const { tag } = useParams();
+
+  const location = useLocation();
+  let heading;
+
+  if (tag) {
+    heading = `Questions Tagged ${tag}`;
+  } else {
+    if (location.pathname === "/home") {
+      heading = "Top Questions";
+    } else {
+      heading = "All Questions";
+    }
+  }
 
   const onAddNewQuestion = () => {
     console.log("Add new student");
   };
 
   const fetchData = useCallback(() => {
-    dispatch(getQuestions());
-  }, [dispatch]);
+    dispatch(getQuestions({ tag }));
+  }, [dispatch, tag]);
 
   useEffect(() => {
     fetchData();
@@ -32,7 +48,7 @@ export const TopQuestionList = () => {
     <Loading loading={loading && data?.length !== 0}>
       <section className="max-w-[1000px] mx-auto">
         <div className="flex justify-between items-center">
-          <h4 className="mb-6">Top Questions</h4>
+          <h4 className="mb-6">{heading}</h4>
           <Button
             size="sm"
             className="max-w-md mb-4"
@@ -43,7 +59,7 @@ export const TopQuestionList = () => {
             Ask Question
           </Button>
         </div>
-        {data.map(question => (
+        {data.slice(0, 10).map(question => (
           <article key={question.id}>
             <Card className="group mb-4">
               <div className="grid grid-cols-9 gap-4">
@@ -66,7 +82,10 @@ export const TopQuestionList = () => {
                 </div>
 
                 <div className="col-span-9 md:col-span-8">
-                  <Link to={`/questions/question-details?id=${question.slug}`}>
+                  <Link
+                    key={question.slug}
+                    to={`/questions/question-details?id=${question.slug}`}
+                  >
                     <div className="flex items-center justify-between mb-2">
                       <h5 className="group-hover:underline text-blue-700 font-normal">
                         {question.title}
@@ -82,7 +101,7 @@ export const TopQuestionList = () => {
                     <div className="flex items-center gap-2">
                       {question.tags &&
                         question.tags.map((tag, index) => (
-                          <Link to={`/questions/tagged/${tag}`}>
+                          <Link key={tag} to={`/questions/tagged/${tag}`}>
                             <Tag
                               key={index}
                               className="bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-100 border border-blue-200 rounded mr-1 text-xs font-light"
