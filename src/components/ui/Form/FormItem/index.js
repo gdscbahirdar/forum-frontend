@@ -20,7 +20,8 @@ const FormItem = React.forwardRef((props, ref) => {
     style,
     size,
     extra,
-    htmlFor
+    htmlFor,
+    description
   } = props;
 
   const formContext = useForm();
@@ -82,6 +83,7 @@ const FormItem = React.forwardRef((props, ref) => {
         {extra && <span>{extra}</span>}
         {label && formItemLayout !== "vertical" && ":"}
       </label>
+      <p className="text-xs text-gray-500 mb-2">{description}</p>
       <div
         className={
           formItemLayout === LAYOUT.HORIZONTAL

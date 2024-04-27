@@ -59,3 +59,19 @@ export async function apiDeleteQuestion(id) {
     method: "delete"
   });
 }
+
+export async function apiCreateAnswer(id, data) {
+  return ApiService.fetchData({
+    url: `/forum/questions/${id}/answers/`,
+    method: "post",
+    data
+  });
+}
+
+export async function apiGetAnswers(id, data) {
+  return ApiService.fetchData({
+    url: `/forum/questions/${id}/answers/`,
+    method: "get",
+    params: data
+  });
+}

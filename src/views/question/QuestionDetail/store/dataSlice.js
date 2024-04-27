@@ -86,11 +86,23 @@ export const putQuestion = createAsyncThunk(
   }
 );
 
+export const initialAnswerPaginationData = {
+  total: 0,
+  page: 1,
+  limit: 5,
+  sort: {
+    field: "created_at",
+    key: "-created_at"
+  }
+};
+
 const dataSlice = createSlice({
   name: "questionDetails/data",
   initialState: {
     loading: false,
     questionData: {},
+    answers: [],
+    answerPaginationData: initialAnswerPaginationData,
     otherLoading: false,
     othersQuestion: {
       relatedQuestion: [],
