@@ -92,31 +92,31 @@ export const protectedRoutes = [
     }
   },
   {
-    key: "groupMenu.saves",
+    key: "others.saves",
     path: "/saves",
     component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
     authority: []
   },
   {
-    key: "groupMenu.reputations",
+    key: "others.reputations",
     path: "/reputations",
     component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
     authority: []
-  },
-  {
-    key: "groupMenu.collapse.item1",
-    path: "/group-collapse-menu-item-view-1",
-    component: React.lazy(
-      () => import("views/demo/GroupCollapseMenuItemView1")
-    ),
-    authority: []
-  },
-  {
-    key: "groupMenu.collapse.item2",
-    path: "/group-collapse-menu-item-view-2",
-    component: React.lazy(
-      () => import("views/demo/GroupCollapseMenuItemView2")
-    ),
-    authority: []
   }
+  // {
+  //   key: "others.collapse.item1",
+  //   path: "/group-collapse-menu-item-view-1",
+  //   component: React.lazy(
+  //     () => import("views/demo/GroupCollapseMenuItemView1")
+  //   ),
+  //   authority: []
+  // },
+  // {
+  //   key: "others.collapse.item2",
+  //   path: "/group-collapse-menu-item-view-2",
+  //   component: React.lazy(
+  //     () => import("views/demo/GroupCollapseMenuItemView2")
+  //   ),
+  //   authority: []
+  // }
 ];

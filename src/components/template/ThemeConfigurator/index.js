@@ -1,9 +1,9 @@
 import React from "react";
 import ModeSwitcher from "./ModeSwitcher";
-import LayoutSwitcher from "./LayoutSwitcher";
-import ThemeSwitcher from "./ThemeSwitcher";
-import NavModeSwitcher from "./NavModeSwitcher";
-import CopyButton from "./CopyButton";
+// import LayoutSwitcher from "./LayoutSwitcher";
+// import ThemeSwitcher from "./ThemeSwitcher";
+// import NavModeSwitcher from "./NavModeSwitcher";
+// import CopyButton from "./CopyButton";
 
 const ThemeConfigurator = ({ callBackClose }) => {
   return (
@@ -16,7 +16,7 @@ const ThemeConfigurator = ({ callBackClose }) => {
           </div>
           <ModeSwitcher />
         </div>
-        <div>
+        {/* <div>
           <h6 className="mb-3">Nav Mode</h6>
           <NavModeSwitcher />
         </div>
@@ -27,9 +27,9 @@ const ThemeConfigurator = ({ callBackClose }) => {
         <div>
           <h6 className="mb-3">Layout</h6>
           <LayoutSwitcher />
-        </div>
+        </div> */}
       </div>
-      <CopyButton />
+      {/* <CopyButton /> */}
     </div>
   );
 };
