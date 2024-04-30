@@ -78,65 +78,65 @@ const navigationConfig = [
     ]
   },
   {
-    key: "groupMenu",
+    key: "others",
     path: "",
-    title: "Group Menu",
-    translateKey: "nav.groupMenu.groupMenu",
+    title: "Others",
+    translateKey: "nav.others.others",
     icon: "",
     type: NAV_ITEM_TYPE_TITLE,
     authority: [],
     subMenu: [
       {
-        key: "groupMenu.saves",
+        key: "others.saves",
         path: "/saves",
         title: "Saves",
-        translateKey: "nav.groupMenu.saves",
+        translateKey: "nav.others.saves",
         icon: "save",
         type: NAV_ITEM_TYPE_ITEM,
         authority: [],
         subMenu: []
-      },
-      {
-        key: "groupMenu.reputations",
-        path: "/reputations",
-        title: "Reputations",
-        translateKey: "nav.groupMenu.reputations",
-        icon: "groupSingleMenu",
-        type: NAV_ITEM_TYPE_ITEM,
-        authority: [],
-        subMenu: []
-      },
-      {
-        key: "groupMenu.collapse",
-        path: "",
-        title: "Group collapse menu",
-        translateKey: "nav.groupMenu.collapse.collapse",
-        icon: "groupCollapseMenu",
-        type: NAV_ITEM_TYPE_COLLAPSE,
-        authority: [],
-        subMenu: [
-          {
-            key: "groupMenu.collapse.item1",
-            path: "/group-collapse-menu-item-view-1",
-            title: "Menu item 1",
-            translateKey: "nav.groupMenu.collapse.item1",
-            icon: "",
-            type: NAV_ITEM_TYPE_ITEM,
-            authority: [],
-            subMenu: []
-          },
-          {
-            key: "groupMenu.collapse.item2",
-            path: "/group-collapse-menu-item-view-2",
-            title: "Menu item 2",
-            translateKey: "nav.groupMenu.collapse.item2",
-            icon: "",
-            type: NAV_ITEM_TYPE_ITEM,
-            authority: [],
-            subMenu: []
-          }
-        ]
       }
+      // {
+      //   key: "others.reputations",
+      //   path: "/reputations",
+      //   title: "Reputations",
+      //   translateKey: "nav.others.reputations",
+      //   icon: "groupSingleMenu",
+      //   type: NAV_ITEM_TYPE_ITEM,
+      //   authority: [],
+      //   subMenu: []
+      // }
+      // {
+      //   key: "others.collapse",
+      //   path: "",
+      //   title: "Group collapse menu",
+      //   translateKey: "nav.others.collapse.collapse",
+      //   icon: "groupCollapseMenu",
+      //   type: NAV_ITEM_TYPE_COLLAPSE,
+      //   authority: [],
+      //   subMenu: [
+      //     {
+      //       key: "others.collapse.item1",
+      //       path: "/group-collapse-menu-item-view-1",
+      //       title: "Menu item 1",
+      //       translateKey: "nav.others.collapse.item1",
+      //       icon: "",
+      //       type: NAV_ITEM_TYPE_ITEM,
+      //       authority: [],
+      //       subMenu: []
+      //     },
+      //     {
+      //       key: "others.collapse.item2",
+      //       path: "/group-collapse-menu-item-view-2",
+      //       title: "Menu item 2",
+      //       translateKey: "nav.others.collapse.item2",
+      //       icon: "",
+      //       type: NAV_ITEM_TYPE_ITEM,
+      //       authority: [],
+      //       subMenu: []
+      //     }
+      //   ]
+      // }
     ]
   }
 ];

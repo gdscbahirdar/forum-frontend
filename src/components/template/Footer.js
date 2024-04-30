@@ -12,7 +12,7 @@ const FooterContent = () => {
         <span className="font-semibold">{`${APP_NAME}`}</span> All rights
         reserved.
       </span>
-      <div className="">
+      {/* <div className="">
         <a className="text-gray" href="/#" onClick={e => e.preventDefault()}>
           Term & Conditions
         </a>
@@ -20,7 +20,7 @@ const FooterContent = () => {
         <a className="text-gray" href="/#" onClick={e => e.preventDefault()}>
           Privacy & Policy
         </a>
-      </div>
+      </div> */}
     </div>
   );
 };

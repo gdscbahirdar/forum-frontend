@@ -6,6 +6,12 @@ const authRoute = [
     path: `/sign-in`,
     component: React.lazy(() => import("views/auth/SignIn")),
     authority: []
+  },
+  {
+    key: "landing",
+    path: ``,
+    component: React.lazy(() => import("components/layout/Landing")),
+    authority: []
   }
 ];
 

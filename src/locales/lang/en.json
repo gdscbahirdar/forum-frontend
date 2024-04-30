@@ -9,8 +9,8 @@
       "item2": "Teachers",
       "item3": "Faculty Admins"
     },
-    "groupMenu": {
-      "groupMenu": "Group menu",
+    "others": {
+      "others": "Others",
       "single": "Saves",
       "collapse": {
         "collapse": "Group collapse menu",
