@@ -75,3 +75,48 @@ export async function apiGetAnswers(id, data) {
     params: data
   });
 }
+
+export async function apiCreateComment(id, data) {
+  return ApiService.fetchData({
+    url: `/forum/${id}/comments/`,
+    method: "post",
+    data
+  });
+}
+
+export async function apiGetComments(id) {
+  return ApiService.fetchData({
+    url: `/forum/${id}/comments/`,
+    method: "get"
+  });
+}
+
+export async function apiCreateVote(data) {
+  return ApiService.fetchData({
+    url: `/forum/vote/`,
+    method: "post",
+    data
+  });
+}
+
+export async function apiAcceptAnswer(id, data) {
+  return ApiService.fetchData({
+    url: `/forum/questions/${id}/accept_answer/`,
+    method: "post",
+    data
+  });
+}
+
+export async function apiCreateBookmark(id) {
+  return ApiService.fetchData({
+    url: `/forum/bookmark/${id}/`,
+    method: "post"
+  });
+}
+
+export async function apiDeleteBookmark(id) {
+  return ApiService.fetchData({
+    url: `/forum/bookmark/${id}/`,
+    method: "delete"
+  });
+}
