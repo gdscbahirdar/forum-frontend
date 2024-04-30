@@ -59,3 +59,64 @@ export async function apiDeleteQuestion(id) {
     method: "delete"
   });
 }
+
+export async function apiCreateAnswer(id, data) {
+  return ApiService.fetchData({
+    url: `/forum/questions/${id}/answers/`,
+    method: "post",
+    data
+  });
+}
+
+export async function apiGetAnswers(id, data) {
+  return ApiService.fetchData({
+    url: `/forum/questions/${id}/answers/`,
+    method: "get",
+    params: data
+  });
+}
+
+export async function apiCreateComment(id, data) {
+  return ApiService.fetchData({
+    url: `/forum/${id}/comments/`,
+    method: "post",
+    data
+  });
+}
+
+export async function apiGetComments(id) {
+  return ApiService.fetchData({
+    url: `/forum/${id}/comments/`,
+    method: "get"
+  });
+}
+
+export async function apiCreateVote(data) {
+  return ApiService.fetchData({
+    url: `/forum/vote/`,
+    method: "post",
+    data
+  });
+}
+
+export async function apiAcceptAnswer(id, data) {
+  return ApiService.fetchData({
+    url: `/forum/questions/${id}/accept_answer/`,
+    method: "post",
+    data
+  });
+}
+
+export async function apiCreateBookmark(id) {
+  return ApiService.fetchData({
+    url: `/forum/bookmark/${id}/`,
+    method: "post"
+  });
+}
+
+export async function apiDeleteBookmark(id) {
+  return ApiService.fetchData({
+    url: `/forum/bookmark/${id}/`,
+    method: "delete"
+  });
+}

@@ -6,7 +6,7 @@ import { Loading } from "components/shared";
 import { Button, Card, Tag } from "components/ui";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Pagination, Select } from "components/ui";
 import cloneDeep from "lodash/cloneDeep";
@@ -17,7 +17,7 @@ const QuestionList = props => {
   const { pageSizes } = props;
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const data = useSelector(state => state.questions.data.questionList);
   const loading = useSelector(state => state.questions.data.loading);
   const { pageIndex, pageSize, sort, query, total } = useSelector(
@@ -56,7 +56,7 @@ const QuestionList = props => {
   };
 
   const onAddNewQuestion = () => {
-    console.log("Add new student");
+    navigate("/question/create");
   };
 
   const handlePaginationChange = page => {
@@ -143,6 +143,7 @@ const QuestionList = props => {
                   <Link
                     key={question.slug}
                     to={`/questions/question-details?id=${question.slug}`}
+                    state={{ id: question.id }}
                   >
                     <div className="flex items-center justify-between mb-2">
                       <h5 className="group-hover:underline text-blue-700 font-normal">

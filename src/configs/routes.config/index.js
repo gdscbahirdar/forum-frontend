@@ -18,6 +18,14 @@ export const protectedRoutes = [
     authority: []
   },
   {
+    key: "questions.questionEdit",
+    path: "/questions/question-edit",
+    component: React.lazy(
+      () => import("views/question/QuestionDetail/components/QuestionEdit")
+    ),
+    authority: []
+  },
+  {
     key: "tags.tags",
     path: "/tags",
     component: React.lazy(() => import("views/question/Tags")),
@@ -39,6 +47,12 @@ export const protectedRoutes = [
     key: "questions",
     path: "/questions",
     component: React.lazy(() => import("views/question/Questions")),
+    authority: []
+  },
+  {
+    key: "questions.create",
+    path: "/question/create",
+    component: React.lazy(() => import("views/question/QuestionCreate")),
     authority: []
   },
   {
