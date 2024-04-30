@@ -10,7 +10,6 @@ import {
 export const getQuestions = createAsyncThunk(
   "questions/data/getQuestions",
   async params => {
-    console.log("first");
     const { key, order } = params.sort;
     const updatedParams = {
       page: params.pageIndex,

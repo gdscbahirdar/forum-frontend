@@ -224,7 +224,7 @@ const Answer = ({
           <div className="text-xs">{answer.answered_by}</div>
         </div>
         <div className="flex flex-col items-start gap-2 text-xs border-t border-t-gray-200 pt-2 mt-2">
-          {answer.comments.map(comment => (
+          {answer?.comments?.map(comment => (
             <div className="flex items-center gap-2">
               <span className="text-sm">{comment.vote_count}</span>
               <div key={comment.id} className="flex items-center gap-2">
