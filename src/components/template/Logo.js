@@ -9,18 +9,24 @@ const Logo = props => {
   const { type, mode, gutter, className, imgClass, style, logoWidth } = props;
 
   return (
-    <div
-      className={classNames("logo", className, gutter)}
-      style={{
-        ...style,
-        ...{ width: logoWidth }
-      }}
-    >
-      <img
-        className={imgClass}
-        src={`${LOGO_SRC_PATH}logo-${mode}-${type}.png`}
-        alt={`${APP_NAME} logo`}
-      />
+    // <div
+    //   className={classNames("logo", className, gutter)}
+    //   style={{
+    //     ...style,
+    //     ...{ width: logoWidth }
+    //   }}
+    // >
+    //   <img
+    //     className={imgClass}
+    //     src={`${LOGO_SRC_PATH}logo-${mode}-${type}.png`}
+    //     alt={`${APP_NAME} logo`}
+    //   />
+    // </div>
+    <div className="flex gap-3 p-6">
+      <img src="/logo192.png" alt="" className="h-8 w-8 rounded-full" />
+      <p className="text-2xl font-light text-black dark:text-white">
+        BiT-Forum
+      </p>
     </div>
   );
 };

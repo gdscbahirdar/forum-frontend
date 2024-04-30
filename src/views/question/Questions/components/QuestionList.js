@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getQuestions } from "../store/dataSlice";
+import { getQuestions, setListData } from "../store/dataSlice";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { Loading } from "components/shared";
 import { Button, Card, Tag } from "components/ui";
@@ -8,20 +8,27 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Link, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { Pagination, Select } from "components/ui";
+import cloneDeep from "lodash/cloneDeep";
 
 dayjs.extend(relativeTime);
 
-export const QuestionList = () => {
+const QuestionList = props => {
+  const { pageSizes } = props;
+
   const dispatch = useDispatch();
 
   const data = useSelector(state => state.questions.data.questionList);
   const loading = useSelector(state => state.questions.data.loading);
+  const { pageIndex, pageSize, sort, query, total } = useSelector(
+    state => state.questions.data.listData
+  );
+  const filterData = useSelector(state => state.questions.data.filterData);
 
   const { tag } = useParams();
 
   const location = useLocation();
   let heading;
-
   if (tag) {
     heading = `Questions Tagged ${tag}`;
   } else {
@@ -32,13 +39,64 @@ export const QuestionList = () => {
     }
   }
 
+  const isTopQuestions = location.pathname === "/home";
+
+  const displayedData = isTopQuestions ? data.slice(0, 10) : data;
+
+  const listData = useMemo(
+    () => ({ pageIndex, pageSize, sort, query, total }),
+    [pageIndex, pageSize, sort, query, total]
+  );
+
+  const onSelectChange = value => {
+    const newListData = cloneDeep(listData);
+    newListData.pageSize = Number(value);
+    newListData.pageIndex = 1;
+    dispatch(setListData(newListData));
+  };
+
   const onAddNewQuestion = () => {
     console.log("Add new student");
   };
 
+  const handlePaginationChange = page => {
+    if (!loading) {
+      const newListData = cloneDeep(listData);
+      newListData.pageIndex = page;
+      dispatch(setListData(newListData));
+    }
+  };
+
+  const handleSelectChange = value => {
+    if (!loading) {
+      onSelectChange?.(Number(value));
+    }
+  };
+
+  const pageSizeOption = useMemo(
+    () =>
+      pageSizes.map(number => ({ value: number, label: `${number} / page` })),
+    [pageSizes]
+  );
+
+  // const handleSort = column => {
+  //   if (!loading) {
+  //     const { id, isSortedDesc, toggleSortBy, clearSortBy } = column;
+  //     const sortOrder = isSortedDesc ? "desc" : "asc";
+  //     toggleSortBy(!isSortedDesc);
+  //     onSort?.({ order: sortOrder, key: id }, { id, clearSortBy });
+  //     const newListData = cloneDeep(listData);
+  //     newListData.sort = sort;
+  //     dispatch(setListData(newListData));
+  //     dispatch(setSortedColumn(sortingColumn));
+  //   }
+  // };
+
   const fetchData = useCallback(() => {
-    dispatch(getQuestions({ tag }));
-  }, [dispatch, tag]);
+    dispatch(
+      getQuestions({ tag, pageIndex, pageSize, sort, query, filterData })
+    );
+  }, [dispatch, filterData, pageIndex, pageSize, query, sort, tag]);
 
   useEffect(() => {
     fetchData();
@@ -59,7 +117,7 @@ export const QuestionList = () => {
             Ask Question
           </Button>
         </div>
-        {data.slice(0, 10).map(question => (
+        {displayedData.map(question => (
           <article key={question.id}>
             <Card className="group mb-4">
               <div className="grid grid-cols-9 gap-4">
@@ -130,7 +188,36 @@ export const QuestionList = () => {
             </Card>
           </article>
         ))}
+
+        {!isTopQuestions && displayedData.length > 0 && (
+          <div className="flex items-center justify-between mt-4">
+            <Pagination
+              pageSize={pageSize}
+              currentPage={pageIndex}
+              total={total}
+              onChange={handlePaginationChange}
+            />
+            <div style={{ minWidth: 130 }}>
+              <Select
+                size="sm"
+                menuPlacement="top"
+                isSearchable={false}
+                value={pageSizeOption.filter(
+                  option => option.value === pageSize
+                )}
+                options={pageSizeOption}
+                onChange={option => handleSelectChange(option.value)}
+              />
+            </div>
+          </div>
+        )}
       </section>
     </Loading>
   );
 };
+
+QuestionList.defaultProps = {
+  pageSizes: [10, 25, 50, 100]
+};
+
+export default QuestionList;

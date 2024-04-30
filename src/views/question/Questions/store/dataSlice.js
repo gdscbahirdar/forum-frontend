@@ -10,11 +10,23 @@ import {
 export const getQuestions = createAsyncThunk(
   "questions/data/getQuestions",
   async params => {
+    console.log("first");
+    const { key, order } = params.sort;
+    const updatedParams = {
+      page: params.pageIndex,
+      size: params.pageSize,
+      sort: order === "desc" ? `-${key}` : key,
+      search: params.query
+    };
+    if (params.filterData.department) {
+      updatedParams.student__department__name = params.filterData.department;
+    }
+
     let response = {};
     if (params.tag) {
       response = await apiGetQuestionsByTag(params.tag);
     } else {
-      response = await apiGetQuestions(params);
+      response = await apiGetQuestions(updatedParams);
     }
     const results = response.data.results;
     const transformedData = results.map(question => ({
@@ -81,7 +93,7 @@ export const putQuestion = createAsyncThunk(
 
 export const initialListData = {
   total: 0,
-  pageIndex: 0,
+  pageIndex: 1,
   pageSize: 10,
   query: "",
   sort: { order: "", key: "" }

@@ -95,17 +95,17 @@ const navigationConfig = [
         type: NAV_ITEM_TYPE_ITEM,
         authority: [],
         subMenu: []
-      },
-      {
-        key: "others.reputations",
-        path: "/reputations",
-        title: "Reputations",
-        translateKey: "nav.others.reputations",
-        icon: "groupSingleMenu",
-        type: NAV_ITEM_TYPE_ITEM,
-        authority: [],
-        subMenu: []
       }
+      // {
+      //   key: "others.reputations",
+      //   path: "/reputations",
+      //   title: "Reputations",
+      //   translateKey: "nav.others.reputations",
+      //   icon: "groupSingleMenu",
+      //   type: NAV_ITEM_TYPE_ITEM,
+      //   authority: [],
+      //   subMenu: []
+      // }
       // {
       //   key: "others.collapse",
       //   path: "",

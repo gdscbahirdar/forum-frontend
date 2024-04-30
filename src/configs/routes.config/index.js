@@ -94,15 +94,15 @@ export const protectedRoutes = [
   {
     key: "others.saves",
     path: "/saves",
-    component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
-    authority: []
-  },
-  {
-    key: "others.reputations",
-    path: "/reputations",
-    component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
+    component: React.lazy(() => import("views/bookmark/Bookmarks")),
     authority: []
   }
+  // {
+  //   key: "others.reputations",
+  //   path: "/reputations",
+  //   component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
+  //   authority: []
+  // }
   // {
   //   key: "others.collapse.item1",
   //   path: "/group-collapse-menu-item-view-1",
