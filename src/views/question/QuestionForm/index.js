@@ -135,10 +135,9 @@ const QuestionForm = ({ question, handleSubmit }) => {
                     <RichTextEditor
                       {...field}
                       modelValue={field.value}
-                      placeholder="Tell us what is happening..."
+                      placeholder="Enter your question here..."
                       className="placeholder:text-xs"
                       onChange={val => {
-                        console.log("++++++++++ ", val);
                         field.onChange({
                           target: { name: "body", value: val }
                         });

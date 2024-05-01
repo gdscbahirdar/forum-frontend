@@ -17,21 +17,6 @@ const AllRoutes = props => {
 
   return (
     <Routes>
-      <Route path="/" element={<PublicRoute />}>
-        {publicRoutes.map(route => (
-          <Route
-            key={route.path}
-            path={route.path}
-            element={
-              <AppRoute
-                routeKey={route.key}
-                component={route.component}
-                {...route.meta}
-              />
-            }
-          />
-        ))}
-      </Route>
       <Route path="/" element={<ProtectedRoute />}>
         <Route
           path="/"
@@ -58,6 +43,21 @@ const AllRoutes = props => {
           />
         ))}
         <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+      <Route path="/" element={<PublicRoute />}>
+        {publicRoutes.map(route => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={
+              <AppRoute
+                routeKey={route.key}
+                component={route.component}
+                {...route.meta}
+              />
+            }
+          />
+        ))}
       </Route>
     </Routes>
   );

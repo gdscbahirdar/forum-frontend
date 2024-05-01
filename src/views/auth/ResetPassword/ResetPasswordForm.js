@@ -60,7 +60,7 @@ const ResetPasswordForm = props => {
           Failed to reset password
         </Notification>
       );
-      setMessage(errors?.response?.data?.message || errors.toString());
+      setMessage(errors?.response?.data?.new_password2 || errors.toString());
       setSubmitting(false);
     }
   };
@@ -79,7 +79,7 @@ const ResetPasswordForm = props => {
           </>
         ) : (
           <>
-            <h3 className="mb-1">Set new password</h3>
+            <h3 className="mb-1">Set New Password</h3>
           </>
         )}
       </div>

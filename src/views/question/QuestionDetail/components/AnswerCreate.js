@@ -127,7 +127,7 @@ const AnswerCreate = ({ questionId }) => {
                       <RichTextEditor
                         {...field}
                         modelValue={field.value}
-                        placeholder="Tell us what is happening..."
+                        placeholder="Enter your answer here..."
                         className="placeholder:text-xs"
                         onChange={val =>
                           field.onChange({
