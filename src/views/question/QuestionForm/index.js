@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import {
@@ -11,6 +11,12 @@ import {
 } from "components/ui";
 import { IconText, SvgIcon } from "components/shared";
 import RichTextEditor from "../RTE";
+import { useDispatch, useSelector } from "react-redux";
+import { getTags } from "../Tags/store/dataSlice";
+import { injectReducer } from "store/index";
+import reducer from "../Tags/store";
+
+injectReducer("tags", reducer);
 
 const QuestionCreateSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
@@ -22,7 +28,7 @@ const PencilIcon = () => {
   return (
     <svg
       aria-hidden="true"
-      class="svg-spot spotPencil"
+      className="svg-spot spotPencil"
       width="48"
       height="48"
       viewBox="0 0 48 48"
@@ -42,6 +48,14 @@ const QuestionForm = ({ question, handleSubmit }) => {
   const handleFocus = fieldName => {
     setActiveField(fieldName);
   };
+
+  const dispatch = useDispatch();
+
+  const tagsData = useSelector(state => state.tags.data.tags);
+
+  useEffect(() => {
+    dispatch(getTags());
+  }, [dispatch]);
 
   return (
     <Formik
@@ -184,24 +198,30 @@ const QuestionForm = ({ question, handleSubmit }) => {
               className="border border-gray-200 rounded-md p-4"
             >
               <Field name="tags">
-                {({ field, form }) => (
-                  <Select
-                    isMulti
-                    field={field}
-                    form={form}
-                    placeholder="e.g. python, javascript, react"
-                    className="placeholder:text-xs"
-                    options={[
-                      { value: "react", label: "React" },
-                      { value: "vue", label: "Vue" },
-                      { value: "angular", label: "Angular" }
-                    ]}
-                    onChange={val => {
-                      form.setFieldValue("tags", val);
-                    }}
-                    onFocus={() => handleFocus("tags")}
-                  />
-                )}
+                {({ field, form }) => {
+                  const tagOptions = tagsData?.data?.map(tag => ({
+                    value: tag.name,
+                    label: tag.name
+                  }));
+                  return (
+                    <Select
+                      isMulti
+                      options={tagOptions}
+                      placeholder="e.g. data-structures, algorithm, computer-science"
+                      className="placeholder:text-xs"
+                      value={tagOptions?.filter(option =>
+                        field.value.includes(option.value)
+                      )}
+                      onChange={options => {
+                        form.setFieldValue(
+                          "tags",
+                          options.map(option => option.value)
+                        );
+                      }}
+                      onFocus={() => handleFocus("tags")}
+                    />
+                  );
+                }}
               </Field>
             </FormItem>
             <div className="mt-4 flex justify-end">

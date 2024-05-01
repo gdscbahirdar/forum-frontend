@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Notification, toast } from "components/ui";
-import { useNavigate } from "react-router-dom";
 import { apiCreateAnswer } from "services/QuestionService";
 import RichTextEditor from "views/question/RTE";
 import { Formik, Field, Form } from "formik";
@@ -33,8 +32,6 @@ const PencilIcon = () => {
 const AnswerCreate = ({ questionId }) => {
   const [answerFieldActive, setAnswerFieldActive] = useState(false);
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (values, { setSubmitting }) => {
     const { body } = values;
 
@@ -44,7 +41,6 @@ const AnswerCreate = ({ questionId }) => {
       }
     };
 
-    console.log(values);
     setSubmitting(true);
     const response = await apiCreateAnswer(questionId, values);
     setSubmitting(false);
@@ -54,8 +50,7 @@ const AnswerCreate = ({ questionId }) => {
         <Notification title="Answer posted successfully" type="success" />,
         { placement: "top-center" }
       );
-
-      navigate(`/questions/question-details?id=${questionId}`);
+      window.location.reload();
     }
   };
 

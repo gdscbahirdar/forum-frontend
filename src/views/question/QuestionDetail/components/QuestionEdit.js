@@ -44,7 +44,7 @@ const QuestionEdit = () => {
       post: {
         body
       },
-      tags: tags.map(tag => tag.value)
+      tags
     };
 
     console.log(values);
@@ -82,7 +82,7 @@ const QuestionEdit = () => {
           question={{
             title: question?.title,
             body: question?.body,
-            tags: question?.tags?.map(tag => ({ value: tag, label: tag }))
+            tags: question?.tags
           }}
           handleSubmit={handleSubmit}
         />

@@ -6,7 +6,7 @@ import deepParseJson from "utils/deepParseJson";
 import store from "../store";
 import { onSignOutSuccess, onSignInSuccess } from "../store/auth/sessionSlice";
 
-const unauthorizedCode = [401, 403];
+const unauthorizedCode = [401];
 
 const BaseService = axios.create({
   timeout: 60000,
@@ -59,11 +59,7 @@ BaseService.interceptors.response.use(
     const { config, response } = error;
     const originalRequest = config;
 
-    if (
-      response &&
-      response.status === 403 &&
-      response.data.code === "token_not_valid"
-    ) {
+    if (response && response.data.code === "token_not_valid") {
       const newAccessToken = await refreshToken();
       if (newAccessToken) {
         originalRequest.headers[REQUEST_HEADER_AUTH_KEY] =

@@ -55,7 +55,7 @@ export async function apiCreateQuestion(data) {
 
 export async function apiDeleteQuestion(id) {
   return ApiService.fetchData({
-    url: `/entities/question/${id}`,
+    url: `/forum/questions/${id}`,
     method: "delete"
   });
 }

@@ -15,10 +15,8 @@ const QuestionCreate = () => {
       post: {
         body
       },
-      tags: tags.map(tag => tag.value)
+      tags
     };
-
-    console.log(values);
     setSubmitting(true);
     const response = await apiCreateQuestion(values);
     setSubmitting(false);

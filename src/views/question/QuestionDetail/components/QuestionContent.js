@@ -6,12 +6,13 @@ import {
   createComment,
   createVote,
   deleteBookmark,
+  deleteQuestion,
   getAnswers,
   getQuestion
 } from "../store/dataSlice";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   PiBookmarkSimpleFill,
   PiBookmarkSimpleThin,
@@ -35,7 +36,7 @@ dayjs.extend(relativeTime);
 const UpvoteSVG = () => (
   <svg
     aria-hidden="true"
-    class="svg-icon iconArrowUp"
+    className="svg-icon iconArrowUp"
     width="18"
     height="18"
     viewBox="0 0 18 18"
@@ -47,7 +48,7 @@ const UpvoteSVG = () => (
 const DownvoteSVG = () => (
   <svg
     aria-hidden="true"
-    class="svg-icon iconArrowDown"
+    className="svg-icon iconArrowDown"
     width="18"
     height="18"
     viewBox="0 0 18 18"
@@ -106,7 +107,8 @@ const Answer = ({
   isActiveComment,
   onBookmark,
   onDeleteBookmark,
-  onCreateVote
+  onCreateVote,
+  asked_by
 }) => {
   const dispatch = useDispatch();
   const commentInput = useRef();
@@ -119,6 +121,8 @@ const Answer = ({
   const onAcceptAnswer = (questionId, answer_id) => {
     dispatch(acceptAnswer({ questionId, answer_id }));
   };
+
+  const { user } = useSelector(state => state.auth);
 
   return (
     <div className="mt-4 p-4 border border-gray-300 rounded-lg shadow-sm bg-white">
@@ -171,24 +175,26 @@ const Answer = ({
               </SvgIcon>
             </Tooltip>
           </button>
-          <button
-            className="mt-2"
-            aria-label="Accept-Answer"
-            onClick={() => onAcceptAnswer(questionId, answer.answer_id)}
-          >
-            {answer.is_accepted ? (
-              <Tooltip
-                title="You accepted this answer (select to undo)"
-                placement="right"
-              >
-                <PiCheckFatFill className="text-3xl fill-green-700" />
-              </Tooltip>
-            ) : (
-              <Tooltip title="Accept this answer" placement="right">
-                <PiCheckFatThin className="text-3xl" />
-              </Tooltip>
-            )}
-          </button>
+          {user?.username === asked_by && (
+            <button
+              className="mt-2"
+              aria-label="Accept-Answer"
+              onClick={() => onAcceptAnswer(questionId, answer.answer_id)}
+            >
+              {answer.is_accepted ? (
+                <Tooltip
+                  title="You accepted this answer (select to undo)"
+                  placement="right"
+                >
+                  <PiCheckFatFill className="text-3xl fill-green-700" />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Accept this answer" placement="right">
+                  <PiCheckFatThin className="text-3xl" />
+                </Tooltip>
+              )}
+            </button>
+          )}
           {answer.is_bookmarked ? (
             <button
               className="mt-2"
@@ -328,6 +334,8 @@ const QuestionContent = ({ questionId }) => {
     commentInput.current.value = "";
   };
 
+  const navigate = useNavigate();
+
   const { search } = useLocation();
 
   useEffect(() => {
@@ -369,7 +377,9 @@ const QuestionContent = ({ questionId }) => {
   };
 
   const onDelete = id => {
-    console.log("Delete this question", id);
+    dispatch(deleteQuestion(id));
+    setIsOpen(false);
+    navigate(`/questions`);
   };
 
   return (
@@ -415,7 +425,7 @@ const QuestionContent = ({ questionId }) => {
 
               <button
                 className="text-red-700"
-                onClick={() => openDialog(question.post_id, "Question")}
+                onClick={() => openDialog(questionId, "Question")}
               >
                 Delete
               </button>
@@ -601,6 +611,7 @@ const QuestionContent = ({ questionId }) => {
               onBookmark={onBookmark}
               onDeleteBookmark={onDeleteBookmark}
               onCreateVote={onCreateVote}
+              asked_by={question.asked_by}
             />
           ))}
       </div>
