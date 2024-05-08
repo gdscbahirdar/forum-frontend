@@ -195,6 +195,11 @@ const Answer = ({
               )}
             </button>
           )}
+          {user?.username !== asked_by && answer.is_accepted && (
+            <Tooltip title="This answer has been accepted" placement="right">
+              <PiCheckFatFill className="text-3xl fill-green-700 my-2" />
+            </Tooltip>
+          )}
           {answer.is_bookmarked ? (
             <button
               className="mt-2"

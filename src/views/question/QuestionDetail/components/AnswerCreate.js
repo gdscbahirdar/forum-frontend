@@ -83,7 +83,7 @@ const AnswerCreate = ({ questionId }) => {
                       }
                     >
                       <ul className="pl-4 list-disc">
-                        Thanks for contributing an answer to Stack Overflow!
+                        Thanks for contributing an answer to BiT Forum!
                         <li>
                           Please be sure to answer the question. Provide details
                           and share your research!{" "}

@@ -218,7 +218,7 @@ const QuestionList = props => {
 };
 
 QuestionList.defaultProps = {
-  pageSizes: [10, 25, 50, 100]
+  pageSizes: [10, 25, 50]
 };
 
 export default QuestionList;
