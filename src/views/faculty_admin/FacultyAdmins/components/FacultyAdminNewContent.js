@@ -37,10 +37,11 @@ const FacultyAdminNewContent = forwardRef((_, ref) => {
           } else {
             const errors = result.response;
             Object.keys(errors).forEach(key => {
-              const errorMessage = errors[key][0];
+              const error = errors[key];
               toast.push(
                 <Notification title="Failure" type="danger">
-                  Failed to create faculty_admin: {errorMessage}
+                  Failed to create faculty admin:{" "}
+                  {Object.values(error).join(", ")}
                 </Notification>
               );
             });

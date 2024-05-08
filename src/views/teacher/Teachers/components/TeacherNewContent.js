@@ -45,10 +45,10 @@ const TeacherNewContent = forwardRef((_, ref) => {
           } else {
             const errors = result.response;
             Object.keys(errors).forEach(key => {
-              const errorMessage = errors[key][0];
+              const error = errors[key];
               toast.push(
                 <Notification title="Failure" type="danger">
-                  Failed to create teacher: {errorMessage}
+                  Failed to create teacher: {Object.values(error).join(", ")}
                 </Notification>
               );
             });

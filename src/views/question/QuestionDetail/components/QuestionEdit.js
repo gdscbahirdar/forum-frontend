@@ -47,20 +47,35 @@ const QuestionEdit = () => {
       tags
     };
 
-    console.log(values);
     setSubmitting(true);
-    const response = await apiPutQuestion(question?.slug, values);
-    setSubmitting(false);
 
-    if (response.data) {
-      toast.push(
-        <Notification title="Question updated successfully" type="success" />,
-        { placement: "top-center" }
-      );
+    try {
+      const response = await apiPutQuestion(question?.slug, values);
+      setSubmitting(false);
 
-      navigate(`/questions/question-details?id=${response.data.slug}`, {
-        replace: true
-      });
+      if (response.data) {
+        toast.push(
+          <Notification title="Question updated successfully" type="success" />,
+          { placement: "top-center" }
+        );
+
+        navigate(`/questions/question-details?id=${response.data.slug}`, {
+          replace: true
+        });
+      }
+    } catch (error) {
+      setSubmitting(false);
+      if (error.response) {
+        const messages = error.response.data;
+        Object.keys(messages).forEach(key => {
+          const error = messages[key];
+          toast.push(
+            <Notification title="Failure" type="danger">
+              Failed to update question: {Object.values(error).join(", ")}
+            </Notification>
+          );
+        });
+      }
     }
   };
 

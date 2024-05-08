@@ -17,17 +17,34 @@ const QuestionCreate = () => {
       },
       tags
     };
+
     setSubmitting(true);
-    const response = await apiCreateQuestion(values);
-    setSubmitting(false);
 
-    if (response.data) {
-      toast.push(
-        <Notification title="Question posted successfully" type="success" />,
-        { placement: "top-center" }
-      );
+    try {
+      const response = await apiCreateQuestion(values);
+      setSubmitting(false);
 
-      navigate(`/questions/question-details?id=${response.data.slug}`);
+      if (response.data) {
+        toast.push(
+          <Notification title="Question posted successfully" type="success" />,
+          { placement: "top-center" }
+        );
+
+        navigate(`/questions/question-details?id=${response.data.slug}`);
+      }
+    } catch (error) {
+      setSubmitting(false);
+      if (error.response) {
+        const messages = error.response.data;
+        Object.keys(messages).forEach(key => {
+          const error = messages[key];
+          toast.push(
+            <Notification title="Failure" type="danger">
+              Failed to create question: {Object.values(error).join(", ")}
+            </Notification>
+          );
+        });
+      }
     }
   };
 
