@@ -40,7 +40,7 @@ const SecondaryHeader = props => {
             )}
           >
             <HorizontalMenuContent
-              manuVariant={navMode}
+              menuVariant={navMode}
               userAuthority={userAuthority}
             />
           </div>

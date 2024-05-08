@@ -13,7 +13,7 @@ const HorizontalNav = () => {
     <>
       {larger.md && (
         <HorizontalMenuContent
-          manuVariant={mode}
+          menuVariant={mode}
           userAuthority={userAuthority}
         />
       )}

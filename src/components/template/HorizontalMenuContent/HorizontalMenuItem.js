@@ -4,7 +4,7 @@ import { MenuItem } from "components/ui";
 import HorizontalMenuNavLink from "./HorizontalMenuNavLink";
 import { useTranslation } from "react-i18next";
 
-const HorizontalMenuItem = ({ nav, isLink, manuVariant }) => {
+const HorizontalMenuItem = ({ nav, isLink, menuVariant }) => {
   const { title, translateKey, icon, path } = nav;
 
   const { t } = useTranslation();
@@ -12,7 +12,7 @@ const HorizontalMenuItem = ({ nav, isLink, manuVariant }) => {
   const itemTitle = t(translateKey, title);
 
   return (
-    <MenuItem variant={manuVariant}>
+    <MenuItem variant={menuVariant}>
       {icon && <span className="text-2xl">{navigationIcon[icon]}</span>}
       {path && isLink ? (
         <HorizontalMenuNavLink path={path}>{itemTitle}</HorizontalMenuNavLink>

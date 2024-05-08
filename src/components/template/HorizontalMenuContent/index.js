@@ -11,7 +11,7 @@ import {
 } from "constants/navigation.constant";
 import { useTranslation } from "react-i18next";
 
-const HorizontalMenuContent = ({ manuVariant, userAuthority = [] }) => {
+const HorizontalMenuContent = ({ menuVariant, userAuthority = [] }) => {
   const { t } = useTranslation();
 
   return (
@@ -30,7 +30,7 @@ const HorizontalMenuContent = ({ manuVariant, userAuthority = [] }) => {
               <Dropdown
                 trigger="hover"
                 renderTitle={
-                  <HorizontalMenuItem manuVariant={manuVariant} nav={nav} />
+                  <HorizontalMenuItem menuVariant={menuVariant} nav={nav} />
                 }
               >
                 {nav.subMenu.map(secondarySubNav => (
@@ -75,7 +75,7 @@ const HorizontalMenuContent = ({ manuVariant, userAuthority = [] }) => {
               userAuthority={userAuthority}
               key={nav.key}
             >
-              <HorizontalMenuItem isLink nav={nav} manuVariant={manuVariant} />
+              <HorizontalMenuItem isLink nav={nav} menuVariant={menuVariant} />
             </AuthorityCheck>
           );
         }
