@@ -6,6 +6,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import * as Yup from "yup";
 import PersonalInfoForm from "./PersonalInfoForm";
 import PersonalInfoFormModal from "./PersonalInfoFormModal";
+import { useSelector } from "react-redux";
 
 dayjs.extend(customParseFormat);
 
@@ -23,6 +24,8 @@ const validationSchema = Yup.object().shape({
 const TeacherForm = forwardRef((props, ref) => {
   const { teacher, onFormSubmit, modal } = props;
 
+  const { user } = useSelector(state => state.auth);
+
   return (
     <Formik
       innerRef={ref}
@@ -31,7 +34,10 @@ const TeacherForm = forwardRef((props, ref) => {
         first_name: teacher?.first_name || "",
         middle_name: teacher?.middle_name || "",
         last_name: teacher?.last_name || "",
-        faculty: teacher?.faculty || "",
+        faculty:
+          user.authority[0] === "Faculty Admin"
+            ? user.faculty
+            : teacher?.faculty || "",
         departments: teacher?.departments || ""
       }}
       validationSchema={validationSchema}

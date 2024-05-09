@@ -129,7 +129,8 @@ const QuestionList = props => {
                   </div>
                   <div className="text-center mb-2">
                     <div className="text-xs text-gray-500">
-                      {question.answer_count} answers
+                      {question.answer_count} answer
+                      {question.answer_count > 1 && "s"}
                     </div>
                   </div>
                   <div className="text-center">

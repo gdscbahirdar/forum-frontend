@@ -7,7 +7,13 @@ import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { HiOutlineUser, HiOutlineLogout } from "react-icons/hi";
 
-const dropdownItemList = [];
+const dropdownItemList = [
+  {
+    label: "Profile",
+    path: "/forum/account/settings/profile",
+    icon: <HiOutlineUser />
+  }
+];
 
 export const UserDropdown = ({ className }) => {
   const userInfo = useSelector(state => state.auth.user);

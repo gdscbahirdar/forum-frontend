@@ -4,7 +4,8 @@ export const initialState = {
   username: "",
   full_name: "",
   is_first_time_login: false,
-  authority: []
+  authority: [],
+  faculty: ""
 };
 
 export const userSlice = createSlice({

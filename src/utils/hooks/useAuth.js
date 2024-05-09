@@ -36,7 +36,8 @@ function useAuth() {
                 " " +
                 resp.data.user.last_name,
               is_first_time_login: resp.data.user.is_first_time_login,
-              authority: [resp.data.user.role_name]
+              authority: [resp.data.user.role_name],
+              faculty: resp.data.user.faculty
             })
           );
           const faculties = await apiGetFaculties();

@@ -7,6 +7,7 @@ const PersonalInfoFormModal = props => {
   const { touched, errors } = props;
 
   const faculties = useSelector(state => state.meta.faculties);
+  const { user } = useSelector(state => state.auth);
 
   const facultyOptions = faculties.map(faculty => ({
     value: faculty.name,
@@ -115,6 +116,7 @@ const PersonalInfoFormModal = props => {
                     form.setFieldValue("faculty", option.value);
                     form.setFieldValue("department", "");
                   }}
+                  isDisabled={user.authority[0] === "Faculty Admin"} // disable the select if the user is a faculty admin
                 />
               )}
             </Field>

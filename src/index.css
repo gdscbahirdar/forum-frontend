@@ -16233,6 +16233,9 @@ hr {
 [dir="ltr"] .ltr\:pr-2 {
   padding-right: 0.5rem;
 }
+[dir="ltr"] .ltr\:text-right {
+  text-align: right;
+}
 [dir="rtl"] .rtl\:left-4 {
   left: 1rem;
 }
@@ -16304,6 +16307,10 @@ hr {
 .dark .dark\:border-gray-500 {
   --tw-border-opacity: 1;
   border-color: rgb(107 114 128 / var(--tw-border-opacity));
+}
+.dark .dark\:border-gray-800 {
+  --tw-border-opacity: 1;
+  border-color: rgb(31 41 55 / var(--tw-border-opacity));
 }
 .dark .dark\:bg-inherit {
   background-color: inherit;
@@ -20987,6 +20994,9 @@ hr {
   }
   .md\:min-w-\[450px\] {
     min-width: 450px;
+  }
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));

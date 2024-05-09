@@ -1,6 +1,7 @@
 import React from "react";
 import authRoute from "./authRoute";
 import { FACULTY_ADMIN, SUPER_ADMIN } from "constants/roles.constant";
+import { APP_PREFIX_PATH } from "constants/route.constant";
 
 export const publicRoutes = [...authRoute];
 
@@ -110,6 +111,16 @@ export const protectedRoutes = [
     path: "/saves",
     component: React.lazy(() => import("views/bookmark/Bookmarks")),
     authority: []
+  },
+  {
+    key: "appsAccount.settings",
+    path: `${APP_PREFIX_PATH}/account/settings/:tab`,
+    component: React.lazy(() => import("views/account/Settings")),
+    authority: [],
+    meta: {
+      header: "Settings",
+      headerContainer: true
+    }
   }
   // {
   //   key: "others.reputations",

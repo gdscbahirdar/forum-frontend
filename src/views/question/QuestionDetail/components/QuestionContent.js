@@ -603,7 +603,8 @@ const QuestionContent = ({ questionId }) => {
 
       <div className="mt-8">
         <h4 className="font-semibold text-lg">
-          {question.answer_count} Answers
+          {question.answer_count} Answer
+          {question.answer_count > 1 && "s"}
         </h4>
         {answers &&
           answers.map(answer => (
