@@ -17,10 +17,6 @@ export const getQuestions = createAsyncThunk(
       sort: order === "desc" ? `-${key}` : key,
       search: params.query
     };
-    if (params.filterData.department) {
-      updatedParams.student__department__name = params.filterData.department;
-    }
-
     let response = {};
     if (params.tag) {
       response = await apiGetQuestionsByTag(params.tag);
