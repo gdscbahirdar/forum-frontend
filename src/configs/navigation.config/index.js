@@ -138,6 +138,16 @@ const navigationConfig = [
       //   ]
       // }
     ]
+  },
+  {
+    key: "feedback",
+    path: "/feedback",
+    title: "Feedback",
+    translateKey: "nav.feedback",
+    icon: "feedback",
+    type: NAV_ITEM_TYPE_ITEM,
+    authority: [],
+    subMenu: []
   }
 ];
 

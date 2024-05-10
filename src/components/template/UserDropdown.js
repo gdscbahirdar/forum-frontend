@@ -22,7 +22,12 @@ export const UserDropdown = ({ className }) => {
 
   const UserAvatar = (
     <div className={classNames(className, "flex items-center gap-2")}>
-      <Avatar size={32} shape="circle" icon={<HiOutlineUser />} />
+      <Avatar
+        size={32}
+        shape="circle"
+        icon={<HiOutlineUser />}
+        src={userInfo.avatar}
+      />
       <div className="hidden md:block">
         <div className="text-xs capitalize">{userInfo.authority[0]}</div>
         <div className="font-bold">{userInfo.full_name}</div>
@@ -39,7 +44,11 @@ export const UserDropdown = ({ className }) => {
       >
         <Dropdown.Item variant="header">
           <div className="py-2 px-3 flex items-center gap-2">
-            <Avatar shape="circle" icon={<HiOutlineUser />} />
+            <Avatar
+              shape="circle"
+              icon={<HiOutlineUser />}
+              src={userInfo.avatar}
+            />
             <div>
               <div className="font-bold text-gray-900 dark:text-gray-100 capitalize">
                 {userInfo.full_name}

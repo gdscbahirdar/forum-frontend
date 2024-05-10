@@ -29,8 +29,9 @@ import {
 } from "components/shared";
 import { MdPreview } from "md-editor-rt";
 import AnswerCreate from "./AnswerCreate";
-import { Button, Dialog, Input, Tooltip } from "components/ui";
+import { Avatar, Button, Dialog, Input, Tooltip } from "components/ui";
 import classNames from "classnames";
+import { HiOutlineUser } from "react-icons/hi";
 
 dayjs.extend(relativeTime);
 
@@ -448,10 +449,15 @@ const QuestionContent = ({ questionId }) => {
         <h3>{question.title}</h3>
         <div className="flex items-center justify-between">
           <div className="flex items-center mt-4 gap-4">
-            {question.asked_by}
+            <Avatar
+              size={40}
+              shape="circle"
+              icon={<HiOutlineUser />}
+              src={user.avatar}
+            />
             <div className="text-xs">
               <div className="mb-1">
-                Created by:
+                Created by:{" "}
                 <span className="text-xs text-gray-900 dark:text-gray-100">
                   {question.asked_by}
                 </span>
