@@ -121,6 +121,25 @@ export const protectedRoutes = [
       header: "Settings",
       headerContainer: true
     }
+  },
+  {
+    key: "feedback",
+    path: "/feedback",
+    component: React.lazy(() => import("views/feedback/FeedbackList")),
+    authority: [],
+    meta: {
+      header: "Manage Feedback",
+      extraHeader: React.lazy(
+        () => import("views/feedback/FeedbackList/FeedbackHeader")
+      ),
+      headerContainer: true
+    }
+  },
+  {
+    key: "editFeedback",
+    path: `${APP_PREFIX_PATH}/feedback/edit-feedback`,
+    component: React.lazy(() => import("views/feedback/EditFeedback")),
+    authority: []
   }
   // {
   //   key: "others.reputations",
