@@ -49,7 +49,7 @@ const Layout = () => {
         </div>
       }
     >
-      {isFirstTimeLogin && pathname !== "/reset-password" && (
+      {isFirstTimeLogin && pathname !== "/reset-password" && authenticated && (
         <div className="p-4">
           <div className="rounded-md border border-red-200">
             <Alert showIcon title="Change your password!" type="danger">

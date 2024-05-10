@@ -27,6 +27,13 @@ export const protectedRoutes = [
     authority: []
   },
   {
+    key: "questions.answerEdit",
+    path: "/questions/answer-edit",
+    component: React.lazy(
+      () => import("views/question/QuestionDetail/components/AnswerEdit")
+    )
+  },
+  {
     key: "tags.tags",
     path: "/tags",
     component: React.lazy(() => import("views/question/Tags")),

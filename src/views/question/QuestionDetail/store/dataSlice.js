@@ -11,7 +11,10 @@ import {
   apiCreateVote,
   apiAcceptAnswer,
   apiCreateBookmark,
-  apiDeleteBookmark
+  apiDeleteBookmark,
+  apiGetAnswerDetails,
+  apiPutAnswer,
+  apiDeleteAnswer
 } from "services/QuestionService";
 
 export const getQuestion = createAsyncThunk(
@@ -131,6 +134,41 @@ export const getAnswers = createAsyncThunk(
   }
 );
 
+export const getAnswer = createAsyncThunk(
+  "questionDetails/data/getAnswer",
+  async data => {
+    const { questionId, answerId } = data;
+    const response = await apiGetAnswerDetails(questionId, answerId);
+    const answer = response.data;
+    return {
+      id: answer.post.id,
+      answer_id: answer.id,
+      body: answer.post.body
+    };
+  }
+);
+
+export const putAnswer = createAsyncThunk(
+  "questionDetails/data/putAnswer",
+  async data => {
+    const { questionId, answerId, answer_data } = data;
+
+    const response = await apiPutAnswer(questionId, answerId, answer_data);
+    return response.data;
+  }
+);
+
+export const deleteAnswer = createAsyncThunk(
+  "questionDetails/data/deleteAnswer",
+  async (data, { dispatch }) => {
+    const { questionId, answerId } = data;
+    const response = await apiDeleteAnswer(questionId, answerId);
+    dispatch(getQuestion(questionId));
+    dispatch(getAnswers(questionId));
+    return response.data;
+  }
+);
+
 export const createComment = createAsyncThunk(
   "questionDetails/data/createComment",
   async (data, { dispatch }) => {
@@ -225,6 +263,7 @@ const dataSlice = createSlice({
     loading: false,
     questionData: {},
     answers: [],
+    answerDetails: {},
     comments: [],
     answerPaginationData: initialAnswerPaginationData,
     otherLoading: false,
@@ -264,7 +303,14 @@ const dataSlice = createSlice({
       state.comments = action.payload.data;
       state.loading = false;
     },
-    [createVote.fulfilled]: () => {}
+    [createVote.fulfilled]: () => {},
+    [getAnswer.pending]: state => {
+      state.loading = true;
+    },
+    [getAnswer.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.answerDetails = action.payload;
+    }
   }
 });
 

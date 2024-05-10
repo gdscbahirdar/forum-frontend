@@ -76,6 +76,28 @@ export async function apiGetAnswers(id, data) {
   });
 }
 
+export async function apiGetAnswerDetails(questionId, answerId) {
+  return ApiService.fetchData({
+    url: `/forum/questions/${questionId}/answers/${answerId}/`,
+    method: "get"
+  });
+}
+
+export async function apiPutAnswer(questionId, answerId, data) {
+  return ApiService.fetchData({
+    url: `/forum/questions/${questionId}/answers/${answerId}/`,
+    method: "put",
+    data
+  });
+}
+
+export async function apiDeleteAnswer(questionId, answerId) {
+  return ApiService.fetchData({
+    url: `/forum/questions/${questionId}/answers/${answerId}/`,
+    method: "delete"
+  });
+}
+
 export async function apiCreateComment(id, data) {
   return ApiService.fetchData({
     url: `/forum/${id}/comments/`,
