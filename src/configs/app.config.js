@@ -1,5 +1,7 @@
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 const appConfig = {
-  apiPrefix: "http://127.0.0.1:8000/api",
+  apiPrefix: baseUrl,
   authenticatedEntryPath: "/home",
   unAuthenticatedEntryPath: "/sign-in",
   tourPath: "/",
