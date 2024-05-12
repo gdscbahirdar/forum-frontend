@@ -72,14 +72,10 @@
     "yup": "^0.32.10"
   },
   "scripts": {
-    "start": "run-p watch:css react-scripts:start",
-    "build": "GENERATE_SOURCEMAP=false run-s build:css react-scripts:build",
+    "start": "react-scripts start",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "build:css": "cross-env TAILWIND_MODE=build NODE_ENV=production postcss src/assets/styles/app.css -o src/index.css",
-    "watch:css": "cross-env TAILWIND_MODE=watch NODE_ENV=development postcss src/assets/styles/app.css -o src/index.css --watch",
-    "react-scripts:start": "react-scripts start",
-    "react-scripts:build": "react-scripts build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
