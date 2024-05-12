@@ -90,9 +90,9 @@ const ResetPasswordForm = props => {
       )}
       <Formik
         initialValues={{
-          oldPassword: "12456",
-          password: "123Qwe1",
-          confirmPassword: "123Qwe1"
+          oldPassword: "",
+          password: "",
+          confirmPassword: ""
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
