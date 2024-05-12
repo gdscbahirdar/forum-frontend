@@ -57,6 +57,16 @@ export const BookmarkList = () => {
         <div className="flex justify-between items-center">
           <h4 className="mb-6">Bookmarks</h4>
         </div>
+        {data.length === 0 && !loading && (
+          <div className="h-full flex flex-col items-center justify-center">
+            <div className="mt-6 text-center">
+              <p className="text-base">
+                No bookmarks found. Bookmark a question and/or answer to see it
+                here.
+              </p>
+            </div>
+          </div>
+        )}
         {data.map(question =>
           question.bookmarked_answers.length > 0 ? (
             question.bookmarked_answers.map(answer => (

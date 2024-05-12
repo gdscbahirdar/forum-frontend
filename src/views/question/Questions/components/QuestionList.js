@@ -117,6 +117,15 @@ const QuestionList = props => {
             Ask Question
           </Button>
         </div>
+        {data.length === 0 && !loading && (
+          <div className="h-full flex flex-col items-center justify-center">
+            <div className="mt-6 text-center">
+              <p className="text-base">
+                No questions found. Be the first to ask a question.
+              </p>
+            </div>
+          </div>
+        )}
         {displayedData.map(question => (
           <article key={question.id}>
             <Card className="group mb-4">
