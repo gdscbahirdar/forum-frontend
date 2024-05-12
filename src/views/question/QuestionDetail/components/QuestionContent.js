@@ -448,7 +448,7 @@ const QuestionContent = ({ questionId }) => {
       }
     >
       <div className="border-b border-gray-200 mb-4 pb-4">
-        <h3>{question.title}</h3>
+        <h3 className="break-words w-full">{question.title}</h3>
         <div className="flex items-center justify-between">
           <div className="flex items-center mt-4 gap-4">
             <Avatar

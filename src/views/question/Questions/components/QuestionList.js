@@ -156,7 +156,7 @@ const QuestionList = props => {
                     state={{ id: question.id }}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <h5 className="group-hover:underline text-blue-700 font-normal">
+                      <h5 className="group-hover:underline text-blue-700 font-normal break-words w-full">
                         {question.title}
                       </h5>
                     </div>
