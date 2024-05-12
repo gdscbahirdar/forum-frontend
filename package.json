@@ -80,7 +80,6 @@
     "react-scripts:start": "react-scripts start",
     "react-scripts:build": "react-scripts build",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "prepare": "husky",
     "format": "prettier --write src/**/*"
   },
   "eslintConfig": {
