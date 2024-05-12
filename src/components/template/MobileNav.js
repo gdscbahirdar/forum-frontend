@@ -40,7 +40,7 @@ const MobileNav = () => {
   const sideNavCollapse = useSelector(
     state => state.theme.layout.sideNavCollapse
   );
-  const userRole = useSelector(state => state.auth.user.role);
+  const userAuthority = useSelector(state => state.auth.user.authority);
 
   const { smaller } = useResponsive();
 
@@ -79,7 +79,7 @@ const MobileNav = () => {
                   collapsed={sideNavCollapse}
                   navigationTree={navigationConfig}
                   routeKey={currentRouteKey}
-                  userRole={userRole}
+                  userAuthority={userAuthority}
                   onMenuItemClick={onDrawerClose}
                   direction={direction}
                 />

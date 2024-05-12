@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import {
@@ -11,12 +11,9 @@ import {
 } from "components/ui";
 import { IconText, SvgIcon } from "components/shared";
 import RichTextEditor from "../RTE";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getTags } from "../Tags/store/dataSlice";
-import { injectReducer } from "store/index";
-import reducer from "../Tags/store";
-
-injectReducer("tags", reducer);
+import AsyncSelect from "react-select/async";
 
 const QuestionCreateSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
@@ -51,11 +48,14 @@ const QuestionForm = ({ question, handleSubmit }) => {
 
   const dispatch = useDispatch();
 
-  const tagsData = useSelector(state => state.tags.data.tags);
-
-  useEffect(() => {
-    dispatch(getTags());
-  }, [dispatch]);
+  const loadTagOptions = async (inputValue, callback) => {
+    const response = await dispatch(getTags({ search: inputValue }));
+    const options = response?.payload?.data?.map(tag => ({
+      value: tag.name,
+      label: tag.name
+    }));
+    callback(options);
+  };
 
   return (
     <Formik
@@ -199,26 +199,27 @@ const QuestionForm = ({ question, handleSubmit }) => {
             >
               <Field name="tags">
                 {({ field, form }) => {
-                  const tagOptions = tagsData?.data?.map(tag => ({
-                    value: tag.name,
-                    label: tag.name
-                  }));
                   return (
                     <Select
                       isMulti
-                      options={tagOptions}
+                      cacheOptions
+                      loadOptions={loadTagOptions}
+                      defaultOptions
                       placeholder="e.g. data-structures, algorithm, computer-science"
                       className="placeholder:text-xs"
-                      value={tagOptions?.filter(option =>
-                        field.value.includes(option.value)
-                      )}
+                      value={field.value.map(val => ({
+                        value: val,
+                        label: val
+                      }))}
                       onChange={options => {
                         form.setFieldValue(
                           "tags",
                           options.map(option => option.value)
                         );
                       }}
+                      noOptionsMessage={() => null}
                       onFocus={() => handleFocus("tags")}
+                      componentAs={AsyncSelect}
                     />
                   );
                 }}
