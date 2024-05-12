@@ -161,7 +161,7 @@ const QuestionList = props => {
                       </h5>
                     </div>
                   </Link>
-                  <p>
+                  <p className="break-words w-full">
                     {question.body.length > 230
                       ? question.body.substring(0, 229) + "..."
                       : question.body}
