@@ -247,7 +247,7 @@ const Answer = ({
         </div>
         <div className="flex flex-col mt-4 prose max-w-none">
           <div className="flex justify-between">
-            {user?.username === answer.answered_by && (
+            {user?.username === answer.answered_by ? (
               <div className="flex gap-2 text-xs items-center">
                 <ActionLink
                   to={`/questions/answer-edit?id=${questionId}&answer_id=${answer.answer_id}`}
@@ -258,6 +258,8 @@ const Answer = ({
                 </ActionLink>
                 <button onClick={() => openDialog()}>Delete</button>
               </div>
+            ) : (
+              <div></div>
             )}
 
             <div className="flex flex-col items-end">
