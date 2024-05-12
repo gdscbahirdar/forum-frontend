@@ -67,30 +67,34 @@ const OthersQuestion = ({ questionId }) => {
 
   return (
     <div className="lg:w-[400px] mt-6 ltr:lg:border-l rtl:lg:border-r border-gray-200 dark:border-gray-600 md:px-8">
-      <div className="mb-8">
-        <h4>Related Questions</h4>
-        <Loading customLoader={<Loaders />} loading={loading}>
-          {relatedQuestion?.map((question, index) => (
-            <QuestionItem
-              key={question.id}
-              data={question}
-              isLastChild={isLastChild(relatedQuestion, index)}
-            />
-          ))}
-        </Loading>
-      </div>
-      <div>
-        <h4>Popular Questions</h4>
-        <Loading customLoader={<Loaders counts={4} />} loading={loading}>
-          {popularQuestion?.map((question, index) => (
-            <QuestionItem
-              key={question.id}
-              data={question}
-              isLastChild={isLastChild(popularQuestion, index)}
-            />
-          ))}
-        </Loading>
-      </div>
+      {relatedQuestion?.length > 0 && (
+        <div className="mb-8">
+          <h4>Related Questions</h4>
+          <Loading customLoader={<Loaders />} loading={loading}>
+            {relatedQuestion.map((question, index) => (
+              <QuestionItem
+                key={question.id}
+                data={question}
+                isLastChild={isLastChild(relatedQuestion, index)}
+              />
+            ))}
+          </Loading>
+        </div>
+      )}
+      {popularQuestion?.length > 0 && (
+        <div>
+          <h4>Popular Questions</h4>
+          <Loading customLoader={<Loaders counts={4} />} loading={loading}>
+            {popularQuestion.map((question, index) => (
+              <QuestionItem
+                key={question.id}
+                data={question}
+                isLastChild={isLastChild(popularQuestion, index)}
+              />
+            ))}
+          </Loading>
+        </div>
+      )}
     </div>
   );
 };

@@ -7953,6 +7953,9 @@ hr {
 .underline {
   text-decoration-line: underline;
 }
+.no-underline {
+  text-decoration-line: none;
+}
 .opacity-25 {
   opacity: 0.25;
 }

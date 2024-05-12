@@ -62,7 +62,7 @@ const DownvoteSVG = () => (
 const FlagSVG = () => (
   <svg
     aria-hidden="true"
-    class="svg-icon iconFlag"
+    className="svg-icon iconFlag"
     width="18"
     height="18"
     viewBox="0 0 18 18"
@@ -247,7 +247,7 @@ const Answer = ({
         </div>
         <div className="flex flex-col mt-4 prose max-w-none">
           <div className="flex justify-between">
-            {user?.username === answer.answered_by && (
+            {user?.username === answer.answered_by ? (
               <div className="flex gap-2 text-xs items-center">
                 <ActionLink
                   to={`/questions/answer-edit?id=${questionId}&answer_id=${answer.answer_id}`}
@@ -258,6 +258,8 @@ const Answer = ({
                 </ActionLink>
                 <button onClick={() => openDialog()}>Delete</button>
               </div>
+            ) : (
+              <div></div>
             )}
 
             <div className="flex flex-col items-end">
@@ -446,14 +448,14 @@ const QuestionContent = ({ questionId }) => {
       }
     >
       <div className="border-b border-gray-200 mb-4 pb-4">
-        <h3>{question.title}</h3>
+        <h3 className="break-words w-full">{question.title}</h3>
         <div className="flex items-center justify-between">
           <div className="flex items-center mt-4 gap-4">
             <Avatar
               size={40}
               shape="circle"
               icon={<HiOutlineUser />}
-              src={user.avatar}
+              src={question.asked_by_avatar}
             />
             <div className="text-xs">
               <div className="mb-1">

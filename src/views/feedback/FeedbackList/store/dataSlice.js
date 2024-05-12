@@ -12,7 +12,8 @@ export const getFeedbackList = createAsyncThunk(
     const transformedData = results.map(feedback => ({
       id: feedback.pk,
       title: feedback.title,
-      message: feedback.message
+      message: feedback.message,
+      author_avatar: feedback.author_avatar
     }));
     return {
       data: transformedData,

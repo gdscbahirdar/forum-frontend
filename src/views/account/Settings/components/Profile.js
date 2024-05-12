@@ -19,16 +19,19 @@ import {
 import * as Yup from "yup";
 import { apiUpdateProfile } from "services/AccountServices";
 import { useState } from "react";
+import { setUser } from "store/auth/userSlice";
+import { useDispatch } from "react-redux";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email Required"),
-  phone_number: Yup.string().required("Phone Number Required"),
+  email: Yup.string().email("Invalid email"),
+  phone_number: Yup.string(),
   bio: Yup.string(),
   avatar: Yup.string().nullable()
 });
 
 function Profile({ data }) {
   const [preview, setPreview] = useState("");
+  const dispatch = useDispatch();
 
   const onSetFormFile = (form, field, file) => {
     setPreview(URL.createObjectURL(file[0]));
@@ -57,6 +60,21 @@ function Profile({ data }) {
           {
             placement: "top-center"
           }
+        );
+        dispatch(
+          setUser({
+            username: response.data.username,
+            full_name:
+              response.data.first_name +
+              " " +
+              response.data.middle_name +
+              " " +
+              response.data.last_name,
+            is_first_time_login: response.data.is_first_time_login,
+            authority: [response.data.role_name],
+            faculty: response.data.faculty,
+            avatar: response.data.avatar
+          })
         );
       }
     } catch (error) {
