@@ -16,7 +16,9 @@ import { getTags } from "../Tags/store/dataSlice";
 import AsyncSelect from "react-select/async";
 
 const QuestionCreateSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
+  title: Yup.string()
+    .required("Title is required")
+    .max(150, "Title can't be longer than 150 characters"),
   body: Yup.string().required("Body is required"),
   tags: Yup.array().min(1, "Please select at least one tag")
 });
