@@ -24,6 +24,7 @@
     "axios": "^0.27.2",
     "buffer": "^6.0.3",
     "classnames": "^2.2.6",
+    "cross-env": "^7.0.3",
     "d3-fetch": "^2.0.0",
     "d3-geo": "^3.0.1",
     "d3-scale": "^3.2.3",
@@ -65,7 +66,6 @@
     "react-window": "^1.8.6",
     "redux": "^4.1.1",
     "redux-persist": "^6.0.0",
-    "source-map-explorer": "^2.5.2",
     "tailwind-safelist-generator": "^1.0.0",
     "twin.macro": "^3.0.0",
     "web-vitals": "^2.1.4",
@@ -79,9 +79,7 @@
     "build:css": "cross-env TAILWIND_MODE=build NODE_ENV=production postcss src/assets/styles/app.css -o src/index.css",
     "watch:css": "cross-env TAILWIND_MODE=watch NODE_ENV=development postcss src/assets/styles/app.css -o src/index.css --watch",
     "react-scripts:start": "react-scripts start",
-    "react-scripts:build": "react-scripts build",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "format": "prettier --write src/**/*"
+    "react-scripts:build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
@@ -104,7 +102,6 @@
   "devDependencies": {
     "@eslint/js": "^9.0.0",
     "autoprefixer": "^10.4.0",
-    "cross-env": "^7.0.3",
     "delay-cli": "^1.1.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
