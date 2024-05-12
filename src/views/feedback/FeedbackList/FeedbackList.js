@@ -23,8 +23,6 @@ const FeedbackList = () => {
   const loading = useSelector(state => state.feedback.data.loading);
   const data = useSelector(state => state.feedback.data.feedbackList);
 
-  const { user } = useSelector(state => state.auth);
-
   useEffect(() => {
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,7 +81,7 @@ const FeedbackList = () => {
                   size={25}
                   shape="circle"
                   icon={<HiOutlineUser />}
-                  src={user.avatar}
+                  src={feedback.author_avatar}
                 />
                 <div className="flex">
                   <Tooltip title="Delete">

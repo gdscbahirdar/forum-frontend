@@ -62,7 +62,7 @@ const DownvoteSVG = () => (
 const FlagSVG = () => (
   <svg
     aria-hidden="true"
-    class="svg-icon iconFlag"
+    className="svg-icon iconFlag"
     width="18"
     height="18"
     viewBox="0 0 18 18"
@@ -453,7 +453,7 @@ const QuestionContent = ({ questionId }) => {
               size={40}
               shape="circle"
               icon={<HiOutlineUser />}
-              src={user.avatar}
+              src={question.asked_by_avatar}
             />
             <div className="text-xs">
               <div className="mb-1">

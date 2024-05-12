@@ -29,6 +29,7 @@ export const getQuestion = createAsyncThunk(
       body: question.post.body,
       slug: question.slug,
       asked_by: question.asked_by,
+      asked_by_avatar: question.asked_by_avatar,
       view_count: question.view_count,
       answer_count: question.answer_count,
       user_vote: question.post.user_vote,
