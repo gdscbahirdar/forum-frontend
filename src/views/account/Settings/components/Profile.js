@@ -6,7 +6,8 @@ import {
   Button,
   Notification,
   toast,
-  FormContainer
+  FormContainer,
+  Tooltip
 } from "components/ui";
 import FormDescription from "./FormDescription";
 import FormRow from "./FormRow";
@@ -14,7 +15,8 @@ import { Field, Form, Formik } from "formik";
 import {
   HiOutlineMail,
   HiOutlineUser,
-  HiOutlineDocumentText
+  HiOutlineDocumentText,
+  HiOutlineTrash
 } from "react-icons/hi";
 import * as Yup from "yup";
 import { apiUpdateProfile } from "services/AccountServices";
@@ -144,28 +146,42 @@ function Profile({ data }) {
               <FormRow name="avatar" label="Avatar" {...validatorProps}>
                 <Field name="avatar">
                   {({ field, form }) => {
-                    // const avatarProps = field.value ? { src: field.value } : {};
                     const avatarProps = preview
                       ? { src: preview }
                       : { src: field.value };
                     return (
-                      <Upload
-                        className="cursor-pointer"
-                        onChange={files => onSetFormFile(form, field, files)}
-                        onFileRemove={files =>
-                          onSetFormFile(form, field, files)
-                        }
-                        showList={false}
-                        uploadLimit={1}
-                      >
-                        <Avatar
-                          className="border-2 border-white dark:border-gray-800 shadow-lg"
-                          size={60}
-                          shape="circle"
-                          icon={<HiOutlineUser />}
-                          {...avatarProps}
-                        />
-                      </Upload>
+                      <div className="flex items-center gap-4">
+                        <Upload
+                          className="cursor-pointer"
+                          onChange={files => onSetFormFile(form, field, files)}
+                          onFileRemove={files =>
+                            onSetFormFile(form, field, files)
+                          }
+                          showList={false}
+                          uploadLimit={1}
+                        >
+                          <Avatar
+                            className="border-2 border-white dark:border-gray-800 shadow-lg"
+                            size={60}
+                            shape="circle"
+                            icon={<HiOutlineUser />}
+                            {...avatarProps}
+                          />
+                        </Upload>
+                        {field.value && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              form.setFieldValue("avatar", "");
+                              setPreview(null);
+                            }}
+                          >
+                            <Tooltip title="Remove avatar" placement="right">
+                              <HiOutlineTrash className="text-red-500" />
+                            </Tooltip>
+                          </button>
+                        )}
+                      </div>
                     );
                   }}
                 </Field>
