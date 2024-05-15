@@ -148,6 +148,16 @@ const navigationConfig = [
     type: NAV_ITEM_TYPE_ITEM,
     authority: [],
     subMenu: []
+  },
+  {
+    key: "leaderboard",
+    path: "/leaderboard",
+    title: "Leader Board",
+    translateKey: "nav.leaderboard",
+    icon: "leaderboard",
+    type: NAV_ITEM_TYPE_ITEM,
+    authority: [],
+    subMenu: []
   }
 ];
 

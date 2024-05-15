@@ -147,6 +147,12 @@ export const protectedRoutes = [
     path: `${APP_PREFIX_PATH}/feedback/edit-feedback`,
     component: React.lazy(() => import("views/feedback/EditFeedback")),
     authority: []
+  },
+  {
+    key: "leaderboard",
+    path: `/leaderboard`,
+    component: React.lazy(() => import("views/leaderboard")),
+    authority: []
   }
   // {
   //   key: "others.reputations",
