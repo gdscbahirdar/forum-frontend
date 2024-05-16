@@ -122,7 +122,17 @@ export const protectedRoutes = [
   {
     key: "appsAccount.settings",
     path: `${APP_PREFIX_PATH}/account/settings/:tab`,
-    component: React.lazy(() => import("views/account/Settings")),
+    component: React.lazy(() => import("views/account")),
+    authority: [],
+    meta: {
+      header: "Settings",
+      headerContainer: true
+    }
+  },
+  {
+    key: "appsAccount.activity",
+    path: `${APP_PREFIX_PATH}/account/settings/activity/:category`,
+    component: React.lazy(() => import("views/account")),
     authority: [],
     meta: {
       header: "Settings",
@@ -154,12 +164,6 @@ export const protectedRoutes = [
     component: React.lazy(() => import("views/leaderboard")),
     authority: []
   }
-  // {
-  //   key: "others.reputations",
-  //   path: "/reputations",
-  //   component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
-  //   authority: []
-  // }
   // {
   //   key: "others.collapse.item1",
   //   path: "/group-collapse-menu-item-view-1",

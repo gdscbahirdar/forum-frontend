@@ -4,14 +4,20 @@ import { AdaptableCard, Container } from "components/shared";
 import { useNavigate, useLocation } from "react-router-dom";
 import isEmpty from "lodash/isEmpty";
 import { apiGetProfileData } from "services/AccountServices";
+import { injectReducer } from "store";
+import reducer from "./store";
+
+injectReducer("settings", reducer);
 
 const Profile = lazy(() => import("./components/Profile"));
 const Password = lazy(() => import("./components/Password"));
+const Activity = lazy(() => import("./components/Activity"));
 
 const { TabNav, TabList } = Tabs;
 
 const settingsMenu = {
   profile: { label: "Profile", path: "profile" },
+  activity: { label: "Activity", path: "activity" },
   password: { label: "Password", path: "password" }
 };
 
@@ -23,13 +29,24 @@ const Settings = () => {
 
   const location = useLocation();
 
-  const path = location.pathname.substring(
-    location.pathname.lastIndexOf("/") + 1
-  );
+  const pathSegments = location.pathname.split("/");
+  const settingsIndex = pathSegments.indexOf("settings");
+
+  let path;
+  let activityPath;
+
+  if (settingsIndex !== -1 && settingsIndex < pathSegments.length - 1) {
+    path = pathSegments[settingsIndex + 1];
+    activityPath = pathSegments[settingsIndex + 2];
+  }
 
   const onTabChange = val => {
     setCurrentTab(val);
-    navigate(`/forum/account/settings/${val}`);
+    if (val === "activity") {
+      navigate(`/forum/account/settings/activity/summary`);
+    } else {
+      navigate(`/forum/account/settings/${val}`);
+    }
   };
 
   const fetchData = async () => {
@@ -60,6 +77,9 @@ const Settings = () => {
         <div className="px-4 py-6">
           <Suspense fallback={<></>}>
             {currentTab === "profile" && <Profile data={data} />}
+            {currentTab === "activity" && (
+              <Activity activityPath={activityPath} />
+            )}
             {currentTab === "password" && <Password />}
           </Suspense>
         </div>
