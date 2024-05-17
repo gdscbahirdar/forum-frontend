@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import useResponsive from "utils/hooks/useResponsive";
 import { toggleMobileSidebar } from "views/account/store/stateSlice";
 import { Summary } from "./Summary";
+import { Badges } from "./Badges";
+import { Reputation } from "./Reputation";
 
 const ToggleButton = ({ mobileSidebarExpand }) => {
   const dispatch = useDispatch();
@@ -55,7 +57,6 @@ const ActivityBody = () => {
               mobileSidebarExpand={mobileSidebarExpand}
             />
           )}
-          <h6>{selectedCategory.label}</h6>
         </div>
       </div>
       <div>
@@ -67,6 +68,10 @@ const ActivityBody = () => {
               return <Summary />;
             case "questions":
               return <Summary />;
+            case "badges":
+              return <Badges />;
+            case "reputation":
+              return <Reputation />;
             default:
               return <div>No content</div>;
           }

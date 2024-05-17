@@ -22,3 +22,24 @@ export async function apiUpdatePassword(data) {
     data
   });
 }
+
+export async function apiGetUserBadges(username) {
+  return ApiService.fetchData({
+    url: `/user/${username}/badges/`,
+    method: "get"
+  });
+}
+
+export async function apiGetUsers() {
+  return ApiService.fetchData({
+    url: "/users/",
+    method: "get"
+  });
+}
+
+export async function apiGetUser(username) {
+  return ApiService.fetchData({
+    url: `/user/${username}/`,
+    method: "get"
+  });
+}
