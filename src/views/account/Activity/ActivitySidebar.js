@@ -5,14 +5,14 @@ import useResponsive from "utils/hooks/useResponsive";
 import {
   updateSelectedCategory,
   toggleMobileSidebar
-} from "../../store/stateSlice";
+} from "../Settings/store/stateSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const { MenuItem } = Menu;
 
 export const groupList = [
-  { value: "summary", label: "Summary" },
+  // { value: "summary", label: "Summary" },
   { value: "answers", label: "Answers" },
   { value: "questions", label: "Questions" },
   { value: "badges", label: "Badges" },

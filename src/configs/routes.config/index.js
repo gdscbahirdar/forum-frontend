@@ -122,7 +122,7 @@ export const protectedRoutes = [
   {
     key: "appsAccount.settings",
     path: `${APP_PREFIX_PATH}/account/settings/:tab`,
-    component: React.lazy(() => import("views/account")),
+    component: React.lazy(() => import("views/account/Settings")),
     authority: [],
     meta: {
       header: "Settings",
@@ -132,7 +132,7 @@ export const protectedRoutes = [
   {
     key: "appsAccount.activity",
     path: `${APP_PREFIX_PATH}/account/settings/activity/:category`,
-    component: React.lazy(() => import("views/account")),
+    component: React.lazy(() => import("views/account/Settings")),
     authority: [],
     meta: {
       header: "Settings",
@@ -162,6 +162,18 @@ export const protectedRoutes = [
     key: "leaderboard",
     path: `/leaderboard`,
     component: React.lazy(() => import("views/leaderboard")),
+    authority: []
+  },
+  {
+    key: "userProfile",
+    path: "/users/:username/answers",
+    component: React.lazy(() => import("views/account/Public")),
+    authority: []
+  },
+  {
+    key: "userProfileTab",
+    path: "/users/:username/:tab",
+    component: React.lazy(() => import("views/account/Public")),
     authority: []
   }
   // {

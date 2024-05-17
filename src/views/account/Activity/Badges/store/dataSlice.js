@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { apiGetUserBadges } from "services/AccountServices";
 
 export const getUserBadges = createAsyncThunk(
-  "settings/data/getUserBadges",
+  "userBadges/data/getUserBadges",
   async username => {
     const response = await apiGetUserBadges(username);
     const transformedData = response.data.map(badge => ({
@@ -16,11 +16,10 @@ export const getUserBadges = createAsyncThunk(
 );
 
 const dataSlice = createSlice({
-  name: "settings/data",
+  name: "userBadges/data",
   initialState: {
     loading: false,
-    userBadges: [],
-    total_badges: ""
+    userBadges: []
   },
   extraReducers: {
     [getUserBadges.fulfilled]: (state, action) => {

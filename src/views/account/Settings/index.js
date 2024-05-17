@@ -9,9 +9,9 @@ import reducer from "./store";
 
 injectReducer("settings", reducer);
 
-const Profile = lazy(() => import("./components/Profile"));
-const Password = lazy(() => import("./components/Password"));
-const Activity = lazy(() => import("./components/Activity"));
+const Profile = lazy(() => import("../Profile"));
+const Password = lazy(() => import("../Password"));
+const Activity = lazy(() => import("../Activity"));
 
 const { TabNav, TabList } = Tabs;
 
@@ -43,7 +43,7 @@ const Settings = () => {
   const onTabChange = val => {
     setCurrentTab(val);
     if (val === "activity") {
-      navigate(`/forum/account/settings/activity/summary`);
+      navigate(`/forum/account/settings/activity/answers`);
     } else {
       navigate(`/forum/account/settings/${val}`);
     }

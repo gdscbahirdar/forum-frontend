@@ -1,11 +1,7 @@
 import React from "react";
-import { injectReducer } from "store/index";
-import ActivitySidebar from "./activity_components/ActivitySidebar";
-import reducer from "../store";
-import ActivityBody from "./activity_components/ActivityBody";
+import ActivitySidebar from "./ActivitySidebar";
+import ActivityBody from "./ActivityBody";
 import { AdaptableCard } from "components/shared";
-
-injectReducer("settings", reducer);
 
 const Activity = ({ activityPath }) => {
   return (

@@ -37,9 +37,25 @@ export async function apiGetUsers() {
   });
 }
 
-export async function apiGetUser(username) {
+export async function apiGetUserProfile(username) {
   return ApiService.fetchData({
-    url: `/user/${username}/`,
+    url: `/users/${username}/`,
     method: "get"
+  });
+}
+
+export async function apiGetUserQuestions(data) {
+  return ApiService.fetchData({
+    url: `/forum/questions/`,
+    method: "get",
+    params: data
+  });
+}
+
+export async function apiGetUserAnswers(username, data) {
+  return ApiService.fetchData({
+    url: `/forum/questions/answered_by/${username}`,
+    method: "get",
+    params: data
   });
 }

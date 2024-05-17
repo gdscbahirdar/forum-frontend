@@ -5,14 +5,9 @@ const stateSlice = createSlice({
   initialState: {
     sideBarExpand: true,
     mobileSideBarExpand: false,
-    selectedCategory: {},
-    reply: false,
-    newMessageDialog: false
+    selectedCategory: {}
   },
   reducers: {
-    updateReply: (state, action) => {
-      state.reply = action.payload;
-    },
     toggleSidebar: (state, action) => {
       state.sideBarExpand = action.payload;
     },
@@ -29,7 +24,6 @@ const stateSlice = createSlice({
 });
 
 export const {
-  updateReply,
   toggleSidebar,
   toggleMobileSidebar,
   toggleNewMessageDialog,

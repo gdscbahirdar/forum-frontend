@@ -4,8 +4,10 @@ import { Button } from "components/ui";
 import { HiMenu, HiMenuAlt2 } from "react-icons/hi";
 import { useSelector, useDispatch } from "react-redux";
 import useResponsive from "utils/hooks/useResponsive";
-import { toggleMobileSidebar } from "views/account/store/stateSlice";
-import { Summary } from "./Summary";
+import { toggleMobileSidebar } from "views/account/Settings/store/stateSlice";
+// import { Summary } from "./Summary";
+import UserQuestions from "./UserQuestions";
+import UserAnswers from "./UserAnswers";
 import { Badges } from "./Badges";
 import { Reputation } from "./Reputation";
 
@@ -62,12 +64,12 @@ const ActivityBody = () => {
       <div>
         {(() => {
           switch (selectedCategory.value) {
-            case "summary":
-              return <Summary />;
+            // case "summary":
+            //   return <Summary />;
             case "answers":
-              return <Summary />;
+              return <UserAnswers />;
             case "questions":
-              return <Summary />;
+              return <UserQuestions />;
             case "badges":
               return <Badges />;
             case "reputation":

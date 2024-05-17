@@ -267,7 +267,11 @@ const Answer = ({
                 Answered{" "}
                 {dayjs(answer.created_at).format("YYYY-MM-DD HH:mm:ss")}
               </div>
-              <div className="text-xs">{answer.answered_by}</div>
+              <div className="text-xs">
+                <Link to={`/users/${answer.answered_by}/answers`}>
+                  {answer.answered_by}
+                </Link>
+              </div>
             </div>
           </div>
           <div className="flex flex-col items-start gap-2 text-xs border-t border-t-gray-200 pt-2 mt-2">
@@ -461,7 +465,9 @@ const QuestionContent = ({ questionId }) => {
               <div className="mb-1">
                 Created by:{" "}
                 <span className="text-xs text-gray-900 dark:text-gray-100">
-                  {question.asked_by}
+                  <Link to={`/users/${question.asked_by}/answers`}>
+                    {question.asked_by}
+                  </Link>
                 </span>
               </div>
               <div>
