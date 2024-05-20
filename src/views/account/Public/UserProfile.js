@@ -28,8 +28,8 @@ const UserProfile = ({ data = {} }) => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-y-7 gap-x-4 mt-8">
           <UserInfoField title="Username" value={data.username} />
-          <UserInfoField title="Faculty" value={data.faculty} />
-          <UserInfoField title="Bio" value={data.bio} />
+          <UserInfoField title="Faculty" value={data.faculty || "-"} />
+          <UserInfoField title="Bio" value={data.bio || "-"} />
           <UserInfoField title="Reputation" value={data.reputation} />
         </div>
       </div>

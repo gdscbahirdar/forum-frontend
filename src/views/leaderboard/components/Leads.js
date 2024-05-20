@@ -5,6 +5,7 @@ import { HiCheck, HiOutlineUser } from "react-icons/hi";
 import { components } from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { getLeaderBoardData, setFilterData } from "../store/dataSlice";
+import { Link } from "react-router-dom";
 
 const { Tr, Td, TBody, THead, Th } = Table;
 
@@ -52,7 +53,10 @@ const NameColumn = ({ row }) => {
         size={25}
         src={row.avatar}
       />
-      <span className="font-semibold">{row.fullname}</span>
+      <span className="font-semibold">
+        {" "}
+        <Link to={`/users/${row.username}/answers`}>{row.fullname}</Link>
+      </span>
     </div>
   );
 };
