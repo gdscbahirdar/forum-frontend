@@ -16,9 +16,9 @@ const badgeLevelMapping = {
 };
 
 const badgeColor = {
-  Gold: "bg-yellow-200 text-yellow-800",
-  Silver: "bg-gray-200 text-gray-800",
-  Bronze: "bg-orange-200 text-orange-800"
+  Gold: "bg-yellow-300 text-yellow-300",
+  Silver: "bg-gray-300 text-gray-300",
+  Bronze: "bg-rose-300 text-rose-300"
 };
 
 export const Badges = () => {

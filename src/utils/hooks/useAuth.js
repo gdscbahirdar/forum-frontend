@@ -39,7 +39,8 @@ function useAuth() {
               authority: [resp.data.user.role_name],
               faculty: resp.data.user.faculty,
               avatar: resp.data.user.avatar,
-              reputation: resp.data.user.reputation
+              reputation: resp.data.user.reputation,
+              badges: resp.data.user.badges
             })
           );
           const faculties = await apiGetFaculties();

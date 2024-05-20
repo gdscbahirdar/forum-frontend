@@ -7,7 +7,8 @@ export const initialState = {
   authority: [],
   faculty: "",
   avatar: "",
-  reputation: ""
+  reputation: "",
+  badges: {}
 };
 
 export const userSlice = createSlice({

@@ -17,6 +17,7 @@ const dropdownItemList = [
 
 export const UserDropdown = ({ className }) => {
   const userInfo = useSelector(state => state.auth.user);
+  const { gold_badges, silver_badges, bronze_badges } = userInfo.badges;
 
   const { signOut } = useAuth();
 
@@ -31,12 +32,46 @@ export const UserDropdown = ({ className }) => {
       <div className="hidden md:block">
         <div className="text-xs capitalize">{userInfo.authority[0]}</div>
         <div className="font-bold">{userInfo.full_name}</div>
-        <div
-          className="font-mono text-gray-400"
-          style={{ fontSize: "12px" }}
-          title={`Your reputation: ${userInfo.reputation}`}
-        >
-          {userInfo.reputation}
+        <div className="flex gap-4">
+          <div
+            className="font-mono text-gray-400"
+            style={{ fontSize: "12px" }}
+            title={`Your reputation: ${userInfo.reputation}`}
+          >
+            {userInfo.reputation}
+          </div>
+          <div
+            className="flex items-center gap-3 font-mono text-gray-400"
+            style={{ fontSize: "12px" }}
+          >
+            {gold_badges > 0 && (
+              <span
+                className="flex items-center"
+                title={`Gold badges: ${gold_badges}`}
+              >
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-yellow-300 mr-1"></span>
+                {gold_badges}
+              </span>
+            )}
+            {silver_badges > 0 && (
+              <span
+                className="flex items-center"
+                title={`Silver badges: ${silver_badges}`}
+              >
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-gray-300 mr-1"></span>
+                {silver_badges}
+              </span>
+            )}
+            {bronze_badges > 0 && (
+              <span
+                className="flex items-center"
+                title={`Bronze badges: ${bronze_badges}`}
+              >
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-rose-300 mr-1"></span>
+                {bronze_badges}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>
