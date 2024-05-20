@@ -31,6 +31,13 @@ export const UserDropdown = ({ className }) => {
       <div className="hidden md:block">
         <div className="text-xs capitalize">{userInfo.authority[0]}</div>
         <div className="font-bold">{userInfo.full_name}</div>
+        <div
+          className="font-mono text-gray-400"
+          style={{ fontSize: "12px" }}
+          title={`Your reputation: ${userInfo.reputation}`}
+        >
+          {userInfo.reputation}
+        </div>
       </div>
     </div>
   );

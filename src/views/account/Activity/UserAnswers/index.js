@@ -1,51 +1,45 @@
-import React, { useCallback, useEffect, useMemo } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getQuestions, setListData } from "../store/dataSlice";
-import { HiOutlinePlusCircle } from "react-icons/hi";
 import { Loading } from "components/shared";
-import { Button, Card, Tag } from "components/ui";
+import { Card, Pagination, Select, Tag } from "components/ui";
+import { cloneDeep } from "lodash";
+import { useCallback, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { Pagination, Select } from "components/ui";
-import cloneDeep from "lodash/cloneDeep";
+import reducer from "./store";
+import { injectReducer } from "store";
+import {
+  getUserAnswers,
+  setListData,
+  setAnsweredQuestionList
+} from "./store/dataSlice";
+
+injectReducer("userAnswers", reducer);
 
 dayjs.extend(relativeTime);
 
-const QuestionList = props => {
+const UserAnswers = props => {
   const { pageSizes } = props;
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const data = useSelector(state => state.questions.data.questionList);
-  const loading = useSelector(state => state.questions.data.loading);
-  const { pageIndex, pageSize, sort, query, total } = useSelector(
-    state => state.questions.data.listData
-  );
-  const filterData = useSelector(state => state.questions.data.filterData);
 
-  const { tag } = useParams();
+  const data = useSelector(state => state.userAnswers.data.questionList);
+  const loading = useSelector(state => state.userAnswers.data.loading);
+  const { pageIndex, pageSize, total } = useSelector(
+    state => state.userAnswers.data.listData
+  );
 
   const location = useLocation();
-  let heading;
-  if (tag) {
-    heading = `Questions Tagged ${tag}`;
-  } else {
-    if (location.pathname === "/home") {
-      heading = "Top Questions";
-    } else {
-      heading = "All Questions";
-    }
+
+  let username = useSelector(state => state.auth.user.username);
+
+  if (!location.pathname.includes("settings")) {
+    username = location.pathname.split("/")[2];
   }
 
-  const isTopQuestions = location.pathname === "/home";
-
-  const displayedData = isTopQuestions ? data.slice(0, 10) : data;
-
   const listData = useMemo(
-    () => ({ pageIndex, pageSize, sort, query, total }),
-    [pageIndex, pageSize, sort, query, total]
+    () => ({ pageIndex, pageSize, total }),
+    [pageIndex, pageSize, total]
   );
 
   const onSelectChange = value => {
@@ -55,15 +49,11 @@ const QuestionList = props => {
     dispatch(setListData(newListData));
   };
 
-  const onAddNewQuestion = () => {
-    navigate("/question/create");
-  };
-
   const handlePaginationChange = page => {
     if (!loading) {
       const newListData = cloneDeep(listData);
       newListData.pageIndex = page;
-      dispatch(setListData(newListData));
+      dispatch(setAnsweredQuestionList(newListData));
     }
   };
 
@@ -79,24 +69,9 @@ const QuestionList = props => {
     [pageSizes]
   );
 
-  // const handleSort = column => {
-  //   if (!loading) {
-  //     const { id, isSortedDesc, toggleSortBy, clearSortBy } = column;
-  //     const sortOrder = isSortedDesc ? "desc" : "asc";
-  //     toggleSortBy(!isSortedDesc);
-  //     onSort?.({ order: sortOrder, key: id }, { id, clearSortBy });
-  //     const newListData = cloneDeep(listData);
-  //     newListData.sort = sort;
-  //     dispatch(setListData(newListData));
-  //     dispatch(setSortedColumn(sortingColumn));
-  //   }
-  // };
-
   const fetchData = useCallback(() => {
-    dispatch(
-      getQuestions({ tag, pageIndex, pageSize, sort, query, filterData })
-    );
-  }, [dispatch, filterData, pageIndex, pageSize, query, sort, tag]);
+    dispatch(getUserAnswers(username, { pageIndex, pageSize }));
+  }, [dispatch, username, pageIndex, pageSize]);
 
   useEffect(() => {
     fetchData();
@@ -104,29 +79,17 @@ const QuestionList = props => {
 
   return (
     <Loading loading={loading && data?.length !== 0}>
-      <section className="max-w-[1000px] mx-auto">
-        <div className="flex justify-between items-center">
-          <h4 className="mb-6">{heading}</h4>
-          <Button
-            size="sm"
-            className="max-w-md mb-4"
-            variant="twoTone"
-            icon={<HiOutlinePlusCircle />}
-            onClick={onAddNewQuestion}
-          >
-            Ask Question
-          </Button>
-        </div>
+      <div className="p-4">
         {data.length === 0 && !loading && (
           <div className="h-full flex flex-col items-center justify-center">
             <div className="mt-6 text-center">
               <p className="text-base">
-                No questions found. Be the first to ask a question.
+                You haven't answered any questions yet.
               </p>
             </div>
           </div>
         )}
-        {displayedData.map(question => (
+        {data.map(question => (
           <article key={question.id}>
             <Card className="group mb-4">
               <div className="grid grid-cols-9 gap-4">
@@ -182,7 +145,7 @@ const QuestionList = props => {
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="flex items-center gap-2 text-xs">
-                        <Link to={`/users/${question.asked_by}/answers`}>
+                        <Link to={`/users/${question.asked_by}/summary`}>
                           {question.asked_by}
                         </Link>
                         -
@@ -203,7 +166,7 @@ const QuestionList = props => {
           </article>
         ))}
 
-        {!isTopQuestions && displayedData.length > 0 && (
+        {data.length > 10 && (
           <div className="flex items-center justify-between mt-4">
             <Pagination
               pageSize={pageSize}
@@ -225,13 +188,13 @@ const QuestionList = props => {
             </div>
           </div>
         )}
-      </section>
+      </div>
     </Loading>
   );
 };
 
-QuestionList.defaultProps = {
+UserAnswers.defaultProps = {
   pageSizes: [10, 25, 50]
 };
 
-export default QuestionList;
+export default UserAnswers;
