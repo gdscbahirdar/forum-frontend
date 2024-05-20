@@ -175,6 +175,24 @@ export const protectedRoutes = [
     path: "/users/:username/:tab",
     component: React.lazy(() => import("views/account/Public")),
     authority: []
+  },
+  {
+    key: "help",
+    path: "/help",
+    component: React.lazy(() => import("views/help")),
+    authority: []
+  },
+  {
+    key: "help.articles",
+    path: "/help-articles",
+    component: React.lazy(() => import("views/help/components/ArticleList")),
+    authority: []
+  },
+  {
+    key: "help.article",
+    path: "/help-article",
+    component: React.lazy(() => import("views/help/components/ArticleContent")),
+    authority: []
   }
   // {
   //   key: "others.collapse.item1",

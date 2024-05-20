@@ -6,6 +6,7 @@ import SideNavToggle from "components/template/SideNavToggle";
 import MobileNav from "components/template/MobileNav";
 import SideNav from "components/template/SideNav";
 import View from "views";
+import Help from "components/template/Help";
 
 const HeaderActionsStart = () => {
   return (
@@ -19,6 +20,7 @@ const HeaderActionsStart = () => {
 const HeaderActionsEnd = () => {
   return (
     <>
+      <Help />
       <SidePanel />
       <UserDropdown hoverable={false} />
     </>
