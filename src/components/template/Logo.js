@@ -2,11 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { APP_NAME } from "constants/app.constant";
+import { useSelector } from "react-redux";
 
 const LOGO_SRC_PATH = "/img/logo/";
 
 const Logo = props => {
   const { type, mode, gutter, className, imgClass, style, logoWidth } = props;
+  const sideNavCollapse = useSelector(
+    state => state.theme.layout.sideNavCollapse
+  );
 
   return (
     // <div
@@ -24,9 +28,11 @@ const Logo = props => {
     // </div>
     <div className="flex gap-3 p-6">
       <img src="/logo192.png" alt="" className="h-8 w-8 rounded-full" />
-      <p className="text-2xl font-light text-black dark:text-white">
-        BiT-Forum
-      </p>
+      {!sideNavCollapse && (
+        <p className="text-2xl font-light text-black dark:text-white">
+          BiT-Forum
+        </p>
+      )}
     </div>
   );
 };
