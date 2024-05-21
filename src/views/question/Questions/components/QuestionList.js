@@ -218,7 +218,7 @@ const QuestionList = props => {
           </article>
         ))}
 
-        {!isTopQuestions && displayedData.length > 0 && (
+        {!isTopQuestions && displayedData.length > 10 && (
           <div className="flex items-center justify-between mt-4">
             <Pagination
               pageSize={pageSize}
