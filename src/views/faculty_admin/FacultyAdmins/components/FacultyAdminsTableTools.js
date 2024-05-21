@@ -19,17 +19,12 @@ const FacultyAdminsTableTools = () => {
 
   const tableData = useSelector(state => state.faculty_admins.data.tableData);
 
-  const handleInputChange = val => {
+  const handleSearch = () => {
+    const query = inputRef.current.value;
     const newTableData = cloneDeep(tableData);
-    newTableData.query = val;
+    newTableData.query = query;
     newTableData.pageIndex = 1;
-    if (typeof val === "string" && val.length > 1) {
-      fetchData(newTableData);
-    }
-
-    if (typeof val === "string" && val.length === 0) {
-      fetchData(newTableData);
-    }
+    fetchData(newTableData);
   };
 
   const onAddNewFacultyAdmin = () => {
@@ -53,10 +48,7 @@ const FacultyAdminsTableTools = () => {
     <div className="lg:flex items-center justify-between mb-4">
       <h3 className="mb-4 lg:mb-0">Faculty Admins</h3>
       <div className="flex flex-col md:flex-row lg:items-center gap-2">
-        <FacultyAdminTableSearch
-          ref={inputRef}
-          onInputChange={handleInputChange}
-        />
+        <FacultyAdminTableSearch ref={inputRef} onSearch={handleSearch} />
         <FacultyAdminTableFilter />
         <Button className="max-w-md mb-4" size="sm" onClick={onClearAll}>
           Clear All

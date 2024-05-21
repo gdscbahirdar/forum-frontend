@@ -1,30 +1,34 @@
 import React, { forwardRef } from "react";
-import { Input } from "components/ui";
+import { Button, Input } from "components/ui";
 import { HiOutlineSearch } from "react-icons/hi";
-import debounce from "lodash/debounce";
 
 const FacultyAdminTableSearch = forwardRef((props, ref) => {
-  const { onInputChange } = props;
+  const { onSearch } = props;
 
-  const debounceFn = debounce(handleDebounceFn, 500);
+  const handleSearchClick = () => {
+    onSearch?.();
+  };
 
-  function handleDebounceFn(val) {
-    onInputChange?.(val);
-  }
-
-  const handleInputChange = e => {
-    debounceFn(e.target.value);
+  const handleKeyDown = e => {
+    if (e.key === "Enter") {
+      onSearch?.();
+    }
   };
 
   return (
-    <Input
-      ref={ref}
-      className="max-w-md md:w-52 mb-4"
-      size="sm"
-      placeholder="Search"
-      prefix={<HiOutlineSearch className="text-lg" />}
-      onChange={handleInputChange}
-    />
+    <div className="flex items-center gap-2">
+      <Input
+        ref={ref}
+        className="max-w-md md:w-52 mb-4"
+        size="sm"
+        placeholder="Search"
+        prefix={<HiOutlineSearch className="text-lg" />}
+        onKeyDown={handleKeyDown}
+      />
+      <Button size="sm" className="max-w-md mb-4" onClick={handleSearchClick}>
+        Search
+      </Button>
+    </div>
   );
 });
 
