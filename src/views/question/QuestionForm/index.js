@@ -10,10 +10,10 @@ import {
   Card
 } from "components/ui";
 import { IconText, SvgIcon } from "components/shared";
-import RichTextEditor from "../RTE";
 import { useDispatch } from "react-redux";
 import { getTags } from "../Tags/store/dataSlice";
 import AsyncSelect from "react-select/async";
+import Editor from "../RTE/Editor";
 
 const QuestionCreateSchema = Yup.object().shape({
   title: Yup.string()
@@ -148,14 +148,12 @@ const QuestionForm = ({ question, handleSubmit }) => {
               >
                 <Field name="body">
                   {({ field }) => (
-                    <RichTextEditor
+                    <Editor
                       {...field}
-                      modelValue={field.value}
-                      placeholder="Enter your question here..."
-                      className="placeholder:text-xs"
+                      initialValue={JSON.parse(field.value || "{}")}
                       onChange={val => {
                         field.onChange({
-                          target: { name: "body", value: val }
+                          target: { name: "body", value: JSON.stringify(val) }
                         });
                       }}
                     />

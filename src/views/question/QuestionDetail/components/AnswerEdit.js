@@ -8,12 +8,12 @@ import * as Yup from "yup";
 import { Field, Form } from "formik";
 import { Button, FormContainer, FormItem, Card } from "components/ui";
 import { IconText, SvgIcon } from "components/shared";
-import RichTextEditor from "views/question/RTE";
 import { getAnswer } from "../store/dataSlice";
 import reducer from "../store";
 import { injectReducer } from "store/index";
 import { Formik } from "formik";
 import { apiPutAnswer } from "services/QuestionService";
+import Editor from "views/question/RTE/Editor";
 
 injectReducer("questionDetails", reducer);
 
@@ -193,16 +193,17 @@ const AnswerEdit = () => {
                     >
                       <Field name="body">
                         {({ field }) => (
-                          <RichTextEditor
+                          <Editor
                             {...field}
-                            modelValue={field.value}
-                            placeholder="Enter your answer here..."
-                            className="placeholder:text-xs"
-                            onChange={val =>
+                            initialValue={JSON.parse(field.value || "{}")}
+                            onChange={val => {
                               field.onChange({
-                                target: { name: "body", value: val }
-                              })
-                            }
+                                target: {
+                                  name: "body",
+                                  value: JSON.stringify(val)
+                                }
+                              });
+                            }}
                           />
                         )}
                       </Field>
