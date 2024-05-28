@@ -6,20 +6,20 @@ import {
   EditorCommandItem,
   EditorCommandEmpty,
   EditorContent,
-  EditorCommandList,
-  EditorBubble
+  EditorCommandList
 } from "novel";
 import { ImageResizer, handleCommandNavigation } from "novel/extensions";
-import { defaultExtensions } from "./editor/extensions";
-import { NodeSelector } from "./editor/node-selector";
-import { LinkSelector } from "./editor/link-selector";
-import { ColorSelector } from "./editor/color-selector";
-import { TextButtons } from "./editor/text-buttons";
-import { slashCommand, suggestionItems } from "./editor/slash-command";
+import { defaultExtensions } from "./Extensions";
+import { NodeSelector } from "./selectors/node-selector";
+import { LinkSelector } from "./selectors/link-selector";
+import { ColorSelector } from "./selectors/color-selector";
+import { TextButtons } from "./selectors/text-buttons";
+import { slashCommand, suggestionItems } from "./SlashCommand";
 import { handleImageDrop, handleImagePaste } from "novel/plugins";
-import { uploadFn } from "./editor/image-upload";
-import { Separator } from "./editor/ui/separator";
+import { uploadFn } from "./ImageUpload";
+import { Separator } from "./ui/separator";
 import { useDebouncedCallback } from "use-debounce";
+import GenerativeMenuSwitch from "./generative/generative-menu-switch";
 
 const hljs = require("highlight.js");
 
@@ -145,7 +145,7 @@ const Editor = ({ initialValue, onChange, isEditable = true }) => {
             </EditorCommandList>
           </EditorCommand>
 
-          {/* <GenerativeMenuSwitch open={openAI} onOpenChange={setOpenAI}>
+          <GenerativeMenuSwitch open={openAI} onOpenChange={setOpenAI}>
             <Separator orientation="vertical" />
             <NodeSelector open={openNode} onOpenChange={setOpenNode} />
             <Separator orientation="vertical" />
@@ -155,7 +155,7 @@ const Editor = ({ initialValue, onChange, isEditable = true }) => {
             <TextButtons />
             <Separator orientation="vertical" />
             <ColorSelector open={openColor} onOpenChange={setOpenColor} />
-          </GenerativeMenuSwitch> */}
+          </GenerativeMenuSwitch>
         </EditorContent>
       </EditorRoot>
     </div>
