@@ -10,6 +10,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Pagination, Select } from "components/ui";
 import cloneDeep from "lodash/cloneDeep";
+import truncateJson from "utils/json-truncate";
 
 dayjs.extend(relativeTime);
 
@@ -177,9 +178,7 @@ const QuestionList = props => {
                     </div>
                   </Link>
                   <p className="break-words w-full">
-                    {question.body.length > 230
-                      ? question.body.substring(0, 229) + "..."
-                      : question.body}
+                    {truncateJson(JSON.parse(question.body))}
                   </p>
                   <div className="flex items-center justify-between mt-6">
                     <div className="flex items-center gap-2">

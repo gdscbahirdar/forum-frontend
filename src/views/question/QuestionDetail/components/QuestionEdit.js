@@ -92,7 +92,7 @@ const QuestionEdit = () => {
       }
     >
       <div className="flex flex-col gap-6">
-        <h1 className="font-thin">Ask a question</h1>
+        <h1 className="font-thin">Edit a question</h1>
         <QuestionForm
           question={{
             title: question?.title,
