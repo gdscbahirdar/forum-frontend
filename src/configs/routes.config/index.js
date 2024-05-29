@@ -147,7 +147,7 @@ export const protectedRoutes = [
     path: `${APP_PREFIX_PATH}/feedback/edit-feedback`,
     component: React.lazy(() => import("views/feedback/EditFeedback")),
     authority: []
-  }
+  },
   // {
   //   key: "others.reputations",
   //   path: "/reputations",
@@ -170,4 +170,40 @@ export const protectedRoutes = [
   //   ),
   //   authority: []
   // }
+  {
+    key: "resources.resourceList",
+    path: `/resource-list`,
+    component: React.lazy(() => import("views/products/ResourceList")),
+    authority: []
+  },
+  {
+    key: "resources.resourceEdit",
+    path: `/resource-edit/:resourceId`,
+    component: React.lazy(() => import("views/products/ResourceEdit")),
+    authority: [],
+    meta: {
+      header: "Edit Resource"
+    }
+  },
+  {
+    key: "resources.resourceNew",
+    path: `/resource-new`,
+    component: React.lazy(() => import("views/products/ResourceNew")),
+    authority: [],
+    meta: {
+      header: "Add New Resource"
+    }
+  },
+  {
+    key: "resources.resourceDetail",
+    path: `/resource-details/:id`,
+    component: React.lazy(() => import("views/products/ResourceDetail")),
+    authority: []
+  },
+  {
+    key: "resources.myUploads",
+    path: `/my-uploads`,
+    component: React.lazy(() => import("views/products/ResourceList")),
+    authority: []
+  }
 ];
