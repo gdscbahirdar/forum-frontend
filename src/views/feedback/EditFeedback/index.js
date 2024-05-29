@@ -28,6 +28,7 @@ const EditArticle = () => {
 
   const fetchData = () => {
     if (id) {
+      dispatch(setMode("edit"));
       dispatch(getFeedback(id));
     }
 

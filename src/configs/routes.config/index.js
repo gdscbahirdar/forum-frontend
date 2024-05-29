@@ -130,6 +130,16 @@ export const protectedRoutes = [
     }
   },
   {
+    key: "appsAccount.activity",
+    path: `${APP_PREFIX_PATH}/account/settings/activity/:category`,
+    component: React.lazy(() => import("views/account/Settings")),
+    authority: [],
+    meta: {
+      header: "Settings",
+      headerContainer: true
+    }
+  },
+  {
     key: "feedback",
     path: "/feedback",
     component: React.lazy(() => import("views/feedback/FeedbackList")),
@@ -148,12 +158,42 @@ export const protectedRoutes = [
     component: React.lazy(() => import("views/feedback/EditFeedback")),
     authority: []
   },
-  // {
-  //   key: "others.reputations",
-  //   path: "/reputations",
-  //   component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
-  //   authority: []
-  // }
+  {
+    key: "leaderboard",
+    path: `/leaderboard`,
+    component: React.lazy(() => import("views/leaderboard")),
+    authority: []
+  },
+  {
+    key: "userProfile",
+    path: "/users/:username/answers",
+    component: React.lazy(() => import("views/account/Public")),
+    authority: []
+  },
+  {
+    key: "userProfileTab",
+    path: "/users/:username/:tab",
+    component: React.lazy(() => import("views/account/Public")),
+    authority: []
+  },
+  {
+    key: "help",
+    path: "/help",
+    component: React.lazy(() => import("views/help")),
+    authority: []
+  },
+  {
+    key: "help.articles",
+    path: "/help-articles",
+    component: React.lazy(() => import("views/help/components/ArticleList")),
+    authority: []
+  },
+  {
+    key: "help.article",
+    path: "/help-article",
+    component: React.lazy(() => import("views/help/components/ArticleContent")),
+    authority: []
+  },
   // {
   //   key: "others.collapse.item1",
   //   path: "/group-collapse-menu-item-view-1",

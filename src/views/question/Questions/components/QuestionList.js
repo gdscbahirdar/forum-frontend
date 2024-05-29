@@ -1,15 +1,16 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getQuestions, setListData } from "../store/dataSlice";
-import { HiOutlinePlusCircle } from "react-icons/hi";
+import { HiOutlinePlusCircle, HiOutlineSearch } from "react-icons/hi";
 import { Loading } from "components/shared";
-import { Button, Card, Tag } from "components/ui";
+import { Button, Card, Input, Tag } from "components/ui";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Pagination, Select } from "components/ui";
 import cloneDeep from "lodash/cloneDeep";
+import truncateJson from "utils/json-truncate";
 
 dayjs.extend(relativeTime);
 
@@ -48,6 +49,16 @@ const QuestionList = props => {
     [pageIndex, pageSize, sort, query, total]
   );
 
+  const inputRef = useRef();
+
+  const onSearch = () => {
+    const newQuery = inputRef.current.value;
+    const newListData = cloneDeep(listData);
+    newListData.query = newQuery;
+    newListData.pageIndex = 1;
+    dispatch(setListData(newListData));
+  };
+
   const onSelectChange = value => {
     const newListData = cloneDeep(listData);
     newListData.pageSize = Number(value);
@@ -79,19 +90,6 @@ const QuestionList = props => {
     [pageSizes]
   );
 
-  // const handleSort = column => {
-  //   if (!loading) {
-  //     const { id, isSortedDesc, toggleSortBy, clearSortBy } = column;
-  //     const sortOrder = isSortedDesc ? "desc" : "asc";
-  //     toggleSortBy(!isSortedDesc);
-  //     onSort?.({ order: sortOrder, key: id }, { id, clearSortBy });
-  //     const newListData = cloneDeep(listData);
-  //     newListData.sort = sort;
-  //     dispatch(setListData(newListData));
-  //     dispatch(setSortedColumn(sortingColumn));
-  //   }
-  // };
-
   const fetchData = useCallback(() => {
     dispatch(
       getQuestions({ tag, pageIndex, pageSize, sort, query, filterData })
@@ -105,7 +103,25 @@ const QuestionList = props => {
   return (
     <Loading loading={loading && data?.length !== 0}>
       <section className="max-w-[1000px] mx-auto">
-        <div className="flex justify-between items-center">
+        <div className="flex gap-2 items-center">
+          <Input
+            ref={inputRef}
+            className="mb-4"
+            type="search"
+            size="sm"
+            placeholder="Search by Title"
+            prefix={<HiOutlineSearch className="text-lg" />}
+            onKeyDown={e => {
+              if (e.key === "Enter") {
+                onSearch();
+              }
+            }}
+          />
+          <Button size="sm" className="max-w-md mb-4" onClick={onSearch}>
+            Search
+          </Button>
+        </div>
+        <div className="flex justify-between items-center mt-4">
           <h4 className="mb-6">{heading}</h4>
           <Button
             size="sm"
@@ -162,9 +178,7 @@ const QuestionList = props => {
                     </div>
                   </Link>
                   <p className="break-words w-full">
-                    {question.body.length > 230
-                      ? question.body.substring(0, 229) + "..."
-                      : question.body}
+                    {truncateJson(JSON.parse(question.body))}
                   </p>
                   <div className="flex items-center justify-between mt-6">
                     <div className="flex items-center gap-2">
@@ -182,7 +196,10 @@ const QuestionList = props => {
                     </div>
                     <div className="flex items-center gap-4">
                       <span className="flex items-center gap-2 text-xs">
-                        {question.asked_by} -
+                        <Link to={`/users/${question.asked_by}/answers`}>
+                          {question.asked_by}
+                        </Link>
+                        -
                         <span>
                           {dayjs(question.created_at).isSame(
                             question.updated_at
@@ -200,7 +217,7 @@ const QuestionList = props => {
           </article>
         ))}
 
-        {!isTopQuestions && displayedData.length > 0 && (
+        {!isTopQuestions && displayedData.length > 10 && (
           <div className="flex items-center justify-between mt-4">
             <Pagination
               pageSize={pageSize}

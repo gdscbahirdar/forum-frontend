@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Notification, toast } from "components/ui";
 import { apiCreateAnswer } from "services/QuestionService";
-import RichTextEditor from "views/question/RTE";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Button, FormContainer, FormItem, Card } from "components/ui";
 import { IconText, SvgIcon } from "components/shared";
+import Editor from "views/question/RTE/Editor";
 
 const AnswerCreateSchema = Yup.object().shape({
   body: Yup.string().required("Body is required")
@@ -119,16 +119,14 @@ const AnswerCreate = ({ questionId }) => {
                 >
                   <Field name="body">
                     {({ field }) => (
-                      <RichTextEditor
+                      <Editor
                         {...field}
-                        modelValue={field.value}
-                        placeholder="Enter your answer here..."
-                        className="placeholder:text-xs"
-                        onChange={val =>
+                        initialValue={JSON.parse(field.value || "{}")}
+                        onChange={val => {
                           field.onChange({
-                            target: { name: "body", value: val }
-                          })
-                        }
+                            target: { name: "body", value: JSON.stringify(val) }
+                          });
+                        }}
                       />
                     )}
                   </Field>

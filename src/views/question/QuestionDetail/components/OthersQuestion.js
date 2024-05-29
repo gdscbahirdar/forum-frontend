@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import classNames from "classnames";
-import { TextEllipsis, Loading, TextBlockSkeleton } from "components/shared";
+import { Loading, TextBlockSkeleton } from "components/shared";
 import isLastChild from "utils/isLastChild";
 import { getOthersQuestion } from "../store/dataSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import truncateJson from "utils/json-truncate";
 
 dayjs.extend(relativeTime);
 
@@ -34,9 +35,7 @@ const QuestionItem = ({ data, isLastChild }) => {
       <Link to={`/questions/question-details?id=${data.slug}`}>
         <h6 className="mb-1 group-hover:underline !text-sm">{data.title}</h6>
       </Link>
-      <p className="mb-1">
-        <TextEllipsis text={data.body} maxTextCount={40} />
-      </p>
+      <p className="mb-1">{truncateJson(JSON.parse(data.body), 40)}</p>
       <span className="text-xs">
         Updated {dayjs(data.updated_at).fromNow()}
       </span>

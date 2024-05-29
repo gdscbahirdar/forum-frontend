@@ -8,12 +8,12 @@ import * as Yup from "yup";
 import { Field, Form } from "formik";
 import { Button, FormContainer, FormItem, Card } from "components/ui";
 import { IconText, SvgIcon } from "components/shared";
-import RichTextEditor from "views/question/RTE";
 import { getAnswer } from "../store/dataSlice";
 import reducer from "../store";
 import { injectReducer } from "store/index";
 import { Formik } from "formik";
 import { apiPutAnswer } from "services/QuestionService";
+import Editor from "views/question/RTE/Editor";
 
 injectReducer("questionDetails", reducer);
 
@@ -41,6 +41,7 @@ const AnswerEditSchema = Yup.object().shape({
 
 const AnswerEdit = () => {
   const [answerFieldActive, setAnswerFieldActive] = useState(false);
+  const [body, setBody] = useState({});
 
   const dispatch = useDispatch();
 
@@ -56,6 +57,13 @@ const AnswerEdit = () => {
   const questionId = query.get("id");
 
   useEffect(() => {
+    if (answer && answer.body) {
+      setBody(JSON.parse(answer.body));
+    }
+  }, [answer]);
+
+  useEffect(() => {
+    setBody({});
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -127,7 +135,7 @@ const AnswerEdit = () => {
         <div className="flex flex-col gap-6 mt-4">
           <Formik
             initialValues={{
-              body: answer?.body || ""
+              body: answer?.body || "{}"
             }}
             validationSchema={AnswerEditSchema}
             onSubmit={handleSubmit}
@@ -191,21 +199,24 @@ const AnswerEdit = () => {
                       onBlur={() => setAnswerFieldActive(false)}
                       style={{ outline: "none" }}
                     >
-                      <Field name="body">
-                        {({ field }) => (
-                          <RichTextEditor
-                            {...field}
-                            modelValue={field.value}
-                            placeholder="Enter your answer here..."
-                            className="placeholder:text-xs"
-                            onChange={val =>
-                              field.onChange({
-                                target: { name: "body", value: val }
-                              })
-                            }
-                          />
-                        )}
-                      </Field>
+                      {body && Object.keys(body).length > 0 && (
+                        <Field name="body">
+                          {({ field }) => (
+                            <Editor
+                              {...field}
+                              initialValue={JSON.parse(field.value || "{}")}
+                              onChange={val => {
+                                field.onChange({
+                                  target: {
+                                    name: "body",
+                                    value: JSON.stringify(val)
+                                  }
+                                });
+                              }}
+                            />
+                          )}
+                        </Field>
+                      )}
                     </div>
                   </FormItem>
 
