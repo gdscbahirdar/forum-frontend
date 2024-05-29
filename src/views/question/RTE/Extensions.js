@@ -9,7 +9,8 @@ import {
   Placeholder,
   AIHighlight,
   CodeBlockLowlight,
-  CharacterCount
+  CharacterCount,
+  Youtube
 } from "novel/extensions";
 import { UploadImagesPlugin } from "novel/plugins";
 import { common, createLowlight } from "lowlight";
@@ -101,12 +102,14 @@ const starterKit = StarterKit.configure({
 });
 
 const codeBlockLowlight = CodeBlockLowlight.configure({
-  lowlight: createLowlight(common),
+  lowlight: createLowlight(common)
+});
+
+const youtube = Youtube.configure({
   HTMLAttributes: {
-    class: cx(
-      "rounded-md bg-muted text-muted-foreground border p-5 font-mono font-medium"
-    )
-  }
+    class: cx("rounded-lg border border-muted")
+  },
+  inline: false
 });
 
 const characterCount = CharacterCount.configure();
@@ -122,5 +125,6 @@ export const defaultExtensions = [
   horizontalRule,
   aiHighlight,
   codeBlockLowlight,
+  youtube,
   characterCount
 ];

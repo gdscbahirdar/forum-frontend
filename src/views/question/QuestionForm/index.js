@@ -63,7 +63,7 @@ const QuestionForm = ({ question, handleSubmit }) => {
     <Formik
       initialValues={{
         title: question.title || "",
-        body: question.body || "",
+        body: question.body || "{}",
         tags: question.tags || []
       }}
       validationSchema={QuestionCreateSchema}

@@ -248,7 +248,7 @@ const QuestionContent = ({ questionId }) => {
           )}
         </div>
         <div className="flex-grow">
-          <div className="prose dark:prose-invert max-w-prose">
+          <div className="prose dark:prose-invert max-w-none text-justify">
             {body && Object.keys(body).length > 0 && (
               <Editor initialValue={body} isEditable={false} />
             )}

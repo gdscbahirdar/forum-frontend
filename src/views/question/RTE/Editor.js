@@ -33,7 +33,6 @@ const Editor = ({ initialValue, onChange, isEditable = true }) => {
 
   const [content, setContent] = useState(initialValue || {});
   const [saveStatus, setSaveStatus] = useState("Saved");
-  const [charsCount, setCharsCount] = useState();
 
   // Apply Codeblock Highlighting on the HTML from editor.getHTML()
   const highlightCodeblocks = content => {
@@ -46,7 +45,6 @@ const Editor = ({ initialValue, onChange, isEditable = true }) => {
 
   const debouncedUpdates = useDebouncedCallback(async editor => {
     const json = editor.getJSON();
-    setCharsCount(editor.storage.characterCount.words());
     window.localStorage.setItem(
       "html-content",
       highlightCodeblocks(editor.getHTML())
@@ -71,20 +69,11 @@ const Editor = ({ initialValue, onChange, isEditable = true }) => {
   if (!content) return null;
 
   return (
-    <div className="relative w-full max-w-screen-lg">
+    <div className="relative w-full">
       {isEditable && (
         <div className="flex absolute right-5 top-5 z-10 mb-5 gap-2">
           <div className="rounded-lg bg-accent px-2 py-1 text-sm text-muted-foreground">
             {saveStatus}
-          </div>
-          <div
-            className={
-              charsCount
-                ? "rounded-lg bg-accent px-2 py-1 text-sm text-muted-foreground"
-                : "hidden"
-            }
-          >
-            {charsCount} Words
           </div>
         </div>
       )}
@@ -95,7 +84,7 @@ const Editor = ({ initialValue, onChange, isEditable = true }) => {
           // className="relative min-h-[500px] w-full max-w-screen-lg border-muted bg-background sm:mb-[calc(20vh)] sm:rounded-lg sm:border sm:shadow-lg"
           className={
             !isEditable
-              ? "prose"
+              ? "prose max-w-none"
               : "border p-2 border-slate-300 rounded-md w-full"
           }
           editable={isEditable}
@@ -109,7 +98,7 @@ const Editor = ({ initialValue, onChange, isEditable = true }) => {
               handleImageDrop(view, event, moved, uploadFn),
             attributes: {
               class:
-                "prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full"
+                "prose prose-lg dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-none"
             }
           }}
           onUpdate={({ editor }) => {
