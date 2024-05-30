@@ -5,23 +5,31 @@ import {
   SvgIcon,
   ActionLink
 } from "components/shared";
-import { Card, Avatar, ScrollBar, Tag, Tooltip, Button } from "components/ui";
+import {
+  Card,
+  Avatar,
+  ScrollBar,
+  Tag,
+  Tooltip,
+  Button,
+  Timeline
+} from "components/ui";
 import { useDispatch, useSelector } from "react-redux";
 import reducer from "./store";
 import { injectReducer } from "store/index";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getResource } from "./store/dataSlice";
+import {
+  createBookmark,
+  createComment,
+  createVote,
+  deleteBookmark,
+  getResource
+} from "./store/dataSlice";
 import isEmpty from "lodash/isEmpty";
 import { HiOutlinePencil, HiOutlineUser } from "react-icons/hi";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import classNames from "classnames";
-import {
-  createBookmark,
-  createComment,
-  createVote,
-  deleteBookmark
-} from "views/question/QuestionDetail/store/dataSlice";
 import { PiBookmarkSimpleFill, PiBookmarkSimpleThin } from "react-icons/pi";
 import FileItem from "../ResourceForm/FileItem";
 import { DeleteResourceButton } from "../ResourceForm";
@@ -59,6 +67,14 @@ const DownvoteSVG = () => (
 
 injectReducer("resourcesDetail", reducer);
 
+const TimelineAvatar = ({ children, ...rest }) => {
+  return (
+    <Avatar {...rest} size={25} shape="circle" icon={<HiOutlineUser />}>
+      {children}
+    </Avatar>
+  );
+};
+
 const ResourceComment = () => {
   const dispatch = useDispatch();
 
@@ -68,30 +84,39 @@ const ResourceComment = () => {
 
   const commentInput = useRef();
 
-  const onCommentSubmit = (questionId, text) => {
-    dispatch(createComment({ questionId, text }));
+  const onCommentSubmit = (resourceId, text) => {
+    dispatch(createComment({ resourceId, text }));
     commentInput.current.value = "";
   };
 
   return (
     <div className="mt-6">
-      <div className="flex flex-col items-start gap-2 text-xs border-t border-t-gray-200 pt-2 mt-2 mb-4">
-        {resource?.comments?.length > 0 &&
-          resource?.comments?.map(comment => (
-            <div className="flex items-center gap-2">
-              <span className="text-sm">{comment.vote_count}</span>
-
-              <div key={comment.id} className="flex flex-grow gap-x-1">
-                {comment.text} --{" "}
-                <ActionLink to={`/profile/${comment.commented_by}`}>
-                  {comment.commented_by}
-                </ActionLink>
-                <span className="text-xs text-gray-400">
-                  {dayjs(comment.created_at).format("YYYY-MM-DD HH:mm")}
-                </span>
-              </div>
-            </div>
-          ))}
+      <div className="border-t border-t-gray-200 pt-4 mt-2 mb-6">
+        <h3 className="mb-8">Comments</h3>
+        {resource?.comments?.length > 0 && (
+          <Timeline>
+            {resource?.comments?.map(comment => (
+              <Timeline.Item
+                media={<TimelineAvatar src={comment?.commenter_avatar} />}
+              >
+                <p className="my-1 flex items-center">
+                  <span className="font-semibold text-gray-900 dark:text-gray-100">
+                    <ActionLink to={`/users/${comment.commented_by}/answers`}>
+                      {comment.commented_by}
+                    </ActionLink>
+                  </span>
+                  <span className="ml-3 rtl:mr-3">
+                    {" "}
+                    {dayjs(comment.created_at).fromNow()}
+                  </span>
+                </p>
+                <Card className="mt-4">
+                  <p>{comment.text}</p>
+                </Card>
+              </Timeline.Item>
+            ))}
+          </Timeline>
+        )}
         {resource?.comments?.length === 0 && (
           <div className="text-gray-600 text-lg my-4">
             No comments yet. Be the first to leave a comment!{" "}

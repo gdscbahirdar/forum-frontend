@@ -3,7 +3,11 @@ import {
   apiGetResource,
   apiPutResource,
   apiDeleteResource,
-  apiCreateVote
+  apiCreateVote,
+  apiCreateBookmark,
+  apiDeleteBookmark,
+  apiCreateComment,
+  apiGetComments
 } from "services/ResourceService";
 
 export const getResource = createAsyncThunk(
@@ -35,10 +39,66 @@ export const createVote = createAsyncThunk(
   }
 );
 
+export const createComment = createAsyncThunk(
+  "questionDetails/data/createComment",
+  async (data, { dispatch }) => {
+    const { resourceId, text } = data;
+    const response = await apiCreateComment(resourceId, { text });
+    dispatch(getResource(resourceId));
+
+    return response.data;
+  }
+);
+
+export const getComments = createAsyncThunk(
+  "questionDetails/data/getComments",
+  async data => {
+    const response = await apiGetComments(data);
+    const results = response.data.results;
+    const transformedData = results.map(comment => ({
+      id: comment.id,
+      body: comment.text,
+      commented_by: comment.commented_by,
+      commenter_avatar: comment.commenter_avatar,
+      created_at: comment.created_at,
+      updated_at: comment.updated_at
+    }));
+    return {
+      data: transformedData,
+      total: response.data.count
+    };
+  }
+);
+
+export const createBookmark = createAsyncThunk(
+  "questionDetails/data/createBookmark",
+  async (data, { dispatch }) => {
+    const { resourceId, post_id } = data;
+
+    const response = await apiCreateBookmark(post_id);
+    dispatch(getResource(resourceId));
+
+    return response.data;
+  }
+);
+
+export const deleteBookmark = createAsyncThunk(
+  "questionDetails/data/deleteBookmark",
+  async (data, { dispatch }) => {
+    const { resourceId, post_id } = data;
+
+    const response = await apiDeleteBookmark(post_id);
+    dispatch(getResource(resourceId));
+
+    return response.data;
+  }
+);
+
 const dataSlice = createSlice({
   name: "resourcesDetail/data",
   initialState: {
     loading: false,
+    comments: [],
     resourceData: []
   },
   reducers: {},
@@ -49,6 +109,10 @@ const dataSlice = createSlice({
     },
     [getResource.pending]: state => {
       state.loading = true;
+    },
+    [getComments.fulfilled]: (state, action) => {
+      state.comments = action.payload.data;
+      state.loading = false;
     }
   }
 });

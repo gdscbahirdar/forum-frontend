@@ -61,3 +61,32 @@ export async function apiGetResourceCategories(params) {
     params
   });
 }
+
+export async function apiCreateComment(id, data) {
+  return ApiService.fetchData({
+    url: `/resource/${id}/comments/`,
+    method: "post",
+    data
+  });
+}
+
+export async function apiGetComments(id) {
+  return ApiService.fetchData({
+    url: `/resource/${id}/comments/`,
+    method: "get"
+  });
+}
+
+export async function apiCreateBookmark(id) {
+  return ApiService.fetchData({
+    url: `/resource/bookmark/${id}/`,
+    method: "post"
+  });
+}
+
+export async function apiDeleteBookmark(id) {
+  return ApiService.fetchData({
+    url: `/resource/bookmark/${id}/`,
+    method: "delete"
+  });
+}
