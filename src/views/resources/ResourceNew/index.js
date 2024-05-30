@@ -1,5 +1,5 @@
 import React from "react";
-import ResourceForm from "views/products/ResourceForm";
+import ResourceForm from "views/resources/ResourceForm";
 import { toast, Notification } from "components/ui";
 import { useNavigate } from "react-router-dom";
 import { apiCreateResource } from "services/ResourceService";

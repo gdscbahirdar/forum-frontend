@@ -17,7 +17,7 @@ const dropdownItemList = [
 
 export const UserDropdown = ({ className }) => {
   const userInfo = useSelector(state => state.auth.user);
-  const { gold_badges, silver_badges, bronze_badges } = userInfo.badges;
+  const { gold_badges, silver_badges, bronze_badges } = userInfo?.badges;
 
   const { signOut } = useAuth();
 

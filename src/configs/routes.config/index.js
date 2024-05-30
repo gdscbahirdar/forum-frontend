@@ -213,13 +213,13 @@ export const protectedRoutes = [
   {
     key: "resources.resourceList",
     path: `/resource-list`,
-    component: React.lazy(() => import("views/products/ResourceList")),
+    component: React.lazy(() => import("views/resources/ResourceList")),
     authority: []
   },
   {
     key: "resources.resourceEdit",
     path: `/resource-edit/:resourceId`,
-    component: React.lazy(() => import("views/products/ResourceEdit")),
+    component: React.lazy(() => import("views/resources/ResourceEdit")),
     authority: [],
     meta: {
       header: "Edit Resource"
@@ -228,7 +228,7 @@ export const protectedRoutes = [
   {
     key: "resources.resourceNew",
     path: `/resource-new`,
-    component: React.lazy(() => import("views/products/ResourceNew")),
+    component: React.lazy(() => import("views/resources/ResourceNew")),
     authority: [],
     meta: {
       header: "Add New Resource"
@@ -237,13 +237,13 @@ export const protectedRoutes = [
   {
     key: "resources.resourceDetail",
     path: `/resource-details/:id`,
-    component: React.lazy(() => import("views/products/ResourceDetail")),
+    component: React.lazy(() => import("views/resources/ResourceDetail")),
     authority: []
   },
   {
     key: "resources.myUploads",
     path: `/my-uploads`,
-    component: React.lazy(() => import("views/products/ResourceList")),
+    component: React.lazy(() => import("views/resources/ResourceList")),
     authority: []
   }
 ];

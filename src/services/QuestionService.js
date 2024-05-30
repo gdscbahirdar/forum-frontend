@@ -100,7 +100,7 @@ export async function apiDeleteAnswer(questionId, answerId) {
 
 export async function apiCreateComment(id, data) {
   return ApiService.fetchData({
-    url: `/forum/${id}/comments/`,
+    url: `/post/${id}/comments/`,
     method: "post",
     data
   });
@@ -108,14 +108,14 @@ export async function apiCreateComment(id, data) {
 
 export async function apiGetComments(id) {
   return ApiService.fetchData({
-    url: `/forum/${id}/comments/`,
+    url: `/post/${id}/comments/`,
     method: "get"
   });
 }
 
 export async function apiCreateVote(data) {
   return ApiService.fetchData({
-    url: `/forum/vote/`,
+    url: `/post/vote/`,
     method: "post",
     data
   });
@@ -131,14 +131,14 @@ export async function apiAcceptAnswer(id, data) {
 
 export async function apiCreateBookmark(id) {
   return ApiService.fetchData({
-    url: `/forum/bookmark/${id}/`,
+    url: `/post/bookmark/${id}/`,
     method: "post"
   });
 }
 
 export async function apiDeleteBookmark(id) {
   return ApiService.fetchData({
-    url: `/forum/bookmark/${id}/`,
+    url: `/post/bookmark/${id}/`,
     method: "delete"
   });
 }

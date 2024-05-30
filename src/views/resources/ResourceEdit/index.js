@@ -6,7 +6,7 @@ import reducer from "./store";
 import { injectReducer } from "store/index";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getResource, updateResource, deleteResource } from "./store/dataSlice";
-import ResourceForm from "views/products/ResourceForm";
+import ResourceForm from "views/resources/ResourceForm";
 import isEmpty from "lodash/isEmpty";
 
 injectReducer("resourcesEdit", reducer);
