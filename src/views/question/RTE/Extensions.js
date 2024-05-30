@@ -101,7 +101,24 @@ const starterKit = StarterKit.configure({
   gapcursor: false
 });
 
-const codeBlockLowlight = CodeBlockLowlight.configure({
+export const CodeBlock = CodeBlockLowlight.extend({
+  addKeyboardShortcuts() {
+    return {
+      Tab: ({ editor }) => {
+        if (editor.isActive("codeBlock")) {
+          editor.commands.command(({ tr }) => {
+            tr.insertText("\t", tr.selection.from, tr.selection.to);
+            return true;
+          });
+          return true;
+        }
+        return false;
+      }
+    };
+  }
+});
+
+const codeBlockLowlight = CodeBlock.configure({
   lowlight: createLowlight(common)
 });
 
