@@ -19,7 +19,7 @@ const FileItem = props => {
         <img
           className="upload-file-image"
           src={is_new ? URL.createObjectURL(file.file) : fileUrl}
-          alt={`file preview ${file_name}`}
+          alt=""
         />
       );
     }

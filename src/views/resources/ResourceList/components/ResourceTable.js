@@ -96,8 +96,7 @@ const ResourceTable = () => {
           pageSize,
           sort,
           query,
-          filterData,
-          myUploads: true
+          filterData
         })
       );
       return;
@@ -133,7 +132,7 @@ const ResourceTable = () => {
       },
       {
         Header: "Uploaded By",
-        accessor: "uploader",
+        accessor: "user",
         sortable: true
       },
       {

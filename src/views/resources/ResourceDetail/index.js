@@ -17,7 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import reducer from "./store";
 import { injectReducer } from "store/index";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import ReactHtmlParser from "html-react-parser";
 import {
   createBookmark,
@@ -27,7 +27,7 @@ import {
   getResource
 } from "./store/dataSlice";
 import isEmpty from "lodash/isEmpty";
-import { HiOutlinePencil, HiOutlineTrash, HiOutlineUser } from "react-icons/hi";
+import { HiOutlineUser } from "react-icons/hi";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import classNames from "classnames";
@@ -203,37 +203,51 @@ const ResourceDetail = () => {
         <>
           <div className="bg-white dark:bg-gray-800 px-4 py-4 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center justify-between">
-              <h1>{resourceData.title}</h1>
+              <h1 className="font-normal">{resourceData.title}</h1>
               <div>
                 {resourceData.categories?.map((category, index) => (
                   <Tag prefix>{category}</Tag>
                 ))}
               </div>
             </div>
-            <div className="flex items-center mt-4 gap-4">
-              <Avatar
-                size={40}
-                shape="circle"
-                icon={<HiOutlineUser />}
-                src=""
-              />
-              <div className="text-xs">
-                <div className="mb-1">
-                  Created by:{" "}
-                  <span className="text-xs text-gray-900 dark:text-gray-100">
-                    {resourceData.user}
-                  </span>
-                </div>
-                <div>
-                  <span>
-                    Last updated: {dayjs(resourceData.updated_at).fromNow()}
-                  </span>
-                  <span className="mx-2">•</span>
-                  <span>{0} votes</span>
-                  <span className="mx-2">•</span>
-                  <span>{resourceData.view_count} viewed</span>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center mt-4 gap-4">
+                <Avatar
+                  size={40}
+                  shape="circle"
+                  icon={<HiOutlineUser />}
+                  src=""
+                />
+                <div className="text-xs">
+                  <div className="mb-1">
+                    Created by:{" "}
+                    <span className="text-xs text-gray-900 dark:text-gray-100">
+                      {resourceData.user}
+                    </span>
+                  </div>
+                  <div>
+                    <span>
+                      Last updated: {dayjs(resourceData.updated_at).fromNow()}
+                    </span>
+                    <span className="mx-2">•</span>
+                    <span>{0} votes</span>
+                    <span className="mx-2">•</span>
+                    <span>{resourceData.view_count} viewed</span>
+                  </div>
                 </div>
               </div>
+              {user?.username === resourceData.user && (
+                <div className="flex gap-4">
+                  <Link to={`/resource-edit/${resourceData.id}`}>
+                    <button>Edit</button>
+                  </Link>
+
+                  <button className="text-red-700" onClick={onDelete}>
+                    Delete
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
@@ -353,32 +367,6 @@ const ResourceDetail = () => {
                           {resourceData.files.map((file, index) => (
                             <FileItem key={index} file={file}></FileItem>
                           ))}
-                        </div>
-                      )}
-                      {user?.username === resourceData.user && (
-                        <div className="flex items-center mt-3">
-                          <Button
-                            size="sm"
-                            className="text-indigo-600"
-                            variant="plain"
-                            icon={<HiOutlinePencil />}
-                            onClick={() =>
-                              navigate(`/resource-edit/${resourceData.id}`)
-                            }
-                            type="button"
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            className="text-red-600"
-                            variant="plain"
-                            size="sm"
-                            icon={<HiOutlineTrash />}
-                            type="button"
-                            onClick={onDelete}
-                          >
-                            Delete
-                          </Button>
                         </div>
                       )}
                     </Card>

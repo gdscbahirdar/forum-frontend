@@ -2,9 +2,9 @@ import ApiService from "./ApiService";
 
 export async function apiGetResources(data) {
   return ApiService.fetchData({
-    url: "/resources",
+    url: "/resources/",
     method: "get",
-    data
+    params: data
   });
 }
 
@@ -12,7 +12,7 @@ export async function apiGetMyResources(data) {
   return ApiService.fetchData({
     url: "/resources/myUploads",
     method: "get",
-    data
+    params: data
   });
 }
 

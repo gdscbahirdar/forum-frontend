@@ -116,8 +116,7 @@ export const initialTableData = {
 export const initialFilterData = {
   title: "",
   category: [],
-  status: [0, 1, 2],
-  resourceStatus: 0
+  tags: []
 };
 
 const dataSlice = createSlice({
