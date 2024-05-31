@@ -24,7 +24,7 @@ export const getResources = createAsyncThunk(
       id: resources.id,
       name: resources.title,
       description: resources.description,
-      uploader: resources.uploader,
+      user: resources.user,
       view_count: resources.view_count,
       categories: resources.categories,
       tags: resources.tags
@@ -54,7 +54,7 @@ export const getMyResources = createAsyncThunk(
       id: resources.id,
       name: resources.title,
       description: resources.description,
-      uploader: resources.uploader,
+      user: resources.user,
       view_count: resources.view_count,
       categories: resources.categories,
       tags: resources.tags

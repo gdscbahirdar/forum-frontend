@@ -28,7 +28,7 @@ const ActionColumn = ({ row }) => {
 
   return (
     <div className="flex justify-end text-lg">
-      {user?.username === row.uploader && (
+      {user?.username === row.user && (
         <>
           <span
             className={`cursor-pointer p-2 hover:${textTheme}`}

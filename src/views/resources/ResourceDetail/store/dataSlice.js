@@ -99,7 +99,9 @@ const dataSlice = createSlice({
   initialState: {
     loading: false,
     comments: [],
-    resourceData: []
+    resourceData: [],
+    deleteConfirmation: false,
+    selectedResource: ""
   },
   reducers: {},
   extraReducers: {

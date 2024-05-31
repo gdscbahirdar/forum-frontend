@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import reducer from "./store";
 import { injectReducer } from "store/index";
 import { useLocation, useNavigate } from "react-router-dom";
+import ReactHtmlParser from "html-react-parser";
 import {
   createBookmark,
   createComment,
@@ -26,18 +27,18 @@ import {
   getResource
 } from "./store/dataSlice";
 import isEmpty from "lodash/isEmpty";
-import { HiOutlinePencil, HiOutlineUser } from "react-icons/hi";
+import { HiOutlinePencil, HiOutlineTrash, HiOutlineUser } from "react-icons/hi";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import classNames from "classnames";
 import { PiBookmarkSimpleFill, PiBookmarkSimpleThin } from "react-icons/pi";
 import FileItem from "../ResourceForm/FileItem";
-import { DeleteResourceButton } from "../ResourceForm";
 import {
   setSelectedResource,
   toggleDeleteConfirmation
-} from "../ResourceList/store/stateSlice";
+} from "./store/stateSlice";
 import { Input } from "components/ui";
+import ResourceDeleteConfirmation from "./components/ResourceDeleteConfirmation";
 
 dayjs.extend(relativeTime);
 
@@ -220,7 +221,7 @@ const ResourceDetail = () => {
                 <div className="mb-1">
                   Created by:{" "}
                   <span className="text-xs text-gray-900 dark:text-gray-100">
-                    {resourceData.uploader}
+                    {resourceData.user}
                   </span>
                 </div>
                 <div>
@@ -345,7 +346,7 @@ const ResourceDetail = () => {
                   <div className="flex-grow ">
                     <Card>
                       <div className="text-justify">
-                        {resourceData.description}
+                        {ReactHtmlParser(resourceData.description || "")}
                       </div>
                       {resourceData.files && resourceData.files?.length > 0 && (
                         <div className="flex flex-col gap-1">
@@ -354,7 +355,7 @@ const ResourceDetail = () => {
                           ))}
                         </div>
                       )}
-                      {user?.username === resourceData.uploader && (
+                      {user?.username === resourceData.user && (
                         <div className="flex items-center mt-3">
                           <Button
                             size="sm"
@@ -368,7 +369,16 @@ const ResourceDetail = () => {
                           >
                             Edit
                           </Button>
-                          <DeleteResourceButton onDelete={onDelete} />
+                          <Button
+                            className="text-red-600"
+                            variant="plain"
+                            size="sm"
+                            icon={<HiOutlineTrash />}
+                            type="button"
+                            onClick={onDelete}
+                          >
+                            Delete
+                          </Button>
                         </div>
                       )}
                     </Card>
@@ -392,6 +402,7 @@ const ResourceDetail = () => {
           <h3 className="mt-8">No resource found!</h3>
         </div>
       )}
+      <ResourceDeleteConfirmation />
     </>
   );
 };
