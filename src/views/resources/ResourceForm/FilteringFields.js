@@ -50,7 +50,7 @@ const FilteringFields = props => {
                 componentAs={AsyncSelect}
                 loadOptions={loadCategoryOptions}
                 defaultOptions
-                placeholder="e.g. data-structures, algorithm, computer-science"
+                placeholder="e.g. Exam Papers, Notes, Assignments"
                 value={field.value.map(val => ({
                   value: val,
                   label: val

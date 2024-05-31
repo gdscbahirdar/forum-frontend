@@ -12,8 +12,10 @@ import * as Yup from "yup";
 const validationSchema = Yup.object().shape({
   title: Yup.string().required("Resource Name Required"),
   description: Yup.string().required("Resource Description Required"),
-  categories: Yup.array().required("Resource Categories Required"),
-  tags: Yup.array().required("Resource Tags Required")
+  categories: Yup.array()
+    .of(Yup.string())
+    .min(1, "At least one category is required"),
+  tags: Yup.array().of(Yup.string()).min(1, "At least one tag is required")
 });
 
 export const DeleteResourceButton = ({ onDelete }) => {
@@ -173,7 +175,7 @@ ResourceForm.defaultProps = {
     title: "",
     description: "",
     files: [],
-    categories: "",
+    categories: [],
     tags: []
   }
 };
