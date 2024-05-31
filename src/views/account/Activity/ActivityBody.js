@@ -47,11 +47,11 @@ const ActivityBody = () => {
   return (
     <div
       className={classNames(
-        "min-w-[360px] ease-in-out duration-300 relative flex flex-auto flex-col ltr:border-r rtl:border-l border-gray-200 dark:border-gray-600",
-        sideBarExpand && "ltr:xl:ml-[280px] rtl:xl:mr-[280px]"
+        "w-full ease-in-out duration-300 relative flex flex-auto flex-col ltr:border-r rtl:border-l border-gray-200 dark:border-gray-600"
+        // sideBarExpand && "ltr:xl:ml-[280px] rtl:xl:mr-[280px]"
       )}
     >
-      <div className="relative flex flex-0 items-center justify-between min-h-[55px] border-gray-200 dark:border-gray-600">
+      <div className="relative flex flex-0 items-center justify-between border-gray-200 dark:border-gray-600">
         <div className="flex items-center gap-1">
           {smaller.xl && (
             <ToggleButton

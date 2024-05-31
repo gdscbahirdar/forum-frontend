@@ -44,7 +44,7 @@ export const Badges = () => {
 
   return (
     <Loading loading={loading && badges?.length !== 0}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+      <div className="p-4">
         {badges.length === 0 && !loading && (
           <div className="h-full flex flex-col items-center justify-center">
             <div className="mt-6 text-center">
@@ -52,19 +52,21 @@ export const Badges = () => {
             </div>
           </div>
         )}
-        {badges.map((badge, index) => (
-          <div
-            key={index}
-            className="flex items-center space-x-2 rtl:spcolorace-x-reverse"
-          >
-            <Tag
-              prefix
-              prefixClass={`${badgeColor[badgeLevelMapping[badge.level]]}`}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {badges.map((badge, index) => (
+            <div
+              key={index}
+              className="flex items-center space-x-2 rtl:spcolorace-x-reverse"
             >
-              <span title={badge.description}>{badge.name}</span>
-            </Tag>
-          </div>
-        ))}
+              <Tag
+                prefix
+                prefixClass={`${badgeColor[badgeLevelMapping[badge.level]]}`}
+              >
+                <span title={badge.description}>{badge.name}</span>
+              </Tag>
+            </div>
+          ))}
+        </div>
       </div>
     </Loading>
   );
