@@ -1,21 +1,23 @@
 import React, { useState, useRef, forwardRef } from "react";
 import { HiOutlineFilter, HiOutlineSearch } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
+import AsyncSelect from "react-select/async";
 import {
   getResources,
   setFilterData,
-  initialTableData
+  initialTableData,
+  getResourceCategories
 } from "../store/dataSlice";
 import {
   Input,
   Button,
-  Checkbox,
-  Radio,
   FormItem,
   FormContainer,
-  Drawer
+  Drawer,
+  Select
 } from "components/ui";
 import { Field, Form, Formik } from "formik";
+import { getTags } from "views/question/Tags/store/dataSlice";
 
 const FilterForm = forwardRef(({ onSubmitComplete }, ref) => {
   const dispatch = useDispatch();
@@ -26,8 +28,31 @@ const FilterForm = forwardRef(({ onSubmitComplete }, ref) => {
   const handleSubmit = values => {
     onSubmitComplete?.();
     dispatch(setFilterData(values));
-    dispatch(getResources(initialTableData));
+    const params = { ...initialTableData, ...values };
+    dispatch(getResources(params));
     sortedColumn?.clearSortBy?.();
+  };
+
+  const loadTagOptions = async (inputValue, callback) => {
+    const response = await dispatch(getTags({ search: inputValue }));
+    const options = response?.payload?.data?.map(tag => ({
+      value: tag.name,
+      label: tag.name
+    }));
+    callback(options);
+  };
+
+  const loadCategoryOptions = async (inputValue, callback) => {
+    const response = await dispatch(
+      getResourceCategories({ search: inputValue })
+    );
+
+    const options = response?.payload?.data?.map(category => ({
+      value: category.name,
+      label: category.name
+    }));
+
+    callback(options);
   };
 
   return (
@@ -43,111 +68,74 @@ const FilterForm = forwardRef(({ onSubmitComplete }, ref) => {
         <Form>
           <FormContainer>
             <FormItem
-              invalid={errors.name && touched.name}
-              errorMessage={errors.name}
+              invalid={errors.title && touched.title}
+              errorMessage={errors.title}
             >
               <h6 className="mb-4">Included text</h6>
               <Field
                 type="text"
                 autoComplete="off"
-                name="name"
+                name="title"
                 placeholder="Keyword"
                 component={Input}
                 prefix={<HiOutlineSearch className="text-lg" />}
               />
             </FormItem>
             <FormItem
-              invalid={errors.category && touched.category}
-              errorMessage={errors.category}
+              label="Categories"
+              invalid={errors.categories && touched.categories}
+              errorMessage={errors.categories}
             >
-              <h6 className="mb-4">Resource Category</h6>
-              <Field name="category">
+              <Field name="categories">
                 {({ field, form }) => (
-                  <>
-                    <Checkbox.Group
-                      vertical
-                      onChange={options =>
-                        form.setFieldValue(field.name, options)
-                      }
-                      value={values.category}
-                    >
-                      <Checkbox className="mb-3" name={field.name} value="bags">
-                        Bags{" "}
-                      </Checkbox>
-                      <Checkbox
-                        className="mb-3"
-                        name={field.name}
-                        value="cloths"
-                      >
-                        Cloths{" "}
-                      </Checkbox>
-                      <Checkbox
-                        className="mb-3"
-                        name={field.name}
-                        value="devices"
-                      >
-                        Devices{" "}
-                      </Checkbox>
-                      <Checkbox
-                        className="mb-3"
-                        name={field.name}
-                        value="shoes"
-                      >
-                        Shoes{" "}
-                      </Checkbox>
-                      <Checkbox name={field.name} value="watches">
-                        Watches{" "}
-                      </Checkbox>
-                    </Checkbox.Group>
-                  </>
+                  <Select
+                    isMulti
+                    cacheOptions
+                    componentAs={AsyncSelect}
+                    loadOptions={loadCategoryOptions}
+                    defaultOptions
+                    placeholder="e.g. Exam Papers, Notes, Assignments"
+                    value={field.value.map(val => ({
+                      value: val,
+                      label: val
+                    }))}
+                    onChange={options => {
+                      form.setFieldValue(
+                        "categories",
+                        options.map(option => option.value)
+                      );
+                    }}
+                    noOptionsMessage={() => null}
+                  />
                 )}
               </Field>
             </FormItem>
             <FormItem
-              invalid={errors.status && touched.status}
-              errorMessage={errors.status}
+              label="Tags"
+              invalid={errors.tags && touched.tags}
+              errorMessage={errors.tags}
             >
-              <h6 className="mb-4">Resource Category</h6>
-              <Field name="status">
+              <Field name="tags">
                 {({ field, form }) => (
-                  <>
-                    <Checkbox.Group
-                      vertical
-                      onChange={options =>
-                        form.setFieldValue(field.name, options)
-                      }
-                      value={values.status}
-                    >
-                      <Checkbox className="mb-3" name={field.name} value={0}>
-                        In Stock{" "}
-                      </Checkbox>
-                      <Checkbox className="mb-3" name={field.name} value={1}>
-                        Limited{" "}
-                      </Checkbox>
-                      <Checkbox className="mb-3" name={field.name} value={2}>
-                        Out Of Stock{" "}
-                      </Checkbox>
-                    </Checkbox.Group>
-                  </>
-                )}
-              </Field>
-            </FormItem>
-            <FormItem
-              invalid={errors.resourceStatus && touched.resourceStatus}
-              errorMessage={errors.resourceStatus}
-            >
-              <h6 className="mb-4">Resource Status</h6>
-              <Field name="resourceStatus">
-                {({ field, form }) => (
-                  <Radio.Group
-                    vertical
-                    value={values.resourceStatus}
-                    onChange={val => form.setFieldValue(field.name, val)}
-                  >
-                    <Radio value={0}>Published</Radio>
-                    <Radio value={1}>Disabled</Radio>
-                    <Radio value={2}>Archive</Radio>
-                  </Radio.Group>
+                  <Select
+                    isMulti
+                    cacheOptions
+                    componentAs={AsyncSelect}
+                    loadOptions={loadTagOptions}
+                    defaultOptions
+                    placeholder="e.g. data-structures, algorithm, computer-science"
+                    value={field.value.map(val => ({
+                      value: val,
+                      label: val
+                    }))}
+                    onChange={options => {
+                      form.setFieldValue(
+                        "tags",
+                        options.map(option => option.value)
+                      );
+                    }}
+                    noOptionsMessage={() => null}
+                  />
                 )}
               </Field>
             </FormItem>
@@ -189,10 +177,10 @@ const ResourceFilter = () => {
   };
 
   return (
-    <>
+    <div>
       <Button
         size="sm"
-        className="block md:inline-block ltr:md:ml-2 rtl:md:mr-2 md:mb-0 mb-4"
+        className="md:ml-2"
         icon={<HiOutlineFilter />}
         onClick={() => openDrawer()}
       >
@@ -209,7 +197,7 @@ const ResourceFilter = () => {
       >
         <FilterForm ref={formikRef} onSubmitComplete={onDrawerClose} />
       </Drawer>
-    </>
+    </div>
   );
 };
 

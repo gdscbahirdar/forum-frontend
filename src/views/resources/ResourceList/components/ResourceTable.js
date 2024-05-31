@@ -96,12 +96,14 @@ const ResourceTable = () => {
           pageSize,
           sort,
           query,
-          filterData
+          ...filterData
         })
       );
       return;
     } else {
-      dispatch(getResources({ pageIndex, pageSize, sort, query, filterData }));
+      dispatch(
+        getResources({ pageIndex, pageSize, sort, query, ...filterData })
+      );
     }
   };
 
@@ -170,17 +172,28 @@ const ResourceTable = () => {
 
   return (
     <>
-      <DataTable
-        columns={columns}
-        data={data}
-        skeletonAvatarColumns={[0]}
-        skeletonAvatarProps={{ className: "rounded-md" }}
-        loading={loading}
-        pagingData={tableData}
-        onPaginationChange={onPaginationChange}
-        onSelectChange={onSelectChange}
-        onSort={onSort}
-      />
+      {data.length === 0 && !loading && (
+        <div className="h-full flex flex-col items-center justify-center">
+          <div className="mt-6 text-center">
+            <p className="text-base">
+              No questions found. Be the first to ask a question.
+            </p>
+          </div>
+        </div>
+      )}
+      {data.length > 0 && (
+        <DataTable
+          columns={columns}
+          data={data}
+          skeletonAvatarColumns={[0]}
+          skeletonAvatarProps={{ className: "rounded-md" }}
+          loading={loading}
+          pagingData={tableData}
+          onPaginationChange={onPaginationChange}
+          onSelectChange={onSelectChange}
+          onSort={onSort}
+        />
+      )}
       <ResourceDeleteConfirmation />
     </>
   );

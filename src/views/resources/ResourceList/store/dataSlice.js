@@ -14,7 +14,11 @@ export const getResources = createAsyncThunk(
       page: params.pageIndex,
       size: params.pageSize,
       sort: order === "desc" ? `-${key}` : key,
-      search: params.query
+      search: params.query || params.title,
+      ...(params.categories.length !== 0 && {
+        categories: params.categories.join(",")
+      }),
+      ...(params.tags.length !== 0 && { tags: params.tags.join(",") })
     };
 
     const response = await apiGetResources(updatedParams);
@@ -107,6 +111,8 @@ export const initialTableData = {
   pageIndex: 1,
   pageSize: 10,
   query: "",
+  categories: [],
+  tags: [],
   sort: {
     order: "",
     key: ""
@@ -115,7 +121,7 @@ export const initialTableData = {
 
 export const initialFilterData = {
   title: "",
-  category: [],
+  categories: [],
   tags: []
 };
 

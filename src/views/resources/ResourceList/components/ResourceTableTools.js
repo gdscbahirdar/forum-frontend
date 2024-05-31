@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Button } from "components/ui";
 import { HiPlusCircle } from "react-icons/hi";
 import ResourceTableSearch from "./ResourceTableSearch";
-// import ResourceFilter from "./ResourceFilter";
+import ResourceFilter from "./ResourceFilter";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { cloneDeep } from "lodash";
@@ -32,14 +32,20 @@ const ResourceTableTools = () => {
     const newTableData = cloneDeep(tableData);
     newTableData.query = "";
     inputRef.current.value = "";
-    dispatch(setFilterData({ department: "" }));
+    dispatch(
+      setFilterData({
+        title: "",
+        categories: [],
+        tags: []
+      })
+    );
     fetchData(newTableData);
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center gap-2">
+    <div className="flex flex-col md:flex-row md:items-start gap-2">
       <ResourceTableSearch ref={inputRef} onSearch={handleSearch} />
-      {/* <ResourceFilter /> */}
+      <ResourceFilter />
       <Button className="max-w-md mb-4" size="sm" onClick={onClearAll}>
         Clear All
       </Button>
