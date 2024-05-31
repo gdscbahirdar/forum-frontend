@@ -110,7 +110,6 @@ const ResourceTable = () => {
       {
         Header: "Name",
         accessor: "name",
-        sortable: true,
         Cell: props => {
           const row = props.row.original;
           return <TitleColumn row={row} />;
@@ -132,8 +131,7 @@ const ResourceTable = () => {
       },
       {
         Header: "Uploaded By",
-        accessor: "user",
-        sortable: true
+        accessor: "user"
       },
       {
         Header: "Views",
