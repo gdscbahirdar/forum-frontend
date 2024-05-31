@@ -9,6 +9,7 @@ import ProtectedRoute from "components/route/ProtectedRoute";
 import PublicRoute from "components/route/PublicRoute";
 import AuthorityGuard from "components/route/AuthorityGuard";
 import AppRoute from "components/route/AppRoute";
+import UserProvider from "components/route/UserProvider";
 
 const { authenticatedEntryPath } = appConfig;
 
@@ -66,7 +67,9 @@ const AllRoutes = props => {
 const Views = props => {
   return (
     <Suspense fallback={<Loading loading={true} />}>
-      <AllRoutes {...props} />
+      <UserProvider>
+        <AllRoutes {...props} />
+      </UserProvider>
     </Suspense>
   );
 };
