@@ -193,7 +193,7 @@ export const protectedRoutes = [
     path: "/help-article",
     component: React.lazy(() => import("views/help/components/ArticleContent")),
     authority: []
-  }
+  },
   // {
   //   key: "others.collapse.item1",
   //   path: "/group-collapse-menu-item-view-1",
@@ -210,4 +210,40 @@ export const protectedRoutes = [
   //   ),
   //   authority: []
   // }
+  {
+    key: "resources.resourceList",
+    path: `/resource-list`,
+    component: React.lazy(() => import("views/resources/ResourceList")),
+    authority: []
+  },
+  {
+    key: "resources.resourceEdit",
+    path: `/resource-edit/:resourceId`,
+    component: React.lazy(() => import("views/resources/ResourceEdit")),
+    authority: [],
+    meta: {
+      header: "Edit Resource"
+    }
+  },
+  {
+    key: "resources.resourceNew",
+    path: `/resource-new`,
+    component: React.lazy(() => import("views/resources/ResourceNew")),
+    authority: [],
+    meta: {
+      header: "Add New Resource"
+    }
+  },
+  {
+    key: "resources.resourceDetail",
+    path: `/resource-details/:id`,
+    component: React.lazy(() => import("views/resources/ResourceDetail")),
+    authority: []
+  },
+  {
+    key: "resources.myUploads",
+    path: `/my-uploads`,
+    component: React.lazy(() => import("views/resources/ResourceList")),
+    authority: []
+  }
 ];

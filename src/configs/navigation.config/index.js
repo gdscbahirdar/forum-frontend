@@ -78,6 +78,47 @@ const navigationConfig = [
     ]
   },
   {
+    key: "resources",
+    path: "",
+    title: "Resources",
+    translateKey: "nav.resources.resources",
+    icon: "resource",
+    type: NAV_ITEM_TYPE_COLLAPSE,
+    authority: [],
+    subMenu: [
+      {
+        key: "resources.resourceList",
+        path: `/resource-list`,
+        title: "Resource List",
+        translateKey: "nav.resources.resourceList",
+        icon: "",
+        type: NAV_ITEM_TYPE_ITEM,
+        authority: [],
+        subMenu: []
+      },
+      {
+        key: "resources.resourceNew",
+        path: `/resource-new`,
+        title: "New Resource",
+        translateKey: "nav.resources.resourceNew",
+        icon: "",
+        type: NAV_ITEM_TYPE_ITEM,
+        authority: [],
+        subMenu: []
+      },
+      {
+        key: "resources.myUploads",
+        path: `/my-uploads`,
+        title: "My Uploads",
+        translateKey: "nav.resources.myUploads",
+        icon: "",
+        type: NAV_ITEM_TYPE_ITEM,
+        authority: [],
+        subMenu: []
+      }
+    ]
+  },
+  {
     key: "others",
     path: "",
     title: "Others",

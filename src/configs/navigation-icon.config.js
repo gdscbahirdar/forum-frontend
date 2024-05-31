@@ -7,7 +7,8 @@ import {
   HiOutlineBookmark,
   HiOutlineUsers,
   HiOutlineTag,
-  HiOutlinePlusCircle
+  HiOutlinePlusCircle,
+  HiOutlineFolderOpen
 } from "react-icons/hi";
 import { HiOutlineTrophy } from "react-icons/hi2";
 import { VscFeedback } from "react-icons/vsc";
@@ -22,6 +23,7 @@ const navigationIcon = {
   tags: <HiOutlineTag />,
   questions: <HiOutlinePlusCircle />,
   feedback: <VscFeedback />,
+  resource: <HiOutlineFolderOpen />,
   leaderboard: <HiOutlineTrophy />
 };
 
