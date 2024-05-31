@@ -27,16 +27,6 @@ const FileItem = props => {
     return fileIcons[file_type] || shortenedFileIcons[file_type] || defaultIcon;
   };
 
-  const downloadFile = () => {
-    const a = document.createElement("a");
-    a.href = fileUrl;
-    a.target = "blank";
-    a.download = file_name;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
-
   return (
     <div className="upload-file">
       <div className="flex">
@@ -48,9 +38,9 @@ const FileItem = props => {
       </div>
       <div className="upload-file-remove">
         {!is_new && type !== "edit" && (
-          <button onClick={downloadFile} className="btn btn-download">
-            Download
-          </button>
+          <a href={fileUrl} download target="_blank" rel="noreferrer">
+            <button className="btn btn-download">View</button>
+          </a>
         )}
       </div>
       {children}
