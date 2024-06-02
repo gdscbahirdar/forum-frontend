@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserBookmarks } from "../store/dataSlice";
+import { getUserBookmarkedPosts } from "../store/dataSlice";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Loading } from "components/shared";
@@ -38,13 +38,13 @@ const BookmarkedAnswer = ({ answer, question_slug }) => {
   );
 };
 
-export const BookmarkList = () => {
+function BookmarkedPosts() {
   const dispatch = useDispatch();
   const data = useSelector(state => state.bookmarks.data.bookmarkList);
   const loading = useSelector(state => state.bookmarks.data.loading);
 
   const fetchData = useCallback(() => {
-    dispatch(getUserBookmarks());
+    dispatch(getUserBookmarkedPosts());
   }, [dispatch]);
 
   useEffect(() => {
@@ -67,33 +67,34 @@ export const BookmarkList = () => {
             </div>
           </div>
         )}
-        {data.map(question =>
-          question.bookmarked_answers.length > 0 ? (
-            question.bookmarked_answers.map(answer => (
-              <article key={`${question.id}-${answer.id}`}>
+        {data.length !== 0 &&
+          data.map(question =>
+            question.bookmarked_answers.length > 0 ? (
+              question.bookmarked_answers.map(answer => (
+                <article key={`${question.id}-${answer.id}`}>
+                  <Card className="group mb-4">
+                    {renderQuestionDetails(question)}
+                    <div className="pl-28 pt-4 pb-2">
+                      <BookmarkedAnswer
+                        answer={answer}
+                        question_slug={question.slug}
+                      />
+                    </div>
+                  </Card>
+                </article>
+              ))
+            ) : (
+              <article key={question.id}>
                 <Card className="group mb-4">
                   {renderQuestionDetails(question)}
-                  <div className="pl-28 pt-4 pb-2">
-                    <BookmarkedAnswer
-                      answer={answer}
-                      question_slug={question.slug}
-                    />
-                  </div>
                 </Card>
               </article>
-            ))
-          ) : (
-            <article key={question.id}>
-              <Card className="group mb-4">
-                {renderQuestionDetails(question)}
-              </Card>
-            </article>
-          )
-        )}
+            )
+          )}
       </section>
     </Loading>
   );
-};
+}
 
 function renderQuestionDetails(question) {
   return (
@@ -151,3 +152,5 @@ function renderQuestionDetails(question) {
     </div>
   );
 }
+
+export default BookmarkedPosts;

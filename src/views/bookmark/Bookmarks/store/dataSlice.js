@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiGetUserBookmarks } from "services/BookmarkService";
+import {
+  apiGetUserBookmarkedPosts,
+  apiGetUserBookmarkedResources
+} from "services/BookmarkService";
 
-export const getUserBookmarks = createAsyncThunk(
-  "bookmarks/data/getUserBookmarks",
+export const getUserBookmarkedPosts = createAsyncThunk(
+  "bookmarks/data/getUserBookmarkedPosts",
   async () => {
     let response = {};
-    response = await apiGetUserBookmarks();
+    response = await apiGetUserBookmarkedPosts();
     const results = response.data.results;
     const transformedData = results.map(question => ({
       id: question.id,
@@ -29,6 +32,30 @@ export const getUserBookmarks = createAsyncThunk(
   }
 );
 
+export const getUserBookmarkedResources = createAsyncThunk(
+  "bookmarks/data/getUserBookmarkedResources",
+  async () => {
+    let response = {};
+    response = await apiGetUserBookmarkedResources();
+    const results = response.data.results;
+    const transformedData = results.map(resource => ({
+      id: resource.id,
+      title: resource.title,
+      description: resource.description,
+      user: resource.user,
+      view_count: resource.view_count,
+      vote_count: resource.vote_count,
+      tags: resource.tags,
+      categories: resource.categories,
+      created_at: resource.created_at,
+      updated_at: resource.updated_at
+    }));
+    return {
+      data: transformedData
+    };
+  }
+);
+
 const dataSlice = createSlice({
   name: "bookmarks/data",
   initialState: {
@@ -41,11 +68,18 @@ const dataSlice = createSlice({
     }
   },
   extraReducers: {
-    [getUserBookmarks.fulfilled]: (state, action) => {
+    [getUserBookmarkedPosts.fulfilled]: (state, action) => {
       state.bookmarkList = action.payload.data;
       state.loading = false;
     },
-    [getUserBookmarks.pending]: state => {
+    [getUserBookmarkedPosts.pending]: state => {
+      state.loading = true;
+    },
+    [getUserBookmarkedResources.fulfilled]: (state, action) => {
+      state.bookmarkList = action.payload.data;
+      state.loading = false;
+    },
+    [getUserBookmarkedResources.pending]: state => {
       state.loading = true;
     }
   }
