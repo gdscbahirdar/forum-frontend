@@ -1,115 +1,77 @@
-const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default
-const safeListFile = 'safelist.txt'
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  mode: 'jit',
+  darkMode: ["class"],
   content: [
-    "./src/**/*.html",
-    "./src/**/*.js",
-    "./src/**/*.jsx",
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    './safelist.txt'
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}"
   ],
-  darkMode: 'class',
+  prefix: "",
   theme: {
-    fontFamily: {
-      sans: [
-        'Inter',
-        'ui-sans-serif',
-        'system-ui',
-        '-apple-system',
-        'BlinkMacSystemFont',
-        '"Segoe UI"',
-        'Roboto',
-        '"Helvetica Neue"',
-        'Arial',
-        '"Noto Sans"',
-        'sans-serif',
-        '"Apple Color Emoji"',
-        '"Segoe UI Emoji"',
-        '"Segoe UI Symbol"',
-        '"Noto Color Emoji"',
-      ],
-      serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
-      mono: [
-        'ui-monospace',
-        'SFMono-Regular',
-        'Menlo',
-        'Monaco',
-        'Consolas',
-        '"Liberation Mono"',
-        '"Courier New"',
-        'monospace',
-      ],
-    },
-    screens: {
-      xs: '576',
-      sm: '640px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
-      '2xl': '1536px',
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px"
+      }
     },
     extend: {
-      typography: (theme) => ({
-        DEFAULT: {
-          css: {
-            color: theme('colors.gray.500'),
-            maxWidth: '65ch',
-          },
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))"
         },
-        invert: {
-          css: {
-            color: theme('colors.gray.400'),
-          },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))"
         },
-      })
-    },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))"
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))"
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))"
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))"
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))"
+        }
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)"
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" }
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" }
+        }
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out"
+      }
+    }
   },
-  plugins: [
-    ({ addUtilities, e, theme, variants }) => {
-      const colors = flattenColorPalette(theme('borderColor'));
-      delete colors['default'];
-
-      const colorMap = Object.keys(colors)
-        .map(color => ({
-          [`.border-t-${color}`]: {borderTopColor: colors[color]},
-          [`.border-r-${color}`]: {borderRightColor: colors[color]},
-          [`.border-b-${color}`]: {borderBottomColor: colors[color]},
-          [`.border-l-${color}`]: {borderLeftColor: colors[color]},
-        }));
-      const utilities = Object.assign({}, ...colorMap);
-
-      addUtilities(utilities, variants('borderColor'));
-    },
-    // If your application does not require multiple theme selection,
-    // you can replace {color} to your theme color value
-    // this can drastically reduces the size of the output css file
-    // e.g 'text-{colors}' --> 'text-emerald'
-    require('tailwind-safelist-generator')({
-      path: safeListFile,
-      patterns: [
-        'text-{colors}',
-        'bg-{colors}',
-        'dark:bg-{colors}',
-        'dark:hover:bg-{colors}',
-        'dark:active:bg-{colors}',
-        'hover:text-{colors}',
-        'hover:bg-{colors}',
-        'active:bg-{colors}',
-        'ring-{colors}',
-        'hover:ring-{colors}',
-        'focus:ring-{colors}',
-        'focus-within:ring-{colors}',
-        'border-{colors}',
-        'focus:border-{colors}',
-        'focus-within:border-{colors}',
-        'dark:text-{colors}',
-        'dark:hover:text-{colors}',
-        'h-{height}',
-        'w-{width}',
-      ],
-    }),
-    require('@tailwindcss/typography')
-  ],
-}
+  plugins: [require("tailwindcss-animate")]
+};

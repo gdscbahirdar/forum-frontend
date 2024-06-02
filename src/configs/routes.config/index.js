@@ -130,6 +130,16 @@ export const protectedRoutes = [
     }
   },
   {
+    key: "appsAccount.activity",
+    path: `${APP_PREFIX_PATH}/account/settings/activity/:category`,
+    component: React.lazy(() => import("views/account/Settings")),
+    authority: [],
+    meta: {
+      header: "Settings",
+      headerContainer: true
+    }
+  },
+  {
     key: "feedback",
     path: "/feedback",
     component: React.lazy(() => import("views/feedback/FeedbackList")),
@@ -147,13 +157,43 @@ export const protectedRoutes = [
     path: `${APP_PREFIX_PATH}/feedback/edit-feedback`,
     component: React.lazy(() => import("views/feedback/EditFeedback")),
     authority: []
-  }
-  // {
-  //   key: "others.reputations",
-  //   path: "/reputations",
-  //   component: React.lazy(() => import("views/demo/GroupSingleMenuItemView")),
-  //   authority: []
-  // }
+  },
+  {
+    key: "leaderboard",
+    path: `/leaderboard`,
+    component: React.lazy(() => import("views/leaderboard")),
+    authority: []
+  },
+  {
+    key: "userProfile",
+    path: "/users/:username/answers",
+    component: React.lazy(() => import("views/account/Public")),
+    authority: []
+  },
+  {
+    key: "userProfileTab",
+    path: "/users/:username/:tab",
+    component: React.lazy(() => import("views/account/Public")),
+    authority: []
+  },
+  {
+    key: "help",
+    path: "/help",
+    component: React.lazy(() => import("views/help")),
+    authority: []
+  },
+  {
+    key: "help.articles",
+    path: "/help-articles",
+    component: React.lazy(() => import("views/help/components/ArticleList")),
+    authority: []
+  },
+  {
+    key: "help.article",
+    path: "/help-article",
+    component: React.lazy(() => import("views/help/components/ArticleContent")),
+    authority: []
+  },
   // {
   //   key: "others.collapse.item1",
   //   path: "/group-collapse-menu-item-view-1",
@@ -170,4 +210,40 @@ export const protectedRoutes = [
   //   ),
   //   authority: []
   // }
+  {
+    key: "resources.resourceList",
+    path: `/resource-list`,
+    component: React.lazy(() => import("views/resources/ResourceList")),
+    authority: []
+  },
+  {
+    key: "resources.resourceEdit",
+    path: `/resource-edit/:resourceId`,
+    component: React.lazy(() => import("views/resources/ResourceEdit")),
+    authority: [],
+    meta: {
+      header: "Edit Resource"
+    }
+  },
+  {
+    key: "resources.resourceNew",
+    path: `/resource-new`,
+    component: React.lazy(() => import("views/resources/ResourceNew")),
+    authority: [],
+    meta: {
+      header: "Add New Resource"
+    }
+  },
+  {
+    key: "resources.resourceDetail",
+    path: `/resource-details/:id`,
+    component: React.lazy(() => import("views/resources/ResourceDetail")),
+    authority: []
+  },
+  {
+    key: "resources.myUploads",
+    path: `/my-uploads`,
+    component: React.lazy(() => import("views/resources/ResourceList")),
+    authority: []
+  }
 ];

@@ -6,8 +6,8 @@ import {
   toast,
   FormContainer
 } from "components/ui";
-import FormDescription from "./FormDescription";
-import FormRow from "./FormRow";
+import FormDescription from "../common/FormDescription";
+import FormRow from "../common/FormRow";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { apiUpdatePassword } from "services/AccountServices";

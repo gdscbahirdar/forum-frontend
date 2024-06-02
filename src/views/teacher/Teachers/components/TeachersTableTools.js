@@ -15,17 +15,12 @@ const TeachersTableTools = () => {
 
   const tableData = useSelector(state => state.teachers.data.tableData);
 
-  const handleInputChange = val => {
+  const handleSearch = () => {
+    const query = inputRef.current.value;
     const newTableData = cloneDeep(tableData);
-    newTableData.query = val;
+    newTableData.query = query;
     newTableData.pageIndex = 1;
-    if (typeof val === "string" && val.length > 1) {
-      fetchData(newTableData);
-    }
-
-    if (typeof val === "string" && val.length === 0) {
-      fetchData(newTableData);
-    }
+    fetchData(newTableData);
   };
 
   const onAddNewTeacher = () => {
@@ -49,7 +44,7 @@ const TeachersTableTools = () => {
     <div className="lg:flex items-center justify-between mb-4">
       <h3 className="mb-4 lg:mb-0">Teachers</h3>
       <div className="flex flex-col md:flex-row lg:items-center gap-2">
-        <TeacherTableSearch ref={inputRef} onInputChange={handleInputChange} />
+        <TeacherTableSearch ref={inputRef} onSearch={handleSearch} />
         <TeacherTableFilter />
         <Button className="max-w-md mb-4" size="sm" onClick={onClearAll}>
           Clear All
