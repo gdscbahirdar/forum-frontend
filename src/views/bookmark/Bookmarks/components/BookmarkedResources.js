@@ -29,8 +29,7 @@ function BookmarkedResources() {
           <div className="h-full flex flex-col items-center justify-center">
             <div className="mt-6 text-center">
               <p className="text-base">
-                No bookmarks found. Bookmark a resource and/or answer to see it
-                here.
+                No bookmarks found. Bookmark a resource to see it here.
               </p>
             </div>
           </div>
