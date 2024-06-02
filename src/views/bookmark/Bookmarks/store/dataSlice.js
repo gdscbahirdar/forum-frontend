@@ -60,7 +60,8 @@ const dataSlice = createSlice({
   name: "bookmarks/data",
   initialState: {
     loading: false,
-    bookmarkList: []
+    bookmarkList: [],
+    bookmarkedResources: []
   },
   reducers: {
     setUserBookmarkList: (state, action) => {
@@ -76,7 +77,7 @@ const dataSlice = createSlice({
       state.loading = true;
     },
     [getUserBookmarkedResources.fulfilled]: (state, action) => {
-      state.bookmarkList = action.payload.data;
+      state.bookmarkedResources = action.payload.data;
       state.loading = false;
     },
     [getUserBookmarkedResources.pending]: state => {

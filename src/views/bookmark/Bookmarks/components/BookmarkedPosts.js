@@ -53,10 +53,7 @@ function BookmarkedPosts() {
 
   return (
     <Loading loading={loading && data?.length !== 0}>
-      <section className="max-w-[1000px] mx-auto">
-        <div className="flex justify-between items-center">
-          <h4 className="mb-6">Bookmarks</h4>
-        </div>
+      <section className="max-w-[1000px]">
         {data.length === 0 && !loading && (
           <div className="h-full flex flex-col items-center justify-center">
             <div className="mt-6 text-center">

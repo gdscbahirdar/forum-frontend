@@ -11,7 +11,7 @@ dayjs.extend(relativeTime);
 
 function BookmarkedResources() {
   const dispatch = useDispatch();
-  const data = useSelector(state => state.bookmarks.data.bookmarkList);
+  const data = useSelector(state => state.bookmarks.data.bookmarkedResources);
   const loading = useSelector(state => state.bookmarks.data.loading);
 
   const fetchData = useCallback(() => {
@@ -24,11 +24,7 @@ function BookmarkedResources() {
 
   return (
     <Loading loading={loading && data?.length !== 0}>
-      <section className="max-w-[1000px] mx-auto">
-        <div className="flex justify-between items-center">
-          <h4 className="mb-6">Bookmarks</h4>
-        </div>
-        {JSON.stringify(data)}
+      <section className="max-w-[1000px]">
         {data.length === 0 && !loading && (
           <div className="h-full flex flex-col items-center justify-center">
             <div className="mt-6 text-center">
@@ -39,7 +35,6 @@ function BookmarkedResources() {
             </div>
           </div>
         )}
-        {console.log(data)}
         {data.map(resource => (
           <article key={resource.id}>
             <Card className="group mb-4">
@@ -57,7 +52,7 @@ function BookmarkedResources() {
                   </div>
                 </div>
                 <div className="col-span-9 md:col-span-8">
-                  <Link to={`/resources/resource-details?id=${resource.slug}`}>
+                  <Link to={`/resource-details/${resource.id}`}>
                     <div className="flex items-center justify-between mb-2">
                       <h5 className="group-hover:underline text-blue-700 font-normal">
                         {resource.title}
@@ -65,7 +60,7 @@ function BookmarkedResources() {
                     </div>
                   </Link>
                   <p>
-                    {resource.description.length > 230
+                    {resource?.description.length > 230
                       ? resource.description.substring(0, 229) + "..."
                       : resource.description}
                   </p>
