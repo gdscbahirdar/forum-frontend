@@ -22,7 +22,7 @@ import * as Yup from "yup";
 import { apiUpdateProfile } from "services/AccountServices";
 import { useState } from "react";
 import { setUser } from "store/auth/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email"),
@@ -34,6 +34,8 @@ const validationSchema = Yup.object().shape({
 function Profile({ data }) {
   const [preview, setPreview] = useState("");
   const dispatch = useDispatch();
+
+  const user = useSelector(state => state.auth.user);
 
   const onSetFormFile = (form, field, file) => {
     setPreview(URL.createObjectURL(file[0]));
@@ -65,16 +67,7 @@ function Profile({ data }) {
         );
         dispatch(
           setUser({
-            username: response.data.username,
-            full_name:
-              response.data.first_name +
-              " " +
-              response.data.middle_name +
-              " " +
-              response.data.last_name,
-            is_first_time_login: response.data.is_first_time_login,
-            authority: [response.data.role_name],
-            faculty: response.data.faculty,
+            ...user,
             avatar: response.data.avatar
           })
         );
