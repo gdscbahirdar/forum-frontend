@@ -1,5 +1,11 @@
 "use client";
-import { Command, CommandInput } from "../ui/command";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandList
+} from "../ui/command";
 
 import { ArrowUp } from "lucide-react";
 import { useEditor } from "novel";
@@ -75,6 +81,10 @@ export function AISelector({ onOpenChange }) {
               }
               onFocus={() => addAIHighlight(editor)}
             />
+            <CommandList>
+              <CommandEmpty></CommandEmpty>
+              <CommandGroup></CommandGroup>
+            </CommandList>
             <Button
               size="icon"
               className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full bg-purple-500 hover:bg-purple-900"
