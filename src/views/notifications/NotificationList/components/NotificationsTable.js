@@ -1,15 +1,23 @@
 import React, { useEffect, useCallback, useMemo } from "react";
 import { Badge, Tooltip } from "components/ui";
 import { DataTable } from "components/shared";
-import { HiOutlineEye, HiOutlineTrash } from "react-icons/hi";
+import { HiOutlineTrash } from "react-icons/hi";
+import { IoNotificationsOffOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { getNotifications, setTableData } from "../store/dataSlice";
+import {
+  getNotifications,
+  markAsRead,
+  markAsUnread,
+  setTableData
+} from "../store/dataSlice";
+import { CiRead, CiUnread } from "react-icons/ci";
 import {
   setSelectedRows,
   addRowItem,
   removeRowItem,
   setDeleteMode,
-  setSelectedRow
+  setSelectedRow,
+  setUnsubscribeMode
 } from "../store/stateSlice";
 import useThemeClass from "utils/hooks/useThemeClass";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +51,7 @@ const NotificationColumn = ({ row }) => {
   const { textTheme } = useThemeClass();
   const navigate = useNavigate();
 
-  const onView = useCallback(() => {
+  const onRowClick = useCallback(() => {
     const { target_type, target_object_id, target_slug } = row;
     if (!target_object_id) return;
 
@@ -70,7 +78,7 @@ const NotificationColumn = ({ row }) => {
   return (
     <span
       className={`cursor-pointer select-none font-semibold hover:${textTheme}`}
-      onClick={onView}
+      onClick={onRowClick}
     >
       {row.message}
     </span>
@@ -80,45 +88,55 @@ const NotificationColumn = ({ row }) => {
 const ActionColumn = ({ row }) => {
   const dispatch = useDispatch();
   const { textTheme } = useThemeClass();
-  const navigate = useNavigate();
+  const tableData = useSelector(state => state.notificationList.data.tableData);
 
   const onDelete = () => {
     dispatch(setDeleteMode("single"));
     dispatch(setSelectedRow([row.id]));
   };
 
-  const onView = useCallback(() => {
-    const { target_type, target_object_id, target_slug } = row;
-    if (!target_object_id) return;
+  const onUnsubscribe = () => {
+    dispatch(setUnsubscribeMode("single"));
+    dispatch(setSelectedRow([row.id]));
+  };
 
-    let link = "";
-    switch (target_type) {
-      case "question":
-        link = `/questions/question-details?id=${target_slug}`;
-        break;
-      case "answer":
-        link = `/questions/question-details?id=${target_slug}&highlight=${target_object_id}`;
-        break;
-      case "resource":
-        link = `/resource-details?id=${target_object_id}`;
-        break;
-      default:
-        break;
-    }
+  const onMarkAsRead = async () => {
+    await markAsRead([row.id]);
+    dispatch(getNotifications(tableData));
+  };
 
-    if (link) {
-      navigate(link);
-    }
-  }, [navigate, row]);
+  const onMarkAsUnread = async () => {
+    await markAsUnread([row.id]);
+    dispatch(getNotifications(tableData));
+  };
 
   return (
     <div className="flex justify-end text-lg">
-      <Tooltip title="View">
+      {row.is_read ? (
+        <Tooltip title="Mark as Unread">
+          <span
+            className={`cursor-pointer p-2 hover:${textTheme}`}
+            onClick={onMarkAsUnread}
+          >
+            <CiUnread />
+          </span>
+        </Tooltip>
+      ) : (
+        <Tooltip title="Mark as Read">
+          <span
+            className={`cursor-pointer p-2 hover:${textTheme}`}
+            onClick={onMarkAsRead}
+          >
+            <CiRead />
+          </span>
+        </Tooltip>
+      )}
+      <Tooltip title="Unsubscribe">
         <span
           className={`cursor-pointer p-2 hover:${textTheme}`}
-          onClick={onView}
+          onClick={onUnsubscribe}
         >
-          <HiOutlineEye />
+          <IoNotificationsOffOutline />
         </span>
       </Tooltip>
       <Tooltip title="Delete">
@@ -243,6 +261,14 @@ const NotificationsTable = () => {
     [dispatch]
   );
 
+  const getRowProps = row => {
+    return {
+      className: row.original.is_read
+        ? "bg-white"
+        : "bg-gray-100 dark:bg-gray-800"
+    };
+  };
+
   return (
     <DataTable
       columns={columns}
@@ -255,6 +281,7 @@ const NotificationsTable = () => {
       onCheckBoxChange={onRowSelect}
       onIndeterminateCheckBoxChange={onAllRowSelect}
       selectable
+      getRowProps={getRowProps}
     />
   );
 };

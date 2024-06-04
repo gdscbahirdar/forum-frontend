@@ -25,3 +25,10 @@ export async function apiPostNotificationAction(action, data) {
     data: data
   });
 }
+
+export async function apiDeleteSubscription(targetId) {
+  return ApiService.fetchData({
+    url: `/subscriptions/${targetId}/`,
+    method: "delete"
+  });
+}

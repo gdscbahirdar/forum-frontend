@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  apiDeleteSubscription,
   apiGetNotificationList,
   apiPostNotificationAction
 } from "services/NotificationService";
@@ -24,6 +25,25 @@ export const getNotifications = createAsyncThunk(
 
 export const deleteNotifications = async items => {
   const response = await apiPostNotificationAction("delete_any", {
+    ids: items
+  });
+  return response.status;
+};
+
+export const unsubscribe = async targetId => {
+  const response = await apiDeleteSubscription(targetId);
+  return response.status;
+};
+
+export const markAsRead = async items => {
+  const response = await apiPostNotificationAction("mark_as_read", {
+    ids: items
+  });
+  return response.status;
+};
+
+export const markAsUnread = async items => {
+  const response = await apiPostNotificationAction("mark_as_unread", {
     ids: items
   });
   return response.status;
