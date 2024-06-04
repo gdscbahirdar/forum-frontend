@@ -241,7 +241,7 @@ DataTable.propTypes = {
 };
 
 DataTable.defaultProps = {
-  pageSizes: [10, 25, 50, 100],
+  pageSizes: [10, 25, 50],
   pagingData: {
     total: 0,
     pageIndex: 1,

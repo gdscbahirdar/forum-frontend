@@ -245,5 +245,11 @@ export const protectedRoutes = [
     path: `/my-uploads`,
     component: React.lazy(() => import("views/resources/ResourceList")),
     authority: []
+  },
+  {
+    key: "notifications",
+    path: `${APP_PREFIX_PATH}/notifications`,
+    component: React.lazy(() => import("views/notifications/NotificationList")),
+    authority: []
   }
 ];
