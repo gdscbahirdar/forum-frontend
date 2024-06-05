@@ -83,6 +83,7 @@ const TeacherProfile = ({ data = {} }) => {
           <TeacherInfoField title="First Name" value={data.first_name} />
           <TeacherInfoField title="Middle Name" value={data.middle_name} />
           <TeacherInfoField title="Last Name" value={data.last_name} />
+          <TeacherInfoField title="Gender" value={data.gender} />
           <TeacherInfoField title="Faculty" value={data.faculty} />
           <TeacherInfoField
             title="Departments"

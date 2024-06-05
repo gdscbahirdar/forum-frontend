@@ -82,6 +82,7 @@ const StudentProfile = ({ data = {} }) => {
           <StudentInfoField title="Username" value={data.username} />
           <StudentInfoField title="First Name" value={data.first_name} />
           <StudentInfoField title="Middle Name" value={data.middle_name} />
+          <StudentInfoField title="Gender" value={data.gender} />
           <StudentInfoField title="Last Name" value={data.last_name} />
           <StudentInfoField title="Faculty" value={data.faculty} />
           <StudentInfoField title="Department" value={data.department} />

@@ -24,6 +24,7 @@ const StudentEditContent = forwardRef((_, ref) => {
       last_name,
       faculty,
       department,
+      gender,
       year_in_school,
       admission_date,
       graduation_date
@@ -35,6 +36,7 @@ const StudentEditContent = forwardRef((_, ref) => {
       last_name,
       faculty,
       department,
+      gender,
       year_in_school,
       admission_date: dayjs(admission_date).format("YYYY-MM-DD"),
       graduation_date: dayjs(graduation_date).format("YYYY-MM-DD")
@@ -53,6 +55,7 @@ const StudentEditContent = forwardRef((_, ref) => {
       first_name: editedStudent.first_name,
       middle_name: editedStudent.middle_name,
       last_name: editedStudent.last_name,
+      gender: editedStudent.gender,
       student: {
         faculty: editedStudent.faculty,
         department: editedStudent.department,

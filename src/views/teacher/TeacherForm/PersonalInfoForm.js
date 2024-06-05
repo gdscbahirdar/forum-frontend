@@ -3,6 +3,14 @@ import { Input, FormItem, Select } from "components/ui";
 import { Field } from "formik";
 import { useSelector } from "react-redux";
 
+const gender = [
+  {
+    label: "Male",
+    value: "M"
+  },
+  { label: "Female", value: "F" }
+];
+
 const PersonalInfoForm = props => {
   const { touched, errors } = props;
 
@@ -12,6 +20,11 @@ const PersonalInfoForm = props => {
   const facultyOptions = faculties.map(faculty => ({
     value: faculty.name,
     label: faculty.name
+  }));
+
+  const genderOptions = gender.map(gender => ({
+    value: gender.value,
+    label: gender.label
   }));
 
   return (
@@ -67,6 +80,24 @@ const PersonalInfoForm = props => {
           placeholder="Last Name"
           component={Input}
         />
+      </FormItem>
+      <FormItem
+        label="Gender"
+        invalid={errors.gender && touched.gender}
+        errorMessage={errors.gender}
+      >
+        <Field name="gender">
+          {({ field, form }) => (
+            <Select
+              options={genderOptions}
+              placeholder="Select Gender"
+              value={genderOptions.find(option => option.value === field.value)}
+              onChange={option => {
+                form.setFieldValue("gender", option.value);
+              }}
+            />
+          )}
+        </Field>
       </FormItem>
       <FormItem
         label="Faculty"

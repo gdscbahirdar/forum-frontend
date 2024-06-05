@@ -27,6 +27,7 @@ export const getTeachers = createAsyncThunk(
       middle_name: user.middle_name,
       last_name: user.last_name,
       username: user.username,
+      gender: user.gender,
       faculty: user.teacher.faculty,
       departments: user.teacher.departments
     }));
@@ -50,6 +51,7 @@ export const createTeacher = createAsyncThunk(
         middle_name: user.middle_name,
         last_name: user.last_name,
         username: user.username,
+        gender: user.gender,
         faculty: user.teacher.faculty,
         departments: user.teacher.departments
       };
@@ -74,6 +76,7 @@ export const putTeacher = createAsyncThunk(
         middle_name: user.middle_name,
         last_name: user.last_name,
         username: user.username,
+        gender: user.gender,
         faculty: user.teacher.faculty,
         departments: user.teacher.departments
       };

@@ -11,12 +11,14 @@ const FacultyAdminNewContent = forwardRef((_, ref) => {
   const dispatch = useDispatch();
 
   const onFormSubmit = values => {
-    const { username, first_name, middle_name, last_name, faculty } = values;
+    const { username, first_name, middle_name, last_name, gender, faculty } =
+      values;
     const newFacultyAdmin = {
       username: username,
       first_name: first_name,
       middle_name: middle_name,
       last_name: last_name,
+      gender: gender,
       faculty_admin: {
         faculty: faculty
       }

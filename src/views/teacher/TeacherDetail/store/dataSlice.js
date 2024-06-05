@@ -16,6 +16,7 @@ export const getTeacher = createAsyncThunk(
       first_name: user.first_name,
       middle_name: user.middle_name,
       last_name: user.last_name,
+      gender: user.gender,
       faculty: user.teacher.faculty,
       departments: user.teacher.departments
     };

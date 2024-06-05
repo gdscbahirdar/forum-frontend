@@ -17,6 +17,7 @@ const validationSchema = Yup.object().shape({
   last_name: Yup.string().required("Last Name Required"),
   faculty: Yup.string().required("Faculty Required"),
   department: Yup.string().required("Department Required"),
+  gender: Yup.string().required("Gender Required"),
   year_in_school: Yup.number()
     .required("Year in School Required")
     .min(1, "Year in School must be at least 1")
@@ -44,6 +45,7 @@ const StudentForm = forwardRef((props, ref) => {
             ? user.faculty
             : student?.faculty || "",
         department: student?.department || "",
+        gender: student?.gender,
         year_in_school: student?.year_in_school || "",
         admission_date:
           student?.admission_date &&

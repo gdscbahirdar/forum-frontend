@@ -44,6 +44,7 @@ const EditTeacherProfile = () => {
       first_name,
       middle_name,
       last_name,
+      gender,
       faculty,
       departments
     } = values;
@@ -53,6 +54,7 @@ const EditTeacherProfile = () => {
       first_name,
       middle_name,
       last_name,
+      gender,
       faculty,
       departments
     };
