@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from "react";
 import classNames from "classnames";
 import withHeaderItem from "utils/hoc/withHeaderItem";
 import {
-  Avatar,
   Dropdown,
   ScrollBar,
   Spinner,
@@ -12,67 +11,49 @@ import {
 } from "components/ui";
 import {
   HiOutlineBell,
-  HiOutlineCalendar,
-  HiOutlineClipboardCheck,
-  HiOutlineBan,
-  HiOutlineMailOpen
+  HiOutlineCheckCircle,
+  HiOutlineExclamationCircle,
+  HiOutlineInformationCircle,
+  HiOutlineMailOpen,
+  HiOutlineXCircle
 } from "react-icons/hi";
 import {
   apiGetNotificationList,
-  apiGetNotificationCount
-} from "services/CommonService";
+  apiPostNotificationAction,
+  apiGetUnreadNotificationCount
+} from "services/NotificationService";
 import { Link } from "react-router-dom";
 import isLastChild from "utils/isLastChild";
-import useTwColorByName from "utils/hooks/useTwColorByName";
 import useThemeClass from "utils/hooks/useThemeClass";
 import { useSelector } from "react-redux";
 import useResponsive from "utils/hooks/useResponsive";
-import acronym from "utils/acronym";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 const notificationHeight = "h-72";
-const imagePath = "/img/avatars/";
 
-const GeneratedAvatar = ({ target }) => {
-  const color = useTwColorByName();
-  return (
-    <Avatar shape="circle" className={`${color(target)}`}>
-      {acronym(target)}
-    </Avatar>
-  );
-};
-
-const notificationTypeAvatar = data => {
-  const { type, target, image, status } = data;
-  switch (type) {
-    case 0:
-      if (image) {
-        return <Avatar shape="circle" src={`${imagePath}${image}`} />;
-      } else {
-        return <GeneratedAvatar target={target} />;
-      }
-    case 1:
+const notificationLevelIcon = level => {
+  switch (level) {
+    case "info":
       return (
-        <Avatar
-          shape="circle"
-          className="bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-100"
-          icon={<HiOutlineCalendar />}
-        />
+        <HiOutlineInformationCircle className="text-blue-600 dark:text-blue-100" />
       );
-    case 2:
-      const statusSucceed = status === "succeed";
-      const statusColor = statusSucceed
-        ? "bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-100"
-        : "bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-100";
-      const statusIcon = statusSucceed ? (
-        <HiOutlineClipboardCheck />
-      ) : (
-        <HiOutlineBan />
-      );
+    case "success":
       return (
-        <Avatar shape="circle" className={statusColor} icon={statusIcon} />
+        <HiOutlineCheckCircle className="text-emerald-600 dark:text-emerald-100" />
       );
+    case "warning":
+      return (
+        <HiOutlineExclamationCircle className="text-yellow-600 dark:text-yellow-100" />
+      );
+    case "error":
+      return <HiOutlineXCircle className="text-red-600 dark:text-red-100" />;
     default:
-      return <Avatar />;
+      return (
+        <HiOutlineInformationCircle className="text-gray-600 dark:text-gray-100" />
+      );
   }
 };
 
@@ -102,54 +83,55 @@ export const Notification = ({ className }) => {
 
   const direction = useSelector(state => state.theme.direction);
 
-  const getNotificationCount = useCallback(async () => {
-    const resp = await apiGetNotificationCount();
-    if (resp.data.count > 0) {
-      setNoResult(false);
-      setUnreadNotification(true);
-    } else {
-      setNoResult(true);
-    }
-  }, [setUnreadNotification]);
+  const getUnreadNotificationCount = useCallback(async () => {
+    const resp = await apiGetUnreadNotificationCount();
+    setUnreadNotification(resp.data.unread_count > 0);
+  }, []);
+
+  const getNotificationList = useCallback(async () => {
+    setLoading(true);
+    const resp = await apiGetNotificationList({ size: 5 });
+    setLoading(false);
+    const notifications = resp.data.results;
+    setNotificationList(notifications);
+    setNoResult(notifications.length === 0);
+    setUnreadNotification(notifications.some(item => !item.is_read));
+  }, []);
 
   useEffect(() => {
-    getNotificationCount();
-  }, [getNotificationCount]);
+    getUnreadNotificationCount();
+    getNotificationList();
+  }, [getUnreadNotificationCount, getNotificationList]);
 
-  const onNotificationOpen = useCallback(async () => {
+  const onNotificationOpen = useCallback(() => {
     if (notificationList.length === 0) {
-      setLoading(true);
-      const resp = await apiGetNotificationList();
-      setLoading(false);
-      setNotificationList(resp.data);
+      getNotificationList();
     }
-  }, [notificationList, setLoading]);
+  }, [notificationList, getNotificationList]);
 
-  const onMarkAllAsRead = useCallback(() => {
-    const list = notificationList.map(item => {
-      if (!item.readed) {
-        item.readed = true;
-      }
+  const onMarkAllAsRead = useCallback(async () => {
+    await apiPostNotificationAction("mark_as_read", {
+      ids: notificationList.map(item => item.id)
+    });
+    const updatedList = notificationList.map(item => {
+      item.is_read = true;
       return item;
     });
-    setNotificationList(list);
+    setNotificationList(updatedList);
     setUnreadNotification(false);
   }, [notificationList]);
 
   const onMarkAsRead = useCallback(
-    id => {
-      const list = notificationList.map(item => {
+    async id => {
+      await apiPostNotificationAction("mark_as_read", { ids: [id] });
+      const updatedList = notificationList.map(item => {
         if (item.id === id) {
-          item.readed = true;
+          item.is_read = true;
         }
         return item;
       });
-      setNotificationList(list);
-      const hasUnread = notificationList.some(item => !item.readed);
-
-      if (!hasUnread) {
-        setUnreadNotification(false);
-      }
+      setNotificationList(updatedList);
+      setUnreadNotification(updatedList.some(item => !item.is_read));
     },
     [notificationList]
   );
@@ -183,10 +165,12 @@ export const Notification = ({ className }) => {
             notificationList.map((item, index) => (
               <div
                 key={item.id}
-                className={`relative flex px-4 py-4 cursor-pointer hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-black dark:hover:bg-opacity-20  ${!isLastChild(notificationList, index) ? "border-b border-gray-200 dark:border-gray-600" : ""}`}
+                className={`relative flex px-4 py-4 cursor-pointer hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-black dark:hover:bg-opacity-20 ${!isLastChild(notificationList, index) ? "border-b border-gray-200 dark:border-gray-600" : ""}`}
                 onClick={() => onMarkAsRead(item.id)}
               >
-                <div>{notificationTypeAvatar(item)}</div>
+                <div className="flex items-center justify-center w-10 h-10">
+                  {notificationLevelIcon(item.level)}
+                </div>
                 <div className="ltr:ml-3 rtl:mr-3">
                   <div>
                     {item.target && (
@@ -194,13 +178,15 @@ export const Notification = ({ className }) => {
                         {item.target}{" "}
                       </span>
                     )}
-                    <span>{item.description}</span>
+                    <span>{item.message}</span>
                   </div>
-                  <span className="text-xs">{item.date}</span>
+                  <span className="text-xs">
+                    {dayjs(item.created_at).fromNow()}
+                  </span>
                 </div>
                 <Badge
                   className="absolute top-4 ltr:right-4 rtl:left-4 mt-1.5"
-                  innerClass={`${item.readed ? "bg-gray-300" : bgTheme} `}
+                  innerClass={`${item.is_read ? "bg-gray-300" : bgTheme} `}
                 />
               </div>
             ))}
@@ -228,7 +214,7 @@ export const Notification = ({ className }) => {
                   alt="no-notification"
                 />
                 <h6 className="font-semibold">No notifications!</h6>
-                <p className="mt-1">Please Try again later</p>
+                <p className="mt-1">Please try again later</p>
               </div>
             </div>
           )}
@@ -237,10 +223,10 @@ export const Notification = ({ className }) => {
       <Dropdown.Item variant="header">
         <div className="flex justify-center border-t border-gray-200 dark:border-gray-600 px-4 py-2">
           <Link
-            to="/forum/account/activity-log"
+            to="/forum/notifications"
             className="font-semibold cursor-pointer p-2 px-3 text-gray-600 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
           >
-            View All Activity
+            View All Notifications
           </Link>
         </div>
       </Dropdown.Item>

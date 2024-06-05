@@ -9,6 +9,10 @@ import {
   getAnswers,
   getQuestion
 } from "../store/dataSlice";
+import {
+  IoNotificationsOffOutline,
+  IoNotificationsOutline
+} from "react-icons/io5";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -32,6 +36,12 @@ import {
   FlagSVG,
   UpvoteSVG
 } from "utils/commonModals";
+import useThemeClass from "utils/hooks/useThemeClass";
+import {
+  apiCreateSubscription,
+  apiDeleteSubscription
+} from "services/NotificationService";
+import { toast, Notification } from "components/ui";
 
 dayjs.extend(relativeTime);
 
@@ -41,6 +51,8 @@ const QuestionContent = ({ questionId }) => {
   const handleAddCommentClick = id => {
     setActiveCommentId(activeCommentId === id ? null : id);
   };
+
+  const { textTheme } = useThemeClass();
 
   const dispatch = useDispatch();
 
@@ -114,6 +126,43 @@ const QuestionContent = ({ questionId }) => {
     navigate(`/questions`);
   };
 
+  const onUnsubscribe = async () => {
+    await apiDeleteSubscription(question.subscription_id);
+    dispatch(getQuestion(questionId));
+    toast.push(
+      <Notification
+        title={"Successfully Unsubscribed"}
+        type="success"
+        duration={2500}
+      >
+        Successfully Unsubscribed to this question.
+      </Notification>,
+      {
+        placement: "top-center"
+      }
+    );
+  };
+
+  const onSubscribe = async () => {
+    await apiCreateSubscription({
+      target_content_type: "question",
+      target_object_id: question.id
+    });
+    dispatch(getQuestion(questionId));
+    toast.push(
+      <Notification
+        title={"Successfully Subscribed"}
+        type="success"
+        duration={2500}
+      >
+        Successfully subscribed to this question.
+      </Notification>,
+      {
+        placement: "top-center"
+      }
+    );
+  };
+
   return (
     <Loading
       loading={loading && question?.length !== 0}
@@ -156,7 +205,7 @@ const QuestionContent = ({ questionId }) => {
               </div>
             </div>
           </div>
-          {user.username === question.asked_by && (
+          {user.username === question.asked_by ? (
             <div className="flex gap-4">
               <Link to={`/questions/question-edit?id=${question.slug}`}>
                 <button>Edit</button>
@@ -169,6 +218,24 @@ const QuestionContent = ({ questionId }) => {
                 Delete
               </button>
             </div>
+          ) : question.subscription_id ? (
+            <Tooltip title="Unsubscribe">
+              <span
+                className={`cursor-pointer p-2 hover:${textTheme}`}
+                onClick={onUnsubscribe}
+              >
+                <IoNotificationsOffOutline />
+              </span>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Subscribe">
+              <span
+                className={`cursor-pointer p-2 hover:${textTheme}`}
+                onClick={onSubscribe}
+              >
+                <IoNotificationsOutline />
+              </span>
+            </Tooltip>
           )}
         </div>
       </div>
