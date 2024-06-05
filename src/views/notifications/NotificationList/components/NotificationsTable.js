@@ -97,7 +97,7 @@ const ActionColumn = ({ row }) => {
 
   const onUnsubscribe = () => {
     dispatch(setUnsubscribeMode("single"));
-    dispatch(setSelectedRow([row.id]));
+    dispatch(setSelectedRow([row.subscription_id]));
   };
 
   const onMarkAsRead = async () => {
