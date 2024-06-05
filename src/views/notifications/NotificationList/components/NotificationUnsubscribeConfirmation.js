@@ -61,7 +61,8 @@ const NotificationUnsubscribeConfirmation = () => {
         >
           {unsubscribeMode === "single" && "Notification "}
           {unsubscribeMode === "batch" && `${notifications} notifications `}
-          successfully unsubscribed
+          successfully unsubscribed. You will no longer receive notifications
+          from this content.
         </Notification>,
         {
           placement: "top-center"
