@@ -5,8 +5,7 @@ const stateSlice = createSlice({
   initialState: {
     selectedRows: [],
     selectedRow: [],
-    deleteMode: "",
-    unsubscribeMode: ""
+    deleteMode: ""
   },
   reducers: {
     setSelectedRows: (state, action) => {
@@ -33,9 +32,6 @@ const stateSlice = createSlice({
     },
     setDeleteMode: (state, action) => {
       state.deleteMode = action.payload;
-    },
-    setUnsubscribeMode: (state, action) => {
-      state.unsubscribeMode = action.payload;
     }
   }
 });
@@ -45,8 +41,7 @@ export const {
   setSelectedRow,
   addRowItem,
   removeRowItem,
-  setDeleteMode,
-  setUnsubscribeMode
+  setDeleteMode
 } = stateSlice.actions;
 
 export default stateSlice.reducer;

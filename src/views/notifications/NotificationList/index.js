@@ -5,7 +5,6 @@ import { AdaptableCard } from "components/shared";
 import NotificationsTable from "./components/NotificationsTable";
 import NotificationsTableTools from "./components/NotificationsTableTools";
 import NotificationDeleteConfirmation from "./components/NotificationDeleteConfirmation";
-import NotificationUnsubscribeConfirmation from "./components/NotificationUnsubscribeConfirmation";
 
 injectReducer("notificationList", reducer);
 
@@ -18,7 +17,6 @@ const NotificationList = () => {
       </div>
       <NotificationsTable />
       <NotificationDeleteConfirmation />
-      <NotificationUnsubscribeConfirmation />
     </AdaptableCard>
   );
 };

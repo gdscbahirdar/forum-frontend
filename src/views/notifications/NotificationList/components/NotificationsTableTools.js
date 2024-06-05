@@ -1,11 +1,7 @@
 import React from "react";
 import NotificationTableSearch from "./NotificationTableSearch";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setDeleteMode,
-  setSelectedRows,
-  setUnsubscribeMode
-} from "../store/stateSlice";
+import { setDeleteMode, setSelectedRows } from "../store/stateSlice";
 import NotificationActionDropdown from "./NotificationActionDropdown";
 import { getNotifications, markAsRead, markAsUnread } from "../store/dataSlice";
 
@@ -18,10 +14,6 @@ const NotificationsTableTools = () => {
 
   const onBatchDelete = () => {
     dispatch(setDeleteMode("batch"));
-  };
-
-  const onBatchUnsubscribe = () => {
-    dispatch(setUnsubscribeMode("batch"));
   };
 
   const onBatchMarkAsRead = async () => {
@@ -41,7 +33,6 @@ const NotificationsTableTools = () => {
       {selectedRows.length > 0 && (
         <NotificationActionDropdown
           onBatchDelete={onBatchDelete}
-          onBatchUnsubscribe={onBatchUnsubscribe}
           onBatchMarkAsRead={onBatchMarkAsRead}
           onBatchMarkAsUnread={onBatchMarkAsUnread}
         />

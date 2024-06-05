@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useMemo } from "react";
 import { Badge, Tooltip } from "components/ui";
 import { DataTable } from "components/shared";
 import { HiOutlineTrash } from "react-icons/hi";
-import { IoNotificationsOffOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getNotifications,
@@ -16,8 +15,7 @@ import {
   addRowItem,
   removeRowItem,
   setDeleteMode,
-  setSelectedRow,
-  setUnsubscribeMode
+  setSelectedRow
 } from "../store/stateSlice";
 import useThemeClass from "utils/hooks/useThemeClass";
 import { useNavigate } from "react-router-dom";
@@ -95,11 +93,6 @@ const ActionColumn = ({ row }) => {
     dispatch(setSelectedRow([row.id]));
   };
 
-  const onUnsubscribe = () => {
-    dispatch(setUnsubscribeMode("single"));
-    dispatch(setSelectedRow([row.subscription_id]));
-  };
-
   const onMarkAsRead = async () => {
     await markAsRead([row.id]);
     dispatch(getNotifications(tableData));
@@ -131,14 +124,6 @@ const ActionColumn = ({ row }) => {
           </span>
         </Tooltip>
       )}
-      <Tooltip title="Unsubscribe">
-        <span
-          className={`cursor-pointer p-2 hover:${textTheme}`}
-          onClick={onUnsubscribe}
-        >
-          <IoNotificationsOffOutline />
-        </span>
-      </Tooltip>
       <Tooltip title="Delete">
         <span
           className="cursor-pointer p-2 hover:text-red-500"

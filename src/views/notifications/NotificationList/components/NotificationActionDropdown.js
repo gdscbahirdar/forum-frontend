@@ -2,13 +2,11 @@ import React from "react";
 import { Dropdown } from "components/ui";
 
 import EllipsisButton from "components/shared/EllipsisButton";
-import { IoNotificationsOffOutline } from "react-icons/io5";
 import { CiRead, CiUnread } from "react-icons/ci";
 import { HiOutlineTrash } from "react-icons/hi";
 
 const NotificationActionDropdown = ({
   onBatchDelete,
-  onBatchUnsubscribe,
   onBatchMarkAsRead,
   onBatchMarkAsUnread
 }) => {
@@ -21,12 +19,6 @@ const NotificationActionDropdown = ({
         </div>
       }
     >
-      <Dropdown.Item onClick={onBatchUnsubscribe} eventKey="unsubscribe">
-        <span className="text-lg">
-          <IoNotificationsOffOutline />
-        </span>
-        <span className="ml-2 rtl:mr-2">Unsubscribe</span>
-      </Dropdown.Item>
       <Dropdown.Item onClick={onBatchMarkAsRead} eventKey="markAsRead">
         <span className="text-lg">
           <CiRead />
