@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
+  apiBulkDeleteSubscription,
   apiDeleteSubscription,
   apiGetNotificationList,
   apiPostNotificationAction
@@ -32,6 +33,11 @@ export const deleteNotifications = async items => {
 
 export const unsubscribe = async targetId => {
   const response = await apiDeleteSubscription(targetId);
+  return response.status;
+};
+
+export const bulkUnsubscribe = async items => {
+  const response = await apiBulkDeleteSubscription({ ids: items });
   return response.status;
 };
 

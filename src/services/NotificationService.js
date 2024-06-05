@@ -26,9 +26,25 @@ export async function apiPostNotificationAction(action, data) {
   });
 }
 
+export async function apiCreateSubscription(data) {
+  return ApiService.fetchData({
+    url: "/subscriptions/",
+    method: "post",
+    data: data
+  });
+}
+
 export async function apiDeleteSubscription(targetId) {
   return ApiService.fetchData({
     url: `/subscriptions/${targetId}/`,
     method: "delete"
+  });
+}
+
+export async function apiBulkDeleteSubscription(data) {
+  return ApiService.fetchData({
+    url: "subscriptions/bulk_delete/",
+    method: "delete",
+    data: data
   });
 }

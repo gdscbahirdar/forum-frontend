@@ -7,7 +7,11 @@ import {
   setSelectedRow,
   setSelectedRows
 } from "../store/stateSlice";
-import { unsubscribe, getNotifications } from "../store/dataSlice";
+import {
+  unsubscribe,
+  getNotifications,
+  bulkUnsubscribe
+} from "../store/dataSlice";
 
 const NotificationUnsubscribeConfirmation = () => {
   const dispatch = useDispatch();
@@ -40,7 +44,7 @@ const NotificationUnsubscribeConfirmation = () => {
     }
 
     if (unsubscribeMode === "batch") {
-      const result = await unsubscribe(selectedRows);
+      const result = await bulkUnsubscribe(selectedRows);
       unsubscribeSucceed(result, selectedRows.length);
       dispatch(setSelectedRows([]));
     }
