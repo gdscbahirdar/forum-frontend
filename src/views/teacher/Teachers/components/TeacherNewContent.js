@@ -16,6 +16,7 @@ const TeacherNewContent = forwardRef((_, ref) => {
       first_name,
       middle_name,
       last_name,
+      gender,
       faculty,
       departments
     } = values;
@@ -24,6 +25,7 @@ const TeacherNewContent = forwardRef((_, ref) => {
       first_name: first_name,
       middle_name: middle_name,
       last_name: last_name,
+      gender,
       teacher: {
         faculty: faculty,
         departments: departments

@@ -27,6 +27,7 @@ export const getFacultyAdmins = createAsyncThunk(
       middle_name: user.middle_name,
       last_name: user.last_name,
       username: user.username,
+      gender: user.gender,
       faculty: user.faculty_admin.faculty
     }));
     return {
@@ -49,6 +50,7 @@ export const createFacultyAdmin = createAsyncThunk(
         middle_name: user.middle_name,
         last_name: user.last_name,
         username: user.username,
+        gender: user.gender,
         faculty: user.faculty_admin.faculty
       };
       return { response: transformedData, success: true };
@@ -72,6 +74,7 @@ export const putFacultyAdmin = createAsyncThunk(
         middle_name: user.middle_name,
         last_name: user.last_name,
         username: user.username,
+        gender: user.gender,
         faculty: user.faculty_admin.faculty
       };
       return { response: transformedData, success: true };

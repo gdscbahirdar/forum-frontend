@@ -15,6 +15,7 @@ const validationSchema = Yup.object().shape({
   first_name: Yup.string().required("First Name Required"),
   middle_name: Yup.string().required("Middle Name Required"),
   last_name: Yup.string().required("Last Name Required"),
+  gender: Yup.string().required("Gender Required"),
   faculty: Yup.string().required("Faculty Required"),
   departments: Yup.array()
     .of(Yup.string())
@@ -34,6 +35,7 @@ const TeacherForm = forwardRef((props, ref) => {
         first_name: teacher?.first_name || "",
         middle_name: teacher?.middle_name || "",
         last_name: teacher?.last_name || "",
+        gender: teacher?.gender || "",
         faculty:
           user.authority[0] === "Faculty Admin"
             ? user.faculty

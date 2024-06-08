@@ -54,7 +54,8 @@ const DataTable = props => {
     selectable,
     skeletonAvatarProps,
     pagingData,
-    autoResetSelectedRows
+    autoResetSelectedRows,
+    getRowProps
   } = props;
 
   const { pageSize, pageIndex, total } = pagingData;
@@ -184,8 +185,9 @@ const DataTable = props => {
           <TBody {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row);
+              const rowProps = getRowProps ? getRowProps(row) : {};
               return (
-                <Tr {...row.getRowProps()}>
+                <Tr {...row.getRowProps()} {...rowProps}>
                   {row.cells.map(cell => {
                     return (
                       <Td {...cell.getCellProps()}>{cell.render("Cell")}</Td>
@@ -237,11 +239,12 @@ DataTable.propTypes = {
     pageIndex: PropTypes.number,
     pageSize: PropTypes.number
   }),
-  autoResetSelectedRows: PropTypes.bool
+  autoResetSelectedRows: PropTypes.bool,
+  getRowProps: PropTypes.func
 };
 
 DataTable.defaultProps = {
-  pageSizes: [10, 25, 50, 100],
+  pageSizes: [10, 25, 50],
   pagingData: {
     total: 0,
     pageIndex: 1,
@@ -251,7 +254,8 @@ DataTable.defaultProps = {
   columns: [],
   selectable: false,
   loading: false,
-  autoResetSelectedRows: true
+  autoResetSelectedRows: true,
+  getRowProps: null
 };
 
 export default DataTable;

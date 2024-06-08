@@ -40,7 +40,8 @@ export const getQuestion = createAsyncThunk(
       is_closed: question.is_closed,
       is_bookmarked: question.post.is_bookmarked,
       created_at: question.created_at,
-      updated_at: question.updated_at
+      updated_at: question.updated_at,
+      subscription_id: question.subscription_id
     };
   }
 );

@@ -17,7 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import reducer from "./store";
 import { injectReducer } from "store/index";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ReactHtmlParser from "html-react-parser";
 import {
   createBookmark,
@@ -27,6 +27,10 @@ import {
   getResource
 } from "./store/dataSlice";
 import isEmpty from "lodash/isEmpty";
+import {
+  IoNotificationsOffOutline,
+  IoNotificationsOutline
+} from "react-icons/io5";
 import { HiOutlineUser } from "react-icons/hi";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -39,6 +43,12 @@ import {
 } from "./store/stateSlice";
 import { Input } from "components/ui";
 import ResourceDeleteConfirmation from "./components/ResourceDeleteConfirmation";
+import {
+  apiCreateSubscription,
+  apiDeleteSubscription
+} from "services/NotificationService";
+import { toast, Notification } from "components/ui";
+import useThemeClass from "utils/hooks/useThemeClass";
 
 dayjs.extend(relativeTime);
 
@@ -155,7 +165,8 @@ const ResourceComment = () => {
 const ResourceDetail = () => {
   const dispatch = useDispatch();
 
-  const navigate = useNavigate();
+  const { textTheme } = useThemeClass();
+
   const location = useLocation();
 
   const resourceData = useSelector(
@@ -197,6 +208,51 @@ const ResourceDetail = () => {
     dispatch(setSelectedResource(resourceData.id));
   };
 
+  const onUnsubscribe = async () => {
+    await apiDeleteSubscription(resourceData.subscription_id);
+    dispatch(
+      getResource(
+        location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
+      )
+    );
+    toast.push(
+      <Notification
+        title={"Successfully Unsubscribed"}
+        type="success"
+        duration={2500}
+      >
+        Successfully Unsubscribed to this resource.
+      </Notification>,
+      {
+        placement: "top-center"
+      }
+    );
+  };
+
+  const onSubscribe = async () => {
+    await apiCreateSubscription({
+      target_content_type: "resource",
+      target_object_id: resourceData.id
+    });
+    dispatch(
+      getResource(
+        location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
+      )
+    );
+    toast.push(
+      <Notification
+        title={"Successfully Subscribed"}
+        type="success"
+        duration={2500}
+      >
+        Successfully subscribed to this resource.
+      </Notification>,
+      {
+        placement: "top-center"
+      }
+    );
+  };
+
   return (
     <>
       <Loading loading={loading}>
@@ -206,7 +262,9 @@ const ResourceDetail = () => {
               <h1 className="font-normal">{resourceData.title}</h1>
               <div>
                 {resourceData.categories?.map((category, index) => (
-                  <Tag prefix>{category}</Tag>
+                  <Tag key={index} prefix>
+                    {category}
+                  </Tag>
                 ))}
               </div>
             </div>
@@ -237,7 +295,7 @@ const ResourceDetail = () => {
                   </div>
                 </div>
               </div>
-              {user?.username === resourceData.user && (
+              {user?.username === resourceData.user ? (
                 <div className="flex gap-4">
                   <Link to={`/resource-edit/${resourceData.id}`}>
                     <button>Edit</button>
@@ -247,6 +305,24 @@ const ResourceDetail = () => {
                     Delete
                   </button>
                 </div>
+              ) : resourceData.subscription_id ? (
+                <Tooltip title="Unsubscribe">
+                  <span
+                    className={`cursor-pointer p-2 hover:${textTheme}`}
+                    onClick={onUnsubscribe}
+                  >
+                    <IoNotificationsOffOutline />
+                  </span>
+                </Tooltip>
+              ) : (
+                <Tooltip title="Subscribe">
+                  <span
+                    className={`cursor-pointer p-2 hover:${textTheme}`}
+                    onClick={onSubscribe}
+                  >
+                    <IoNotificationsOutline />
+                  </span>
+                </Tooltip>
               )}
             </div>
           </div>

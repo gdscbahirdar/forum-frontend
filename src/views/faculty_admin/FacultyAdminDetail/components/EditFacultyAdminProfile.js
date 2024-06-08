@@ -39,13 +39,15 @@ const EditFacultyAdminProfile = () => {
   };
 
   const onFormSubmit = values => {
-    const { username, first_name, middle_name, last_name, faculty } = values;
+    const { username, first_name, middle_name, last_name, gender, faculty } =
+      values;
 
     const newData = {
       username,
       first_name,
       middle_name,
       last_name,
+      gender,
       faculty
     };
     dispatch(updateProfileData(newData));

@@ -18,12 +18,14 @@ const FacultyAdminEditContent = forwardRef((_, ref) => {
   const { id } = faculty_admin;
 
   const onFormSubmit = values => {
-    const { username, first_name, middle_name, last_name, faculty } = values;
+    const { username, first_name, middle_name, last_name, gender, faculty } =
+      values;
     const info = {
       username,
       first_name,
       middle_name,
       last_name,
+      gender,
       faculty
     };
     let newData = cloneDeep(data);
@@ -40,6 +42,7 @@ const FacultyAdminEditContent = forwardRef((_, ref) => {
       first_name: editedFacultyAdmin.first_name,
       middle_name: editedFacultyAdmin.middle_name,
       last_name: editedFacultyAdmin.last_name,
+      gender: editedFacultyAdmin.gender,
       faculty_admin: {
         faculty: editedFacultyAdmin.faculty
       }

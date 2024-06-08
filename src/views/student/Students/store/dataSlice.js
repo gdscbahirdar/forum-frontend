@@ -29,6 +29,7 @@ export const getStudents = createAsyncThunk(
       username: user.username,
       faculty: user.student.faculty,
       department: user.student.department,
+      gender: user.gender,
       year_in_school: user.student.year_in_school,
       admission_date: user.student.admission_date,
       graduation_date: user.student.graduation_date
@@ -55,6 +56,7 @@ export const createStudent = createAsyncThunk(
         username: user.username,
         faculty: user.student.faculty,
         department: user.student.department,
+        gender: user.gender,
         year_in_school: user.student.year_in_school,
         admission_date: user.student.admission_date,
         graduation_date: user.student.graduation_date
@@ -82,6 +84,7 @@ export const putStudent = createAsyncThunk(
         username: user.username,
         faculty: user.student.faculty,
         department: user.student.department,
+        gender: user.gender,
         year_in_school: user.student.year_in_school,
         admission_date: user.student.admission_date,
         graduation_date: user.student.graduation_date

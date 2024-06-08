@@ -3,6 +3,14 @@ import { DatePicker, Input, FormItem, Select } from "components/ui";
 import { Field } from "formik";
 import { useSelector } from "react-redux";
 
+const gender = [
+  {
+    label: "Male",
+    value: "M"
+  },
+  { label: "Female", value: "F" }
+];
+
 const PersonalInfoFormModal = props => {
   const { touched, errors } = props;
 
@@ -12,6 +20,11 @@ const PersonalInfoFormModal = props => {
   const facultyOptions = faculties.map(faculty => ({
     value: faculty.name,
     label: faculty.name
+  }));
+
+  const genderOptions = gender.map(gender => ({
+    value: gender.value,
+    label: gender.label
   }));
 
   const rowStyle = {
@@ -161,6 +174,28 @@ const PersonalInfoFormModal = props => {
       <div style={rowStyle}>
         <div style={itemStyle}>
           <FormItem
+            label="Gender"
+            invalid={errors.gender && touched.gender}
+            errorMessage={errors.gender}
+          >
+            <Field name="gender">
+              {({ field, form }) => (
+                <Select
+                  options={genderOptions}
+                  placeholder="Select Gender"
+                  value={genderOptions.find(
+                    option => option.value === field.value
+                  )}
+                  onChange={option => {
+                    form.setFieldValue("gender", option.value);
+                  }}
+                />
+              )}
+            </Field>
+          </FormItem>
+        </div>
+        <div style={lastItemStyle}>
+          <FormItem
             label="Year in School"
             invalid={errors.year_in_school && touched.year_in_school}
             errorMessage={errors.year_in_school}
@@ -176,7 +211,10 @@ const PersonalInfoFormModal = props => {
             />
           </FormItem>
         </div>
-        <div style={lastItemStyle}>
+      </div>
+
+      <div style={rowStyle}>
+        <div style={itemStyle}>
           <FormItem
             label="Admission Date"
             invalid={errors.admission_date && touched.admission_date}
@@ -196,26 +234,27 @@ const PersonalInfoFormModal = props => {
             </Field>
           </FormItem>
         </div>
+        <div style={lastItemStyle}>
+          <FormItem
+            label="Graduation Date"
+            invalid={errors.graduation_date && touched.graduation_date}
+            errorMessage={errors.graduation_date}
+          >
+            <Field name="graduation_date" placeholder="Date">
+              {({ field, form }) => (
+                <DatePicker
+                  field={field}
+                  form={form}
+                  value={field.value}
+                  onChange={date => {
+                    form.setFieldValue(field.name, date);
+                  }}
+                />
+              )}
+            </Field>
+          </FormItem>
+        </div>
       </div>
-
-      <FormItem
-        label="Graduation Date"
-        invalid={errors.graduation_date && touched.graduation_date}
-        errorMessage={errors.graduation_date}
-      >
-        <Field name="graduation_date" placeholder="Date">
-          {({ field, form }) => (
-            <DatePicker
-              field={field}
-              form={form}
-              value={field.value}
-              onChange={date => {
-                form.setFieldValue(field.name, date);
-              }}
-            />
-          )}
-        </Field>
-      </FormItem>
     </>
   );
 };

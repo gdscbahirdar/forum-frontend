@@ -21,6 +21,7 @@ const TeacherEditContent = forwardRef((_, ref) => {
       first_name,
       middle_name,
       last_name,
+      gender,
       faculty,
       departments
     } = values;
@@ -29,6 +30,7 @@ const TeacherEditContent = forwardRef((_, ref) => {
       first_name,
       middle_name,
       last_name,
+      gender,
       faculty,
       departments
     };
@@ -46,6 +48,7 @@ const TeacherEditContent = forwardRef((_, ref) => {
       first_name: editedTeacher.first_name,
       middle_name: editedTeacher.middle_name,
       last_name: editedTeacher.last_name,
+      gender: editedTeacher.gender,
       teacher: {
         faculty: editedTeacher.faculty,
         departments: editedTeacher.departments

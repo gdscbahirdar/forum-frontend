@@ -19,6 +19,7 @@ const StudentNewContent = forwardRef((_, ref) => {
       last_name,
       faculty,
       department,
+      gender,
       year_in_school,
       admission_date,
       graduation_date
@@ -28,6 +29,7 @@ const StudentNewContent = forwardRef((_, ref) => {
       first_name: first_name,
       middle_name: middle_name,
       last_name: last_name,
+      gender: gender,
       student: {
         faculty: faculty,
         department: department,

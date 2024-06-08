@@ -84,6 +84,7 @@ const FacultyAdminProfile = ({ data = {} }) => {
           <FacultyAdminInfoField title="First Name" value={data.first_name} />
           <FacultyAdminInfoField title="Middle Name" value={data.middle_name} />
           <FacultyAdminInfoField title="Last Name" value={data.last_name} />
+          <FacultyAdminInfoField title="Gender" value={data.gender} />
           <FacultyAdminInfoField title="Faculty" value={data.faculty} />
         </div>
         <div className="mt-4 flex flex-col xl:flex-row gap-2">

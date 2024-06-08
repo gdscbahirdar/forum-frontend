@@ -61,6 +61,10 @@ const columns = [
     accessor: "name"
   },
   {
+    Header: "Gender",
+    accessor: "gender"
+  },
+  {
     Header: "Faculty",
     accessor: "faculty"
   },
