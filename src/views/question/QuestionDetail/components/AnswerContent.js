@@ -227,7 +227,7 @@ const AnswerContent = ({
                   </div>
                   <div className="flex flex-grow gap-x-1">
                     {comment.text} --{" "}
-                    <ActionLink to={`/profile/${comment.commented_by}`}>
+                    <ActionLink to={`/profile/${comment.commented_by}/answers`}>
                       {comment.commented_by}
                     </ActionLink>
                     <span className="text-xs text-gray-400">
