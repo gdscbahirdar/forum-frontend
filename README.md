@@ -4,7 +4,7 @@ Welcome to the BiT-Forum Frontend repository! This project is the frontend for a
 
 ![screencapture-bit-forum-me-question-create-2024-07-13-11_56_50](https://github.com/user-attachments/assets/3425fbc4-eed0-4aa6-8708-7f459d2f316a)
 
-You can find the frontend of this project at https://github.com/gdscbahirdar/forum-backend
+You can find the backend of this project at https://github.com/gdscbahirdar/forum-backend
 
 ## Purpose
 
