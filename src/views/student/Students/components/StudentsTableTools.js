@@ -5,8 +5,11 @@ import StudentTableSearch from "./StudentTableSearch";
 import StudentTableFilter from "./StudentTableFilter";
 import { useDispatch, useSelector } from "react-redux";
 import cloneDeep from "lodash/cloneDeep";
-import { HiOutlinePlusCircle } from "react-icons/hi";
-import { toggleNewStudentDialog } from "../store/stateSlice";
+import { HiOutlinePlusCircle, HiOutlineUpload } from "react-icons/hi";
+import {
+  toggleNewStudentDialog,
+  toggleStudentsUpload
+} from "../store/stateSlice";
 
 const StudentsTableTools = () => {
   const dispatch = useDispatch();
@@ -25,6 +28,10 @@ const StudentsTableTools = () => {
 
   const onAddNewStudent = () => {
     dispatch(toggleNewStudentDialog(true));
+  };
+
+  const onBulkCreateStudents = () => {
+    dispatch(toggleStudentsUpload(true));
   };
 
   const fetchData = data => {
@@ -57,6 +64,15 @@ const StudentsTableTools = () => {
           onClick={onAddNewStudent}
         >
           New Student
+        </Button>
+        <Button
+          size="sm"
+          className="max-w-md mb-4"
+          variant="twoTone"
+          icon={<HiOutlineUpload />}
+          onClick={onBulkCreateStudents}
+        >
+          Bulk Create
         </Button>
       </div>
     </div>

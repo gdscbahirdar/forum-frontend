@@ -6,7 +6,8 @@ const stateSlice = createSlice({
     drawerOpen: false,
     selectedStudent: {},
     sortedColumn: () => {},
-    newStudentDialog: false
+    newStudentDialog: false,
+    studentsUpload: false
   },
   reducers: {
     setSelectedStudent: (state, action) => {
@@ -23,6 +24,9 @@ const stateSlice = createSlice({
     },
     toggleNewStudentDialog: (state, action) => {
       state.newStudentDialog = action.payload;
+    },
+    toggleStudentsUpload: (state, action) => {
+      state.studentsUpload = action.payload;
     }
   }
 });
@@ -32,7 +36,8 @@ export const {
   setDrawerOpen,
   setDrawerClose,
   setSortedColumn,
-  toggleNewStudentDialog
+  toggleNewStudentDialog,
+  toggleStudentsUpload
 } = stateSlice.actions;
 
 export default stateSlice.reducer;
