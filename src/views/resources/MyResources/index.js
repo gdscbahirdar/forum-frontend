@@ -19,11 +19,11 @@ const ResourceNew = () => {
     if (success) {
       toast.push(
         <Notification
-          title={"Successfuly added"}
+          title={"Successfully added"}
           type="success"
           duration={2500}
         >
-          Resource successfuly added
+          Resource successfully added
         </Notification>,
         {
           placement: "top-center"
