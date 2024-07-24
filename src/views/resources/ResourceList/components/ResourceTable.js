@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useCallback } from "react";
 import { DataTable } from "components/shared";
 import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
@@ -71,24 +71,21 @@ const ResourceTable = () => {
   const filterData = useSelector(state => state.resources.data.filterData);
   const loading = useSelector(state => state.resources.data.loading);
   const data = useSelector(state => state.resources.data.resourceList);
-
   const location = useLocation();
-
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageIndex, pageSize, sort]);
 
   const tableData = useMemo(
     () => ({ pageIndex, pageSize, sort, query, total }),
     [pageIndex, pageSize, sort, query, total]
   );
 
-  const fetchData = () => {
-    const path = location.pathname.substring(
-      location.pathname.lastIndexOf("/") + 1
-    );
+  let path;
+  if (location.pathname.includes("my-uploads")) {
+    path = "my-uploads";
+  } else {
+    path = "resources";
+  }
 
+  const fetchData = useCallback(() => {
     if (path === "my-uploads") {
       dispatch(
         getMyResources({
@@ -105,7 +102,12 @@ const ResourceTable = () => {
         getResources({ pageIndex, pageSize, sort, query, ...filterData })
       );
     }
-  };
+  }, [dispatch, path]);
+
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageIndex, pageSize, sort, fetchData]);
 
   const columns = useMemo(
     () => [
@@ -175,9 +177,7 @@ const ResourceTable = () => {
       {data.length === 0 && !loading && (
         <div className="h-full flex flex-col items-center justify-center">
           <div className="mt-6 text-center">
-            <p className="text-base">
-              No questions found. Be the first to ask a question.
-            </p>
+            <p className="text-base">No resources found.</p>
           </div>
         </div>
       )}
