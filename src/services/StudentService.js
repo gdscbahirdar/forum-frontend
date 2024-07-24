@@ -31,6 +31,20 @@ export async function apiCreateStudent(data) {
   });
 }
 
+export async function apiBulkCreateStudents(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  return ApiService.fetchData({
+    url: "/entities/upload_students/",
+    method: "post",
+    data: formData,
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
+}
+
 export async function apiDeleteStudent(id) {
   return ApiService.fetchData({
     url: `/entities/student/${id}`,
