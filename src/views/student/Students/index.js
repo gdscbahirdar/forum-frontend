@@ -6,6 +6,7 @@ import { injectReducer } from "store/index";
 import reducer from "./store";
 
 import StudentNewDialog from "./components/StudentNewDialog";
+import StudentBulkCreate from "./components/StudentBulkCreate";
 
 injectReducer("students", reducer);
 
@@ -16,6 +17,7 @@ const Students = () => {
         <StudentsTableTools />
         <StudentsTable />
         <StudentNewDialog />
+        <StudentBulkCreate />
       </AdaptableCard>
     </>
   );
