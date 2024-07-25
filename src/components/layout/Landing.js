@@ -79,7 +79,7 @@ const blogPosts = [
   },
   {
     id: 2,
-    title: "How to use search engine optimization to drive sales",
+    title: "How to use search engine optimization to drive forum",
     href: "#",
     category: { name: "Video", href: "#" },
     imageUrl:

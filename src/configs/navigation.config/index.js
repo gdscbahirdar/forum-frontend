@@ -199,6 +199,16 @@ const navigationConfig = [
     type: NAV_ITEM_TYPE_ITEM,
     authority: [],
     subMenu: []
+  },
+  {
+    key: "Dashboard",
+    path: "/dashboard",
+    title: "Dashboard",
+    translateKey: "nav.dashboard",
+    icon: "analytics",
+    type: NAV_ITEM_TYPE_ITEM,
+    authority: [SUPER_ADMIN],
+    subMenu: []
   }
 ];
 

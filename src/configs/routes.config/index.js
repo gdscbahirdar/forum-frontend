@@ -251,5 +251,11 @@ export const protectedRoutes = [
     path: `${APP_PREFIX_PATH}/notifications`,
     component: React.lazy(() => import("views/notifications/NotificationList")),
     authority: []
+  },
+  {
+    key: "apps.dashboard",
+    path: `/dashboard`,
+    component: React.lazy(() => import("views/dashboard/superadmin")),
+    authority: []
   }
 ];
