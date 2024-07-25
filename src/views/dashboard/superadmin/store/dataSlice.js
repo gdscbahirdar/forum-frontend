@@ -4,7 +4,6 @@ import { apiGetForumDashboardData } from "services/DashboardService";
 export const getForumDashboardData = createAsyncThunk(
   "superAdminDashboard/data/getForumDashboardData",
   async data => {
-    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ", data);
     const { startDate, endDate } = data;
     const response = await apiGetForumDashboardData({ startDate, endDate });
     return response.data;
