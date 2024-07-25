@@ -33,7 +33,7 @@ const ForumDashboardHeader = () => {
         <p>View your current forum & summary</p>
       </div>
       <div className="flex flex-col lg:flex-row lg:items-center gap-3">
-        <DatePickerRange
+        {/* <DatePickerRange
           value={[startDate, endDate]}
           onChange={handleDateChange}
           inputFormat={dateFormat}
@@ -41,7 +41,7 @@ const ForumDashboardHeader = () => {
         />
         <Button size="sm" icon={<HiOutlineFilter />} onClick={onFilter}>
           Filter
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
