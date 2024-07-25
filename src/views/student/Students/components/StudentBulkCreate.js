@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
   Button,
   Card,
@@ -15,14 +15,19 @@ import { BsCloudUpload } from "react-icons/bs";
 import CloseButton from "components/ui/CloseButton";
 import { apiBulkCreateStudents } from "services/StudentService";
 
-const DialogFooter = ({ onSaveClick, onCancel }) => {
+const DialogFooter = ({ onCancel, isSubmitting }) => {
   return (
     <div className="text-right w-full">
-      <Button size="sm" className="mr-2" onClick={onCancel}>
+      <Button
+        size="sm"
+        className="mr-2"
+        onClick={onCancel}
+        disabled={isSubmitting}
+      >
         Cancel
       </Button>
-      <Button size="sm" variant="solid" onClick={onSaveClick}>
-        Save
+      <Button size="sm" variant="solid" type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Saving..." : "Save"}
       </Button>
     </div>
   );
@@ -39,12 +44,6 @@ const StudentBulkCreate = () => {
     dispatch(toggleStudentsUpload(false));
   };
 
-  const formikRef = useRef();
-
-  const formSubmit = () => {
-    formikRef.current?.submitForm();
-  };
-
   const initialValues = {
     file: null
   };
@@ -53,7 +52,7 @@ const StudentBulkCreate = () => {
     file: Yup.mixed().required("A file is required")
   });
 
-  const handleSubmit = async values => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     try {
       if (values.file) {
         const response = await apiBulkCreateStudents(values.file);
@@ -86,6 +85,7 @@ const StudentBulkCreate = () => {
         }
       );
     }
+    setSubmitting(false);
     onDialogClose();
   };
 
@@ -110,12 +110,11 @@ const StudentBulkCreate = () => {
       <h5 className="mb-4">Upload Excel/CSV File</h5>
 
       <Formik
-        innerRef={formikRef}
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ setFieldValue }) => (
+        {({ setFieldValue, isSubmitting }) => (
           <Form>
             <FormContainer>
               <div className="mb-4">
@@ -171,7 +170,10 @@ const StudentBulkCreate = () => {
                   )}
                 </Field>
               </div>
-              <DialogFooter onCancel={onDialogClose} onSaveClick={formSubmit} />
+              <DialogFooter
+                onCancel={onDialogClose}
+                isSubmitting={isSubmitting}
+              />
             </FormContainer>
           </Form>
         )}
