@@ -1,26 +1,26 @@
 import React from "react";
 import { Card, Button } from "components/ui";
 import { Chart } from "components/shared";
+import { apiDownloadReport } from "services/DashboardService";
 
 const ForumReport = ({ className, data = {} }) => {
-  function downloadExcelFile() {
-    fetch("/api/analytics/export_excel/", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => response.blob())
-      .then(blob => {
-        const url = window.URL.createObjectURL(new Blob([blob]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", "data.xlsx");
-        document.body.appendChild(link);
-        link.click();
-        link.parentNode.removeChild(link);
-      })
-      .catch(error => console.error("Error downloading the file:", error));
+  async function downloadExcelFile() {
+    try {
+      const response = await apiDownloadReport();
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "data.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.log("Error downloading the file:", error);
+    }
   }
 
   return (

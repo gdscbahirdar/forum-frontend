@@ -13,7 +13,7 @@ const ForumByCategories = ({ data = {} }) => {
           <>
             <Chart
               donutTitle={`${data.data.reduce((a, b) => a + b, 0)}`}
-              donutText="Top Tags"
+              donutText="Total tags"
               series={data.data}
               customOptions={{ labels: data.labels }}
               type="donut"

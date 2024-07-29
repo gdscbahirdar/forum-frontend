@@ -7,3 +7,11 @@ export async function apiGetForumDashboardData(data) {
     data
   });
 }
+
+export async function apiDownloadReport() {
+  return ApiService.fetchData({
+    url: "/analytics/export_excel/",
+    method: "get",
+    responseType: "blob"
+  });
+}
